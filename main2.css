@@ -1,0 +1,188 @@
+/* common stuff to put in any CSS */
+:root {
+  box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+img { max-width: 100%; }
+
+body * + * {
+  margin-top: 1.5em;
+}
+
+/* debug stuff */
+*,
+::after,
+::before {
+  /*
+  border: 1px dashed black;
+   */
+}
+
+/* links */
+
+/* actual stuff */
+:root {
+  --grey-10: hsl(0, 0%, 10%);
+  --grey-20: hsl(0, 0%, 20%);
+  --grey-30: hsl(0, 0%, 30%);
+  --grey-40: hsl(0, 0%, 40%);
+  --grey-50: hsl(0, 0%, 50%);
+  --grey-60: hsl(0, 0%, 60%);
+  --grey-70: hsl(0, 0%, 70%);
+  --grey-80: hsl(0, 0%, 80%);
+  --grey-90: hsl(0, 0%, 90%);
+  font-size: calc(.6em + 1vw);
+}
+
+@media (min-width: 50em) {
+  :root {
+    font-size: 1.125em;
+  }
+}
+
+body {
+  min-width: 20.978363rem;
+  font-family: Roboto;
+  background-color: var(--grey-90);
+}
+
+main {
+  padding: 0 1.5em;
+}
+
+p {
+  text-align: justify;
+}
+
+h5, p {
+}
+
+.title {
+  font: 1.5rem 'Dancing Script', cursive;
+  border: 1px dashed black;
+}
+.title * {
+  border: 1px dashed black;
+}
+
+.page-header {
+  padding: .4em 1em;
+}
+/*
+.page-header .title h1 {
+  margin: 0;
+}
+
+.page-header > .title {
+  display: grid;
+  grid-template-areas: "burbi burbi burbi"
+                       ".     and   and"
+                       ".     .     buratto";
+  grid-template-columns: auto auto 20rem;
+  grid-template-rows: repeat(3,auto);
+}
+
+.page-header > .title > .burbi { grid-area: burbi; }
+.page-header > .title > .ampersand { grid-area: and; }
+.page-header > .title > .buratto { grid-area: buratto; }
+*/
+
+.slogan {
+  color: var(--grey-50);
+  font-size: .875em;
+  text-align: right;
+}
+
+.hero {
+  padding: 2em 1em;
+  text-align: center;
+  margin: 0;
+  font-size: 1.5rem;
+  background-image: url(/home/enrico/Images/ioESerena.jpg);
+  background-size: 100%;
+  color: white;
+  font-weight: bold;
+  text-shadow: .0em .0em .2em var(--grey-20);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menu li {
+  flex: .15;
+}
+
+.tile {
+  border-radius: 0 0 2em 0;
+  border-style: solid;
+  border-color: var(--grey-20);
+  border-width: .5em 0 0 0;
+  background-color: var(--grey-80);
+  padding: 1.5em;
+}
+
+.menu {
+  background-color: var(--grey-80);
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.menu > li {
+  margin: 0;
+}
+
+.menu > li > a {
+  display: block;
+  padding: .2em .5em;
+  margin: .4em;
+}
+
+@media (max-width: 20em) {
+  .menu > li > a > span {
+    display: none;
+  }
+}
+
+img.link-icon {
+  width: 18px;
+  min-width: 18px;
+}
+
+h2 {
+  color: var(--grey-50);
+  font-variant: small-caps;
+}
+
+.slogan > h2 {
+  font-variant: initial;
+}
+
+h5 {
+}
+
+p {
+  color: var(--grey-20);
+}
+
+.page-footer__inner {
+  background-color: var(--grey-80);
+  padding: 1em 0;
+  text-align: center;
+  color: var(--grey-50);
+  font-size: .5em;
+}
+
+/* stuff I'm not using yet */
+div.us {
+  display: none;
+}
