@@ -39,18 +39,18 @@ body * + * {
   --grey-80: hsl(0, 0%, 80%);
   --grey-90: hsl(0, 0%, 90%);
   font-size: calc(.6em + 1vw);
+  min-width: 17em;
 }
 
 @media (min-width: 50em) {
   :root {
-    font-size: 1.125em;
   }
 }
 
 body {
-  min-width: 20.978363rem;
   font-family: Roboto;
   background-color: var(--grey-90);
+  min-height: 100vh;
 }
 
 main {
@@ -65,38 +65,52 @@ h5, p {
 }
 
 .title {
-  font: 1.5rem 'Dancing Script', cursive;
-  border: 1px dashed black;
+  font-family: 'Dancing Script', cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.title * {
-  border: 1px dashed black;
+
+.title > * {
+  margin: 0;
+}
+
+@media (min-width: 15em) {
+  .title {
+    display: grid;
+    grid-template-areas: "burbi burbi     ."
+                         ".     ampersand ."
+                         ".     buratto   buratto";
+    grid-template-columns: auto auto auto;
+    grid-template-rows: repeat(3, auto);
+  }
+  .title > * {
+    text-align: center;
+  }
+  .title > .burbi {
+    grid-area: burbi;
+  }
+  .title > .ampersand {
+    grid-area: ampersand;
+  }
+  .title > .buratto {
+    grid-area: buratto;
+  }
+}
+
+@media (min-width: 24em) {
+  .title {
+    text-align: center;
+    display: block;
+  }
 }
 
 .page-header {
   padding: .4em 1em;
 }
-/*
-.page-header .title h1 {
-  margin: 0;
-}
-
-.page-header > .title {
-  display: grid;
-  grid-template-areas: "burbi burbi burbi"
-                       ".     and   and"
-                       ".     .     buratto";
-  grid-template-columns: auto auto 20rem;
-  grid-template-rows: repeat(3,auto);
-}
-
-.page-header > .title > .burbi { grid-area: burbi; }
-.page-header > .title > .ampersand { grid-area: and; }
-.page-header > .title > .buratto { grid-area: buratto; }
-*/
 
 .slogan {
   color: var(--grey-50);
-  font-size: .875em;
   text-align: right;
 }
 
@@ -104,11 +118,11 @@ h5, p {
   padding: 2em 1em;
   text-align: center;
   margin: 0;
-  font-size: 1.5rem;
   background-image: url(/home/enrico/Images/ioESerena.jpg);
   background-size: 100%;
   color: white;
   font-weight: bold;
+  font-size: 1.5em;
   text-shadow: .0em .0em .2em var(--grey-20);
 }
 
@@ -118,8 +132,34 @@ h5, p {
   justify-content: space-around;
 }
 
+.menu {
+  background-color: var(--grey-80);
+  padding-left: 0;
+  list-style-type: none;
+}
+
 .menu li {
-  flex: .15;
+  flex: 1;
+}
+
+.menu > li {
+  margin: 0;
+}
+
+.menu > li > a {
+  display: block;
+  padding: .25em .5em;
+  text-align: center;
+}
+
+/*@media (max-width: 20em) {
+}*/
+  .menu > li > a > span {
+    display: none;
+  }
+
+img.link-icon {
+  width: 18px;
 }
 
 .tile {
@@ -129,33 +169,6 @@ h5, p {
   border-width: .5em 0 0 0;
   background-color: var(--grey-80);
   padding: 1.5em;
-}
-
-.menu {
-  background-color: var(--grey-80);
-  padding-left: 0;
-  list-style-type: none;
-}
-
-.menu > li {
-  margin: 0;
-}
-
-.menu > li > a {
-  display: block;
-  padding: .2em .5em;
-  margin: .4em;
-}
-
-@media (max-width: 20em) {
-  .menu > li > a > span {
-    display: none;
-  }
-}
-
-img.link-icon {
-  width: 18px;
-  min-width: 18px;
 }
 
 h2 {
@@ -179,7 +192,7 @@ p {
   padding: 1em 0;
   text-align: center;
   color: var(--grey-50);
-  font-size: .5em;
+  font-size: .8em;
 }
 
 /* stuff I'm not using yet */
