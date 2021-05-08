@@ -16,17 +16,6 @@ body * + * {
   margin-top: 1.5em;
 }
 
-/* debug stuff */
-*,
-::after,
-::before {
-  /*
-  border: 1px dashed black;
-   */
-}
-
-/* links */
-
 /* actual stuff */
 :root {
   --grey-10: hsl(0, 0%, 10%);
@@ -44,6 +33,7 @@ body * + * {
 
 @media (min-width: 50em) {
   :root {
+    font-size: 1.1em;
   }
 }
 
@@ -56,6 +46,16 @@ body {
 main {
   padding: 0 1.5em;
 }
+
+@media (min-width: 114em) {
+  main {
+    max-width: 114em;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+
 
 p {
   text-align: justify;
@@ -98,7 +98,7 @@ h5, p {
   }
 }
 
-@media (min-width: 24em) {
+@media (min-width: 23em) {
   .title {
     text-align: center;
     display: block;
@@ -177,7 +177,6 @@ h2 {
 }
 
 .slogan > h2 {
-  font-variant: initial;
 }
 
 h5 {
