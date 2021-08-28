@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen"/>
+    <title>Il mio curriculum vitæ</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="flexbox__h__sb">
+        <div>
+          <input id="toggle" class="toggle" type="checkbox" value="" />
+          <label for="toggle"></label>
+        </div>
+        <div class="choice-picker">
+          <input type="radio" id="choice1" name="choices" checked="checked">
+          <label for="choice1">
+            <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
+              <rect width="3" height="2" fill="#009246"/>
+              <rect width="2" height="2" x="1" fill="#fff"/>
+              <rect width="1" height="2" x="2" fill="#ce2b37"/>
+            </svg>
+          </label>
+          <input type="radio" id="choice2" name="choices">
+          <label for="choice2">
+            <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
+              <clipPath id="s">
+              <path d="M0,0 v30 h60 v-30 z"/>
+              </clipPath>
+              <clipPath id="t">
+              <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+              </clipPath>
+              <g clip-path="url(#s)">
+              <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+              </g>
+            </svg>
+          </label>
+        </div>
+      </div>
+      <h1 class="title">
+        Enrico Maria De Angelis
+      </h1>
+    </header>
+    <aside>
+    </aside>
+    <main>
+      <div class="cv-entry">
+        <h3 class="cv-period">2019&mdash;2021</h3>
+        <div class="cv-job">
+          <h2>Software Engineer</h2>
+          <h4>MathWorks, Cambridge (UK)</h4>
+          <p>
+          Design, development, and testing of text comparison back-end tools and algorithms.
+          </p>
+          <p>
+          Expertise:
+          <ul>
+            <li>C++17</li>
+            <li>template meta-programming</li>
+            <li>SFINAE</li>
+            <li>Boost, Range-v3</li>
+            <li>functional programming</li>
+          </ul>
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>

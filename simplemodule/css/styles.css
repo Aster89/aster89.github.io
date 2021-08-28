@@ -1,0 +1,382 @@
+:root {
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+  margin-top: 0;
+}
+
+body * + * {
+  margin-top: 1.5em;
+}
+
+ul > li {
+  margin: initial;
+}
+
+/*
+Flex with `space-between`-ed items
+
+Markup:
+<div class="flexbox__h__sb">
+  <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+</div>
+
+Styleguide Utilities.horz__flexbox__spacebetween
+*/
+
+.flexbox__h__sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flexbox__h__sb * {
+  margin-top: 0;
+}
+
+/*
+Title of the page
+
+It uses a Google font, so be sure to import it.
+
+Markup:
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+</style>
+<h1 class="title">
+  Enrico Maria De Angelis
+</h1>
+
+Styleguide Title
+*/
+
+.title {
+  margin: 0.5em 0;
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+}
+
+/*
+Job
+
+Markup:
+<div class="cv-entry">
+  <h2 class="cv-period">2019-2021</h2>
+  <div class="cv-job">
+    <h1>Software Engineer</h1>
+    <p>bla bla bla</p>
+  </div>
+</div>
+
+Styleguide Job
+*/
+
+.cv-entry {
+  font-size: 0.7em;
+  border-radius: 2em;
+}
+
+.cv-job {
+  padding: 1em;
+  margin-top: 0;
+  padding-top: 0;
+  background-color: #eee;
+  color: #444;
+  border-color: #777;
+  border-radius: 0 0 2em 2em;
+  border-style: solid;
+  border-width: 0.5em 0 0 0;
+}
+
+.cv-period {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.2em;
+}
+
+.cv-period::after {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  margin-top: 0.2em;
+  background-color: #0099ff;
+  text-align: center;
+}
+
+
+
+/*
+Opacity-based choice picker.
+
+A disk shown for each possible choice; the disk of the selected choice is 100%
+opaque, whereas the others are 50%.
+
+**_Note_**: the inner `<div>`s in the example below are just examples, and can be
+chaged to other tags, such as `<svg>` or the likes; also the outer `<div>` can be
+changed. On the other hand, `<input>` and `<label>` cannot be changed as they are
+targeted as selectors.
+
+Markup:
+<div class="choice-picker">
+  <input type="radio" id="choice1" name="choices" checked="checked">
+  <label for="choice1">
+    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  </label>
+  <input type="radio" id="choice2" name="choices">
+  <label for="choice2">
+    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  </label>
+  <input type="radio" id="choice3" name="choices">
+  <label for="choice3">
+    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
+  </label>
+</div>
+
+Styleguide Utilities.choice-picker
+*/
+
+.choice-picker > input {
+  position: absolute;
+  visibility: visible;
+  margin-left: -9999px;
+}
+
+.choice-picker > input + label > * {
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.5;
+  margin: 0.1em;
+}
+
+.choice-picker > input:checked + label > * {
+  opacity: 1;
+}
+
+/*
+Country Flag
+
+A circle of radius 1.5em encosing an SVG representing a flag.
+
+_**Note:**_ The CSS rule targets `svg.country-flag` to enforce that the flag
+be an SVG.
+
+_**Note:**_ For the flag to fully cover the circle,
+`preserveAspectRatio="none"` should be set in the `<svg>` tag.
+
+_**Note:**_ The flag is actually distorted to fit the square in which the
+circle is inscribed.
+
+Markup:
+<svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
+  <rect width="3" height="2" fill="#009246"/>
+  <rect width="2" height="2" x="1" fill="#fff"/>
+  <rect width="1" height="2" x="2" fill="#ce2b37"/>
+</svg>
+
+Styleguide Country Flag
+*/
+
+svg.country-flag {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 100%;
+}
+
+
+/*
+Filter button
+
+Checkbox with the shape of an on/off button.
+
+Markup:
+<div class="filter">
+  <input id="checkbox" type="checkbox" value="" />
+  <label for="checkbox">Work</label>
+</div>
+
+Styleguide Filter button
+*/
+
+.filter > input {
+  position: absolute;
+  visibility: visible;
+  margin-left: -9999px;
+}
+
+.filter > label {
+  font-variant-caps: all-small-caps;
+  display: inline-block;
+  cursor: pointer;
+  width: auto;
+  color: white;
+  background-color: #999999;
+  padding: 0.5em 1em;
+  box-shadow: 0.08em 0.08em 0.2em #333;
+}
+
+.filter > input:checked+label {
+  background-color: #00aaaa;
+  box-shadow: 0 0 0.3em cyan;
+  transform: translate(0.08em, 0.08em);
+}
+
+
+/*
+Toggle
+
+A simple toggle to switch some config on/off.
+
+Markup:
+<div>
+  <input id="toggle" class="toggle" type="checkbox" value="" />
+  <label for="toggle"></label>
+</div>
+
+Styleguide Utilities.toggle
+*/
+
+input.toggle {
+  position: absolute;
+  visibility: visible;
+  margin-left: -9999px;
+}
+
+input.toggle + label {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  background-color: #999999;
+  --track-height: 1em;
+  --track-AR: 2.2;
+  --thumb-diameter-to-track-height: 1.3;
+  --track-width: calc(var(--track-AR) * var(--track-height));
+  height: var(--track-height);
+  width: var(--track-width);
+  border-radius: calc(0.5 * var(--track-height));
+  position: relative;
+  box-shadow: inset 0.08em 0.08em 0.2em #333;
+}
+
+input.toggle + label::before,
+input.toggle + label::after {
+  display: block;
+  content: "";
+}
+
+input.toggle + label::before {
+  /* Color in the track? To consider when implementing dark mode */
+}
+
+input.toggle + label::after {
+  --thumb-diameter: calc(var(--thumb-diameter-to-track-height) * var(--track-height));
+  height: calc(var(--thumb-diameter));
+  width: calc(var(--thumb-diameter));
+  border-radius: 100%;
+  background-color: #555555;
+  position: absolute;
+  --leftover: calc(0.5 * (var(--thumb-diameter) - var(--track-height)));
+  bottom: calc(-1 * var(--leftover));
+  left: calc(-1 * var(--leftover));
+  transition: all 0.2s;
+  background-image: radial-gradient(2em at 25% 25%, white, #555 60%, black);
+  box-shadow: 0.08em 0.08em 0.2em #333;
+}
+
+input.toggle:checked + label::after {
+  left: calc(var(--track-width) - var(--thumb-diameter) + var(--leftover));
+}
+
+
+/*
+Underlined text
+
+Displays some text with a thick underline that extends for just the width of the text.
+
+Markup:
+<h3 class="underlined-text">2020-2021</h3>
+
+Styleguide Underlined text
+*/
+
+.underlined-text {
+  border: 0 solid;
+  border-bottom-width: 0.5em;
+  width: fit-content;
+}
+
+
+/*
+CVEntry
+
+Displays an image on the left and body content on the right.
+
+Markup:
+<div class="entry">
+  <h3 class="period">2020-2021</h3>
+  <h1 class="job">Software Engineer</h1>
+  <p>
+    Strength training is an important part of
+    injury prevention. Focus on your core&mdash;
+    especially your abs and glutes.
+  </p>
+</div>
+
+Styleguide CVEntry
+*/
+
+.entry {
+  padding: 1.5em;
+  background-color: #eee;
+  border-radius: 0em;
+}
+.entry > .period {
+  border: 0px solid;
+  border-bottom-width: 0.5em;
+  width: fit-content;
+}
+
+/*
+List of buttons
+
+A list of rectangular buttons
+
+Markup:
+<ul class="list-of-buttons">
+  <li>one</li>
+  <li>two</li>
+  <li>three</li>
+  <li class="special-button">four</li>
+<ul>
+
+Styleguide List of buttons
+*/
+
+
+.list-of-buttons {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.list-of-buttons > li {
+  display:inline-block;
+  background-color: #555;
+  color: #ddd;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
+}
+
+.list-of-buttons > li.special-button {
+  color: white;
+  background-color: #aaa;
+}

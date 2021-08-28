@@ -1,0 +1,12 @@
+To initialize a new project
+
+$ npm init -y
+
+To install KSS and its dependencies
+
+$ npm install --save-dev kss
+
+To build the the doc
+
+$ npm run <command-in-package-json>
+
