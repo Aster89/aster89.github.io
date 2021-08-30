@@ -1,0 +1,15 @@
+/*
+ * The fix is to have `width` and `height` include content,
+ * padding, and borders, thus only excluding the padding.
+ *
+ * See also "CSS in Depth", section 3.1.2.
+ */
+:root {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}

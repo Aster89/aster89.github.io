@@ -1,0 +1,28 @@
+/*
+Time interval
+
+Useful to put it above panes with CV entries.
+
+Markup:
+<h2 class="time-interval">06/2020&mdash;present</h2>
+
+Styleguide Curriculum.time-interval
+*/
+
+.time-interval {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.4em;
+}
+
+.time-interval::after {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  margin-top: 0.2em;
+  background-color: var(--brand-color);
+  box-shadow: 0.1em 0.1em 0.4em var(--shadow);
+}

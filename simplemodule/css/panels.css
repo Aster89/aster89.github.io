@@ -1,0 +1,70 @@
+/*
+Outer panel
+
+A simple panel of color `var(--panel-bg-color)`, with shadows of color `var(--shadow)` on borders and text.
+
+Markup:
+<div class="panel {{modifier_class}}" style="height: 4em;">
+</div>
+
+.panel--rounded  - Panel with left bottom corner rounded
+
+Styleguide Panel.panel
+*/
+
+.panel {
+  background-color: var(--panel-bg-color);
+  margin-top: 0;
+  box-shadow: 0.1em 0.1em 0.4em var(--shadow);
+  text-shadow: 0.1em 0.1em 0.4em var(--shadow);
+}
+
+.panel > * {
+  padding: 1em;
+}
+
+.panel--rounded {
+  border-radius: 0 0 0 2em;
+  overflow: hidden;
+}
+
+/*
+Panel header
+
+This is meant to
+
+  - be used for the heading part of a panel,
+  - have two children representing two levels of headings.
+
+It is of color `var(--panel-bg-color-lighter)`.
+
+Markup:
+<div class="panel__header" style="width: auto;">
+  <h1>C++ Software Engineer</h1>
+  <h4>MathWorks, Cambridge (UK)</h4>
+</div>
+
+Styleguide Panel.panel.header
+*/
+
+.panel__header {
+  flex-direction: column;
+  background-color: var(--panel-bg-color-lighter);
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.panel__header *{
+  margin: 0;
+}
+
+.panel__header *:first-child::after {
+  display: block;
+  content: "";
+  width: 4em;
+  height: 0.05em;
+  border-radius: 100%;
+  margin: 0.25em auto;
+  background-color: var(--white);
+}

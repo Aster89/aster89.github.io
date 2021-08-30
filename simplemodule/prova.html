@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="root">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,13 +12,13 @@
   </head>
   <body>
     <header>
-      <div class="flexbox__h__sb">
+      <div class="top-bar normal-shadow">
         <div>
           <input id="toggle" class="toggle" type="checkbox" value="" />
           <label for="toggle"></label>
         </div>
         <div class="choice-picker">
-          <input type="radio" id="choice1" name="choices" checked="checked">
+          <input type="radio" id="choice1" name="choices">
           <label for="choice1">
             <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
               <rect width="3" height="2" fill="#009246"/>
@@ -26,7 +26,7 @@
               <rect width="1" height="2" x="2" fill="#ce2b37"/>
             </svg>
           </label>
-          <input type="radio" id="choice2" name="choices">
+          <input type="radio" id="choice2" name="choices" checked="checked">
           <label for="choice2">
             <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
               <clipPath id="s">
@@ -46,35 +46,87 @@
           </label>
         </div>
       </div>
-      <h1 class="title">
+      <h1 class="page-title handwritten-font">
         Enrico Maria De Angelis
       </h1>
     </header>
-    <aside>
-    </aside>
     <main>
-      <div class="cv-entry">
-        <h3 class="cv-period">2019&mdash;2021</h3>
-        <div class="cv-job">
-          <h2>Software Engineer</h2>
-          <h4>MathWorks, Cambridge (UK)</h4>
-          <p>
-          Design, development, and testing of text comparison back-end tools and algorithms.
-          </p>
-          <p>
-          Expertise:
-          <ul>
-            <li>C++17</li>
-            <li>template meta-programming</li>
-            <li>SFINAE</li>
-            <li>Boost, Range-v3</li>
-            <li>functional programming</li>
-          </ul>
-          </p>
+      <div>
+        <h2 class="time-interval text-shadow handwritten-font">06/2020&mdash;present</h2>
+        <div class="panel panel--rounded">
+          <div class="panel__header">
+            <h1 class="handwritten-font">C++ Software Engineer</h1>
+            <h4>MathWorks, Cambridge (UK)</h4>
+          </div>
+          <div class="text-shadow normal-shadow">
+            <p>
+            Design, development, and testing of text comparison back-end tools and algorithms.
+            </p>
+            <p>
+            Expertise:
+            <ul>
+              <li>C++17</li>
+              <li>template meta-programming</li>
+              <li>SFINAE</li>
+              <li>Boost, Range-v3</li>
+              <li>functional programming</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="time-interval text-shadow handwritten-font">04/2019&mdash;05/2020</h2>
+        <div class="panel panel--rounded">
+          <div class="panel__header">
+            <h1 class="handwritten-font">Application Support Engineer</h1>
+            <h4>MathWorks, Cambridge (UK)</h4>
+          </div>
+          <div class="text-shadow normal-shadow">
+            <p>
+            Main roles:
+            <ul>
+              <li>Phone/e-mail tech support</li>
+              <li>training assistant at JLR</li>
+              <li>MATLAB Expo</li>
+              <li>lead computer science weekly meetings</li>
+              <li>coaching new hires</li>
+              <li>technical interviews</li>
+            </ul>
+            <p>Development C++ projects:</p>
+            <ul>
+              <li>implementation of Kuo&amp;Cross longest common subsequence algorithm</li>
+              <li>transition 3p library → internal library for HTTP requests</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="time-interval text-shadow handwritten-font">2015&mdash;2018</h2>
+        <div class="panel panel--rounded">
+          <div class="panel__header">
+            <h1 class="handwritten-font">Ph.D. in Aerospace Engineering</h1>
+            <h4>Federico II, Napoli (Italy)</h4>
+          </div>
+          <div class="text-shadow normal-shadow">
+            <p>
+            Development of a 3D fluid-dynamic solver for turbulent flows from scratch
+            <ul>
+              <li>Object-Oriented Fortran 2003/2008 + MPI 3.1-parallel</li>
+              <li>employed MPI 3-dimensional domain decomposition</li>
+            </ul>
+            </p>
+          </div>
         </div>
       </div>
     </main>
-    <footer>
+    <footer class="footer panel">
+      <div class="footer__inner">
+        Copyright &copy; <script>document.write([new
+          Date().getFullYear()].map(x => x == 2021 ? x : "2021-" +
+                      String(x))[0])</script> Enrico Maria De Angelis
+      </div>
     </footer>
   </body>
 </html>

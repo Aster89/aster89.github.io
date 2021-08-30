@@ -1,0 +1,22 @@
+/*
+Copyright note
+
+Markup:
+<footer class="footer panel">
+  <div class="footer__inner">
+    Copyright note
+  </div>
+</footer>
+
+Styleguide Copyright
+*/
+
+.footer {
+  margin-top: 1.5em !important;
+}
+
+.footer__inner {
+  text-align: center;
+  font-family: var(--main-font);
+  font-size: .6em;
+}
