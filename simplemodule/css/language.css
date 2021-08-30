@@ -1,3 +1,11 @@
+html[lang=it] *[lang=en] {
+  display: none;
+}
+
+html[lang=en] *[lang=it] {
+  display: none;
+}
+
 /*
 Opacity-based choice picker.
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" class="root">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,7 @@
           <label for="toggle"></label>
         </div>
         <div class="choice-picker">
-          <input type="radio" id="choice1" name="choices">
+          <input type="radio" id="choice1" name="choices" onclick="document.documentElement.lang='it'">
           <label for="choice1">
             <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
               <rect width="3" height="2" fill="#009246"/>
@@ -26,7 +26,7 @@
               <rect width="1" height="2" x="2" fill="#ce2b37"/>
             </svg>
           </label>
-          <input type="radio" id="choice2" name="choices" checked="checked">
+          <input type="radio" id="choice2" name="choices" onclick="document.documentElement.lang='en'" checked="checked">
           <label for="choice2">
             <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
               <clipPath id="s">
@@ -59,11 +59,10 @@
             <h4>MathWorks, Cambridge (UK)</h4>
           </div>
           <div class="text-shadow normal-shadow">
-            <p>
-            Design, development, and testing of text comparison back-end tools and algorithms.
-            </p>
-            <p>
-            Expertise:
+            <p lang="en">Design, development, and testing of text comparison back-end tools and algorithms.</p>
+            <p lang="it">Design, sviluppo, e test di algorithmi e strumenti di back-end per confonto di testi</p>
+            <p lang="en">Expertise:</p>
+            <p lang="it">Esperienza con:</p>
             <ul>
               <li>C++17</li>
               <li>template meta-programming</li>
@@ -71,7 +70,6 @@
               <li>Boost, Range-v3</li>
               <li>functional programming</li>
             </ul>
-            </p>
           </div>
         </div>
       </div>
