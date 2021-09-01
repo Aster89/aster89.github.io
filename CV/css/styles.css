@@ -9,16 +9,17 @@
  *
  */
 
-@import url('border-box-fix.css');
-@import url('colors.css');
-@import url('toggle.css');
-@import url('language.css');
-@import url('panels.css');
-@import url('cv-specific.css');
-@import url('copyright.css');
+@import url('modules/border-box-fix.css');
+@import url('modules/colors.css');
+@import url('modules/fonts.css');
+@import url('modules/toggle.css');
+@import url('modules/language.css');
+@import url('modules/top-bar.css');
+@import url('modules/panels.css');
+@import url('modules/cv-specific.css');
+@import url('modules/copyright.css');
 
 body {
-  --main-font: Helvetica, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--white);
   margin: 0;
@@ -30,23 +31,12 @@ main {
   margin: 0 1em;
 }
 
-body * + * {
-}
-
-.top-bar {
-  padding: 0.5em 1em;
-  background-color: var(--brand-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .page-title {
   text-align: center;
 }
 
 .handwritten-font {
-  font-family: 'Dancing Script', cursive;
+  font-family: var(--handwritten-font);
 }
 
 

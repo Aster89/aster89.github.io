@@ -55,11 +55,11 @@ Styleguide Panel.panel.header
   padding-bottom: 0.5em;
 }
 
-.panel__header *{
+.panel__header > * {
   margin: 0;
 }
 
-.panel__header *:first-child::after {
+.panel__header > *:first-child::after {
   display: block;
   content: "";
   width: 4em;

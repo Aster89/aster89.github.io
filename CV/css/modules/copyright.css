@@ -19,4 +19,7 @@ Styleguide Copyright
   text-align: center;
   font-family: var(--main-font);
   font-size: .6em;
+  padding: 1em 0;
+  color: var(--even-ligher-black);
+  text-shadow: initial;
 }

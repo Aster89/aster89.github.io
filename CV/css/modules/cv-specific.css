@@ -10,7 +10,6 @@ Styleguide Curriculum.time-interval
 */
 
 .time-interval {
-  color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
