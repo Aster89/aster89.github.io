@@ -22,13 +22,47 @@
 body {
   background-color: var(--bg-color);
   color: var(--white);
+}
+
+.kss-modifier__wrapper /* This is to workaround
+       KSS inability to deal with dark mode. */ {
+  background-color: var(--bg-color);
+  color: var(--white);
+}
+
+body {
   margin: 0;
   font-family: var(--main-font);
 }
 
 main {
-  font-size: 0.8em;
   margin: 0 1em;
+  font-size: 0.8em;
+}
+
+/*
+Double container pattern
+
+Style for the double container pattern.
+
+To be general, it doesn't force a specific `max-width`.
+
+Markup:
+<div class="outer" style="border: 1px dashed red;">
+  <div class="inner centered-container" style="border: 1px solid red; max-width: 200px; ">
+    Ciao
+  </div>
+</div>
+
+Styleguide Containers.double-container
+*/
+
+.centered-container {
+  margin: 0 auto;
+}
+
+.main {
+  max-width: 300px;
 }
 
 .page-title {

@@ -5,7 +5,7 @@
     ],
     "destination": "docs/",
     "css": [
-      "../css/styles.css"
+      "../css/main.css"
     ],
     "js": [
       "../js/docs.js"
