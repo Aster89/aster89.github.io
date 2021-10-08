@@ -1,4 +1,40 @@
 body {
-  --main-font: Helvetica, Arial, sans-serif;
-  --handwritten-font: Dancing Script, cursive;
+  --main-font: 'Lato', sans-serif;
+  --handwritten-font: 'Dancing Script', cursive;
+}
+
+body {
+  font-family: var(--main-font);
+}
+
+/* Reset typical defaults for headings,
+ * so I can customize knowing what I'm
+ * dealing with
+ */
+h1 {
+  font-size: 2em
+}
+
+h2 {
+  font-size: 1.5em
+}
+
+h3 {
+  font-size: 1.17em
+}
+
+h4 {
+  font-size: 1em
+}
+
+h5 {
+  font-size: 0.83em
+}
+
+h6 {
+  font-size: 0.67em
+}
+
+.handwritten-font {
+  font-family: var(--handwritten-font);
 }

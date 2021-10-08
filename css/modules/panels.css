@@ -1,7 +1,7 @@
 /*
 Outer panel
 
-A simple panel of color `var(--panel-bg-color)`, with shadows of color `var(--shadow)` on borders and text.
+A simple panel of color `var(--panel-bg-color)`.
 
 Markup:
 <div class="panel {{modifier_class}}" style="height: 4em;">
@@ -15,8 +15,6 @@ Styleguide Panel.panel
 .panel {
   background-color: var(--panel-bg-color);
   margin-top: 0;
-  box-shadow: 0.1em 0.1em 0.4em var(--shadow);
-  text-shadow: 0.1em 0.1em 0.4em var(--shadow);
 }
 
 .panel > * {
@@ -31,18 +29,18 @@ Styleguide Panel.panel
 /*
 Panel header
 
-This is meant to
-
-  - be used for the heading part of a panel,
-  - have two children representing two levels of headings.
+This is meant to be used for the heading part of a panel.
 
 It is of color `var(--panel-bg-color-lighter)`.
 
 Markup:
-<div class="panel__header" style="width: auto;">
-  <h1>C++ Software Engineer</h1>
-  <h4>MathWorks, Cambridge (UK)</h4>
+<div class="panel__header {{modifier_class}}" style="width: auto;">
+  <h1>this is 1st child</h1>
+  <h4>this is 2nd child</h4>
+  <h5>this is 3rd child</h5>
 </div>
+
+.panel__header--two-children  - A thin line separates first child from second
 
 Styleguide Panel.panel.header
 */
@@ -59,7 +57,7 @@ Styleguide Panel.panel.header
   margin: 0;
 }
 
-.panel__header > *:first-child::after {
+.panel__header--two-children > :first-child::after {
   display: block;
   content: "";
   width: 4em;

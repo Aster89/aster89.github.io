@@ -38,7 +38,14 @@ Styleguide Utilities.choice-picker
 
 .choice-picker > input {
   position: absolute;
-  visibility: hidden;
+  /* One of these two wold be ideal:
+   * visibility: hidden;
+   * appearance: none;
+   * However it also kills hints that qutebrowser follow, so the alternative is
+   * to make it as small and transparent as possible: */
+  opacity: 1%;
+  width: 2px;
+  height: 2px;
 }
 
 .choice-picker > input + label {

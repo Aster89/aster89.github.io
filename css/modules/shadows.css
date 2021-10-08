@@ -1,0 +1,7 @@
+.box-shadow {
+  box-shadow: 0.1em 0.1em 0.4em var(--shadow);
+}
+
+.text-shadow {
+  text-shadow: 0.1em 0.1em 0.4em var(--shadow);
+}

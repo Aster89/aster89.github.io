@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- https://www.webmasterpoint.org/programmazione/html5/guida-html5/struttura-sito-header-nav-section-article-aside-footer-nuovo-doctype.html -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,159 +8,214 @@
     <title>Il mio curriculum vitæ</title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
     </style>
   </head>
   <body>
-    <header>
-      <div class="top-bar normal-shadow">
-        <div>
-          <input id="toggle" class="toggle" type="checkbox" value="" />
-          <label for="toggle"></label>
-        </div>
-        <div class="slidecontainer"> <!-- https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
-          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-        </div>
-        <div class="choice-picker">
-          <input type="radio" id="choice1" name="choices" onclick="document.documentElement.lang='it'">
-          <label for="choice1">
-            <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
-              <rect width="3" height="2" fill="#009246"/>
-              <rect width="2" height="2" x="1" fill="#fff"/>
-              <rect width="1" height="2" x="2" fill="#ce2b37"/>
-            </svg>
-          </label>
-          <input type="radio" id="choice2" name="choices" onclick="document.documentElement.lang='en'" checked="checked">
-          <label for="choice2">
-            <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
-              <clipPath id="s">
-              <path d="M0,0 v30 h60 v-30 z"/>
-              </clipPath>
-              <clipPath id="t">
-              <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-              </clipPath>
-              <g clip-path="url(#s)">
-              <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-              <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
-              <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
-              <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
-              </g>
-            </svg>
-          </label>
-        </div>
-      </div>
-      <h1 class="page-title handwritten-font">
-        Enrico Maria De Angelis
-      </h1>
-    </header>
-    <main>
-      <div class="main centered-container">
-        <div>
-          <h2 class="time-interval text-shadow handwritten-font">06/2020&mdash;present</h2>
-          <div class="panel panel--rounded">
-            <div class="panel__header">
-              <h1 class="handwritten-font">
-                <span lang="en">C++ Software Engineer</span>
-                <span lang="it">Sviluppatore C++</span>
-              </h1>
-              <h4>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h4>
-            </div>
-            <div class="text-shadow normal-shadow">
-              <p lang="en">Design, development, and testing of text comparison back-end tools and algorithms.</p>
-              <p lang="it">Design, sviluppo, e test di algoritmi e strumenti di back-end per confonto di testi</p>
-              <p lang="en">Expertise:</p>
-              <p lang="it">Esperienza con:</p>
-              <ul>
-                <li>C++17</li>
-                <li>template meta-programming</li>
-                <li>SFINAE</li>
-                <li>Boost, Range-v3</li>
-                <li lang="en">functional programming</li>
-                <li lang="it">programmazione funzionale</li>
-              </ul>
-            </div>
+    <div class="body centered-container"> <!-- this double container pattern is to avoid getting blind when opening dev tools -->
+      <header>
+        <div class="top-bar normal-shadow">
+          <div>
+            <input id="toggle" class="toggle" type="checkbox" value="" />
+            <label for="toggle"></label>
+          </div>
+          <!--XXX: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+          <div class="choice-picker">
+            <input type="radio" id="choice1" name="choices" onclick="document.documentElement.lang='it'">
+            <label for="choice1">
+              <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
+                <rect width="3" height="2" fill="#009246"/>
+                <rect width="2" height="2" x="1" fill="#fff"/>
+                <rect width="1" height="2" x="2" fill="#ce2b37"/>
+              </svg>
+            </label>
+            <input type="radio" id="choice2" name="choices" onclick="document.documentElement.lang='en'" checked="checked">
+            <label for="choice2">
+              <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
+                <clipPath id="s">
+                <path d="M0,0 v30 h60 v-30 z"/>
+                </clipPath>
+                <clipPath id="t">
+                <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+                </clipPath>
+                <g clip-path="url(#s)">
+                <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+                <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                </g>
+              </svg>
+            </label>
           </div>
         </div>
-        <div>
-          <h2 class="time-interval text-shadow handwritten-font">04/2019&mdash;05/2020</h2>
-          <div class="panel panel--rounded">
-            <div class="panel__header">
-              <h1 class="handwritten-font">
-                <span lang="en">Application Support Engineer</span>
-                <span lang="it">Supporto tecnico</span>
-              </h1>
-              <h4>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h4>
-            </div>
-            <div class="text-shadow normal-shadow">
-              <div lang="en">
-                <p>Main roles:</p>
-                <ul>
-                  <li>Phone/e-mail tech support</li>
-                  <li>training assistant at JLR</li>
-                  <li>MATLAB Expo</li>
-                  <li>lead computer science weekly meetings</li>
-                  <li>coaching new hires</li>
-                  <li>technical interviews</li>
-                </ul>
-                <p>Development C++ projects:</p>
-                <ul>
-                  <li>Implementation of Kuo&amp;Cross longest common subsequence algorithm</li>
-                  <li>Transition 3p library → internal library for HTTP requests</li>
-                </ul>
+        <div class="page-title-and-author">
+          <!--h1 class="handwritten-font page-title"><code class="language-cpp"><span style="opacity: 50%">std::o</span>stream</code> of consciousness</h1-->
+          <h1 class="handwritten-font page-title text-shadow">
+            <code class="language-cpp">std::iostream</code> of consciousness
+          </h1>
+          <h3 class="handwritten-font page-author text-shadow">&mdash; Enrico Maria De Angelis</h3>
+        </div>
+      </header>
+      <div class="modal" id="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-body">
+          <h1>Work in progress, sorry</h1>
+          <button class="modal-close" id="close">close</button>
+        </div>
+      </div>
+      <script charset="utf-8" type="text/javascript">
+        var close = document.getElementById('close');
+        var modal = document.getElementById('modal');
+        close.addEventListener('click', function (event) {
+                  event.preventDefault();
+                  modal.style.display = 'none';
+                });
+      </script>
+      <nav>
+        <ul class="site-nav">
+          <li class="box-shadow text-shadow">Posts</li>
+          <li class="box-shadow text-shadow">Projects</li>
+          <li class="box-shadow text-shadow">Readings</li>
+          <li class="box-shadow text-shadow">Me</li>
+        </ul>
+      </nav>
+      <main>
+        <div class="main centered-container">
+          <div>
+            <h3 class="time-interval text-shadow handwritten-font">15/09/2021</h3>
+            <div class="panel panel--rounded box-shadow text-shadow">
+              <div class="panel__header">
+                <h2 class="">Alleviate long qualifications in header files</h2>
               </div>
-              <div lang="it">
-                <p>Compiti principali:</p>
+              <div class="text-shadow normal-shadow">
+                <div>
+                  <p>Development of a 3D fluid-dynamic solver for turbulent flows from scratch</p>
+                  <ul>
+                    <li>Object-Oriented Fortran 2003/2008 + MPI 3.1-parallel</li>
+                    <li>employed MPI 3-dimensional domain decomposition</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="time-interval text-shadow handwritten-font">06/2020&mdash;present</h3>
+            <div class="panel panel--rounded box-shadow text-shadow">
+              <div class="panel__header panel__header--two-children">
+                <h1 class="handwritten-font">
+                  <span lang="en">C++ Software Engineer</span>
+                  <span lang="it">Sviluppatore C++</span>
+                </h1>
+                <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
+              </div>
+              <div class="text-shadow normal-shadow">
+                <p lang="en">Design, development, and testing of text comparison back-end tools and algorithms.</p>
+                <p lang="it">Design, sviluppo, e test di algoritmi e strumenti di back-end per confonto di testi</p>
+                <h4 lang="en">Expertise:</h4>
+                <h4 lang="it">Esperienza con:</h4>
                 <ul>
-                  <li>Supporto tecnico telefonico e tramite e-mail</li>
-                  <li>Assistente trainer presso Jaguar-Land Rover</li>
-                  <li>MATLAB Expo</li>
-                  <li>Direzione di incontri settimanali su temi di computer science</li>
-                  <li>Training di nuovi assunti</li>
-                  <li>Interviste tecniche per assunzione</li>
-                </ul>
-                <p>Progetti di sviluppo in C++:</p>
-                <ul>
-                  <li>Scrittura di algoritmo di Kuo&amp;Cross per il calcolo della <i>longest common subsequence</i></li>
-                  <li>Transizione da libreria esterna a libraria interna per richieste HTTP</li>
+                  <li>C++17</li>
+                  <li>template meta-programming</li>
+                  <li>SFINAE</li>
+                  <li>Boost, Range-v3</li>
+                  <li lang="en">functional programming</li>
+                  <li lang="it">programmazione funzionale</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2 class="time-interval text-shadow handwritten-font">2015&mdash;2018</h2>
-          <div class="panel panel--rounded">
-            <div class="panel__header">
-              <h1 class="handwritten-font">Ph.D. in <span lang="en">Aerospace Engineering</span><span lang="it">Ingegneria Aerospaziale</span></h1>
-              <h4><span lang="en">Federico II, Naples (Italy)</span><span lang="it">Federico II, Napoli (Italia)</span></h4>
-            </div>
-            <div class="text-shadow normal-shadow">
-              <div lang="en">
-                <p>Development of a 3D fluid-dynamic solver for turbulent flows from scratch</p>
-                <ul>
-                  <li>Object-Oriented Fortran 2003/2008 + MPI 3.1-parallel</li>
-                  <li>employed MPI 3-dimensional domain decomposition</li>
-                </ul>
+          <div>
+            <h3 class="time-interval text-shadow handwritten-font">04/2019&mdash;05/2020</h3>
+            <div class="panel panel--rounded box-shadow text-shadow">
+              <div class="panel__header panel__header--two-children">
+                <h1 class="handwritten-font">
+                  <span lang="en">Application Support Engineer</span>
+                  <span lang="it">Supporto tecnico</span>
+                </h1>
+                <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
               </div>
-              <div lang="it">
-                <p>Sviluppo da zero di un solutore fluidodinamico tridimensionale per flussi turbulenti</p>
-                <ul>
-                  <li>Fortran 2003/2008 orientato agli oggeti, parellelizzato tramite MPI 3.1</li>
-                  <li>Utilizzo di decomposizione dimensionale del dominio tramite librerie MPI 3</li>
-                </ul>
+              <div class="text-shadow normal-shadow">
+                <div lang="en">
+                  <h4>Main roles:</h4>
+                  <ul>
+                    <li>Phone/e-mail tech support</li>
+                    <li>training assistant at JLR</li>
+                    <li>MATLAB Expo</li>
+                    <li>lead computer science weekly meetings</li>
+                    <li>coaching new hires</li>
+                    <li>technical interviews</li>
+                  </ul>
+                  <h4>Development C++ projects:</h4>
+                  <ul>
+                    <li>Implementation of Kuo&amp;Cross longest common subsequence algorithm</li>
+                    <li>Transition 3p library → internal library for HTTP requests</li>
+                  </ul>
+                </div>
+                <div lang="it">
+                  <h4>Compiti principali:</h4>
+                  <ul>
+                    <li>Supporto tecnico telefonico e tramite e-mail</li>
+                    <li>Assistente trainer presso Jaguar-Land Rover</li>
+                    <li>MATLAB Expo</li>
+                    <li>Direzione di incontri settimanali su temi di computer science</li>
+                    <li>Training di nuovi assunti</li>
+                    <li>Interviste tecniche per assunzione</li>
+                  </ul>
+                  <h4>Progetti di sviluppo in C++:</h4>
+                  <ul>
+                    <li>Scrittura di algoritmo di Kuo&amp;Cross per il calcolo della <i>longest common subsequence</i></li>
+                    <li>Transizione da libreria esterna a libraria interna per richieste HTTP</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+          <div>
+            <h3 class="time-interval text-shadow handwritten-font">2015&mdash;2018</h3>
+            <div class="panel panel--rounded box-shadow text-shadow">
+              <div class="panel__header panel__header--two-children">
+                <h1 class="handwritten-font">Ph.D. in <span lang="en">Aerospace Engineering</span><span lang="it">Ingegneria Aerospaziale</span></h1>
+                <h3><span lang="en">Federico II, Naples (Italy)</span><span lang="it">Federico II, Napoli (Italia)</span></h3>
+              </div>
+              <!-- XXX: to embed PDF in HTML:
+                https://stackoverflow.com/questions/17784037/how-to-display-pdf-file-in-html -->
+                <div class="text-shadow normal-shadow">
+                  <div lang="en">
+                    <p>Development of a 3D fluid-dynamic solver for turbulent flows from scratch</p>
+                    <ul>
+                      <li>Object-Oriented Fortran 2003/2008 + MPI 3.1-parallel</li>
+                      <li>employed MPI 3-dimensional domain decomposition</li>
+                    </ul>
+                  </div>
+                  <div lang="it">
+                    <p>Sviluppo da zero di un solutore fluidodinamico tridimensionale per flussi turbulenti</p>
+                    <ul>
+                      <li>Fortran 2003/2008 orientato agli oggeti, parellelizzato tramite MPI 3.1</li>
+                      <li>Utilizzo di decomposizione dimensionale del dominio tramite librerie MPI 3</li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+          </div>
         </div>
+      </main>
+      <footer class="footer panel box-shadow text-shadow">
+        <div class="footer__inner panel__header">
+          Copyright &copy; <script>document.write([new
+            Date().getFullYear()].map(x => x == 2021 ? x : "2021-" +
+                          String(x))[0])</script> Enrico Maria De Angelis
+        </div>
+      </footer>
+      Articoli da scrivere
+      <ul>
+        <li>Reference collapsing with `const` and it's relation to the East-`const` convention</li>
+        <li>How to isolate `using`s when declaring a function object in header file</li>
+        <li>WinZoZ</li>
+        <li>Haskellize your C++</li>
+        <script id="asciicast-UrSLE5YyCBIld7tpxtSoYgjcw" src="https://asciinema.org/a/UrSLE5YyCBIld7tpxtSoYgjcw.js" async></script>
+      </ul>
       </div>
-    </main>
-    <footer class="footer panel">
-      <div class="footer__inner panel__header">
-        Copyright &copy; <script>document.write([new
-          Date().getFullYear()].map(x => x == 2021 ? x : "2021-" +
-                      String(x))[0])</script> Enrico Maria De Angelis
-      </div>
-    </footer>
   </body>
 </html>

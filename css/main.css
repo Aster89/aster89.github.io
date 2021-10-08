@@ -4,7 +4,7 @@
  *   - variable names must start with two hyphens (--), e.g. --some-var
  *   - BEM-style notation
  *      - double-underscores indicate sub-elements of a module, e.g. hero__inner,
- *      - double-hyphens indicate variants of a module, e.g. message--error
+ *      - (non leading) double-hyphens indicate variants of a module, e.g. message--error
  *   - fallback values can be set for variables, e.g. var(--some-var, fallback)
  *
  */
@@ -12,10 +12,13 @@
 @import url('modules/border-box-fix.css');
 @import url('modules/colors.css');
 @import url('modules/fonts.css');
+@import url('modules/modal.css');
 @import url('modules/toggle.css');
 @import url('modules/language.css');
 @import url('modules/top-bar.css');
+@import url('modules/nav.css');
 @import url('modules/panels.css');
+@import url('modules/shadows.css');
 @import url('modules/cv-specific.css');
 @import url('modules/copyright.css');
 
@@ -32,7 +35,6 @@ body {
 
 body {
   margin: 0;
-  font-family: var(--main-font);
 }
 
 main {
@@ -45,7 +47,8 @@ Double container pattern
 
 Style for the double container pattern.
 
-To be general, it doesn't force a specific `max-width`.
+To be general, it doesn't force a specific `max-width`, which is meant to be set by
+targeting another class, e.g. `inner` in the example snippet below.
 
 Markup:
 <div class="outer" style="border: 1px dashed red;">
@@ -65,14 +68,21 @@ Styleguide Containers.double-container
   max-width: 300px;
 }
 
+.body {
+  max-width: 400px;
+}
+
 .page-title {
   text-align: center;
 }
 
-.handwritten-font {
-  font-family: var(--handwritten-font);
+.page-title-and-author {
+  margin: 0 1em;
 }
 
+.page-author {
+  text-align: end;
+}
 
 
 /*
