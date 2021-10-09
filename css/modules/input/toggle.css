@@ -5,24 +5,12 @@ A simple toggle to switch some config on/off.
 
 Markup:
 <div>
-  <input id="toggle" class="toggle" type="checkbox" value="" />
+  <input id="toggle" class="toggle hidden" type="checkbox">
   <label for="toggle"></label>
 </div>
 
-Styleguide Utilities.toggle
+Styleguide Input.toggle
 */
-
-input.toggle {
-  position: absolute;
-  /* One of these two wold be ideal:
-   * visibility: hidden;
-   * appearance: none;
-   * However it also kills hints that qutebrowser follow, so the alternative is
-   * to make it as small and transparent as possible: */
-  opacity: 1%;
-  width: 2px;
-  height: 2px;
-}
 
 input.toggle + label {
   display: block;
@@ -61,11 +49,11 @@ input.toggle + label::after {
   left: calc(-1 * var(--leftover));
   transition: all 0.2s;
   background-image: radial-gradient(2em at 25% 25%, var(--white), var(--even-ligher-black), var(--ligher-black), var(--bg-color) 60%, var(--shadow));
-  box-shadow: 0.08em 0.08em 0.2em black;
+  box-shadow: 0.08em 0.08em 0.2em var(--shadow);
 }
 
 input.toggle:focus + label::after {
-  /*box-shadow: 0.08em 0.08em 0.2em red;*/
+  /* :focus can be used to give a hint of what item is selected when navigating via tab*/
 }
 
 input.toggle:checked + label::after {

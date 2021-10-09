@@ -6,7 +6,7 @@ Useful to put it above panes with CV entries.
 Markup:
 <h2 class="time-interval">06/2020&mdash;present</h2>
 
-Styleguide Curriculum.time-interval
+Styleguide Time.time-interval
 */
 
 .time-interval {
@@ -23,5 +23,5 @@ Styleguide Curriculum.time-interval
   border-radius: 100%;
   margin-top: 0.2em;
   background-color: var(--brand-color);
-  box-shadow: 0.1em 0.1em 0.4em var(--shadow);
+  box-shadow: var(--down-right-box-shadow);
 }

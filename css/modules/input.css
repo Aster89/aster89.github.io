@@ -1,0 +1,34 @@
+/*
+Inputs
+
+In general, in order to hide an element, one of these two declarations would be
+ideal:
+   - `visibility: hidden;`
+   - `appearance: none;`
+
+However, when targeting `input`s, either of those declarations also kills hints
+that qutebrowser follows, so the alternative is to make it as small and
+transparent as possible:
+
+Markup:
+<div>
+  <input id="some-id" type="checkbox" class="hidden"/>
+  <label for="some-id" id="label" style="color: red;">Click me, I'm a checkbox!</label>
+  <script type="text/javascript">
+    var label = document.getElementById('label');
+    var input = document.getElementById('some-id');
+    input.addEventListener('click', function (event) {
+                  label.style.color = input.checked ? 'green' : 'red';
+                });
+  </script>
+</div>
+
+Styleguide Input
+ */
+
+input.hidden {
+  position: absolute;
+  opacity: 1%;
+  width: 2px;
+  height: 2px;
+}

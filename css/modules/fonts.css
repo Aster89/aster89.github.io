@@ -7,9 +7,13 @@ body {
   font-family: var(--main-font);
 }
 
+.handwritten-font {
+  font-family: var(--handwritten-font);
+}
+
 /* Reset typical defaults for headings,
  * so I can customize knowing what I'm
- * dealing with
+ * dealing with.
  */
 h1 {
   font-size: 2em
@@ -33,8 +37,4 @@ h5 {
 
 h6 {
   font-size: 0.67em
-}
-
-.handwritten-font {
-  font-family: var(--handwritten-font);
 }

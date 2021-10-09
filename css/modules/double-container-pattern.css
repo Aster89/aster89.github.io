@@ -1,0 +1,21 @@
+/*
+Double container pattern
+
+Style for the double container pattern.
+
+To be general, it doesn't force a specific `max-width`, which is meant to be set by
+targeting another class, e.g. `inner` in the example snippet below.
+
+Markup:
+<div class="outer" style="border: 1px dashed red;">
+  <div class="inner centered-container" style="border: 1px solid red; max-width: 200px; ">
+    Ciao
+  </div>
+</div>
+
+Styleguide Containers.double-container
+*/
+
+.centered-container {
+  margin: 0 auto;
+}

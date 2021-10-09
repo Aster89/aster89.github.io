@@ -1,0 +1,5 @@
+.kss-modifier__wrapper /* This is to workaround
+       KSS inability to deal with dark mode. */ {
+  background-color: initial;
+  color: initial;
+}

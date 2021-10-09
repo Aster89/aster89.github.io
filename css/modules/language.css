@@ -7,64 +7,6 @@ html[lang=en] *[lang=it] {
 }
 
 /*
-Opacity-based choice picker.
-
-A disk shown for each possible choice; the disk of the selected choice is 100%
-opaque, whereas the others are 50%.
-
-**_Note_**: the inner `<div>`s in the example below are just examples, and can be
-chaged to other tags, such as `<svg>` or the likes; also the outer `<div>` can be
-changed. On the other hand, `<input>` and `<label>` cannot be changed as they are
-targeted as selectors.
-
-Markup:
-<div class="choice-picker">
-  <input type="radio" id="choice1" name="choices" checked="checked">
-  <label for="choice1">
-    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
-  </label>
-  <input type="radio" id="choice2" name="choices">
-  <label for="choice2">
-    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
-  </label>
-  <input type="radio" id="choice3" name="choices">
-  <label for="choice3">
-    <div style="width: 3em; height: 3em; background-color: black; border-radius: 100%;"></div>
-  </label>
-</div>
-
-Styleguide Utilities.choice-picker
-*/
-
-.choice-picker > input {
-  position: absolute;
-  /* One of these two wold be ideal:
-   * visibility: hidden;
-   * appearance: none;
-   * However it also kills hints that qutebrowser follow, so the alternative is
-   * to make it as small and transparent as possible: */
-  opacity: 1%;
-  width: 2px;
-  height: 2px;
-}
-
-.choice-picker > input + label {
-}
-
-.choice-picker > input + label > * {
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0.5;
-  margin: 0.1em;
-  vertical-align: top;
-}
-
-.choice-picker > input:checked + label > * {
-  box-shadow: 0 0 0.2em 1px var(--shadow);
-  opacity: 1;
-}
-
-/*
 Country Flag
 
 A circle of radius 1.5em encosing an SVG representing a flag.

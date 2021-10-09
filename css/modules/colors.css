@@ -1,17 +1,35 @@
+/*
+ * Interesting page on how to mix colors:
+ * https://css-tricks.com/mixing-colors-in-pure-css/
+ */
+
+/*
+ Add a KSS gallery of colors
+ */
 :root {
   --brand-color: #0099ff;
+  --brand-color-adot5: #0099ff22;
   --bg-color: #383c4a;
+  --fg-color: #fafbfc;
   --shadow: #0f1014;
   --panel-bg-color: #4b5162;
   --panel-bg-color-lighter: #5d647a;
   --ligher-black: #4b5162;
   --even-ligher-black: #9ea2aa;
   --white: #fafbfc;
+  --down-right-box-shadow: 0.1em 0.1em 0.4em var(--shadow);
+  --brand-glow: 0 0 1em 0.3em var(--brand-color-adot5);
   /*
+   * Colors below are taken from
+   * https://www.color-hex.com/color-palette/36646
    #404552
    #383c4a
    #4b5162
    #5294e2
    #7c818c
    */
+}
+
+.transparent-50 {
+  opacity: 50%;
 }

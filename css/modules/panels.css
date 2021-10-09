@@ -5,6 +5,7 @@ A simple panel of color `var(--panel-bg-color)`.
 
 Markup:
 <div class="panel {{modifier_class}}" style="height: 4em;">
+Hello world!
 </div>
 
 .panel--rounded  - Panel with left bottom corner rounded
@@ -14,6 +15,7 @@ Styleguide Panel.panel
 
 .panel {
   background-color: var(--panel-bg-color);
+  color: var(--fg-color);
   margin-top: 0;
 }
 
@@ -48,6 +50,7 @@ Styleguide Panel.panel.header
 .panel__header {
   flex-direction: column;
   background-color: var(--panel-bg-color-lighter);
+  color: var(--fg-color);
   text-align: center;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
@@ -64,5 +67,5 @@ Styleguide Panel.panel.header
   height: 0.05em;
   border-radius: 100%;
   margin: 0.25em auto;
-  background-color: var(--white);
+  background-color: var(--fg-color);
 }

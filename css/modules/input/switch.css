@@ -1,0 +1,35 @@
+/*
+Switch button
+
+On/off button that displaces a bit and lights (with color
+`var(--brand-color-adot5)`) up when pressed down.
+
+
+**_Note_**: the `checked` state selector requires a generic `<input>`, without
+enforcing any particular `type` (so by _switch button_ I don't refer to an
+`<input>` with `type="button"` nor to a `<button>`, but to a generic `<input>`).
+
+Markup:
+<div class="switch-button">
+  <input id="checkbox" type="checkbox" class="hidden">
+  <label for="checkbox">Press me</label>
+</div>
+
+Styleguide Input.switch
+*/
+
+.switch-button > label {
+  display: inline-block;
+  cursor: pointer;
+  width: auto;
+  padding: 0.5em 1em;
+}
+
+.switch-button > input:checked + label {
+  box-shadow: var(--brand-glow);
+  transform: translate(0.08em, 0.08em);
+  background-color: var(--brand-color); /* probably I want to "transparentize"
+                                           this color a bit..., in a 3D
+                                           way... */
+}
+

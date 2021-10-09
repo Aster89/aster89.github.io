@@ -10,27 +10,26 @@
  */
 
 @import url('modules/border-box-fix.css');
+@import url('modules/double-container-pattern.css');
 @import url('modules/colors.css');
 @import url('modules/fonts.css');
 @import url('modules/modal.css');
-@import url('modules/toggle.css');
+@import url('modules/input.css');
+@import url('modules/input/choice-picker.css');
+@import url('modules/input/switch.css');
+@import url('modules/input/toggle.css');
 @import url('modules/language.css');
 @import url('modules/top-bar.css');
 @import url('modules/nav.css');
 @import url('modules/panels.css');
 @import url('modules/shadows.css');
-@import url('modules/cv-specific.css');
+@import url('modules/time.css');
 @import url('modules/copyright.css');
+@import url('kss-workarounds.css');
 
 body {
   background-color: var(--bg-color);
-  color: var(--white);
-}
-
-.kss-modifier__wrapper /* This is to workaround
-       KSS inability to deal with dark mode. */ {
-  background-color: var(--bg-color);
-  color: var(--white);
+  color: var(--fg-color);
 }
 
 body {
@@ -40,36 +39,6 @@ body {
 main {
   margin: 0 1em;
   font-size: 0.8em;
-}
-
-/*
-Double container pattern
-
-Style for the double container pattern.
-
-To be general, it doesn't force a specific `max-width`, which is meant to be set by
-targeting another class, e.g. `inner` in the example snippet below.
-
-Markup:
-<div class="outer" style="border: 1px dashed red;">
-  <div class="inner centered-container" style="border: 1px solid red; max-width: 200px; ">
-    Ciao
-  </div>
-</div>
-
-Styleguide Containers.double-container
-*/
-
-.centered-container {
-  margin: 0 auto;
-}
-
-.main {
-  max-width: 300px;
-}
-
-.body {
-  max-width: 400px;
 }
 
 .page-title {
@@ -84,39 +53,25 @@ Styleguide Containers.double-container
   text-align: end;
 }
 
-
-/*
-Filter button
-
-Checkbox with the shape of an on/off button.
-
-Markup:
-<div class="filter">
-  <input id="checkbox" type="checkbox" value="" />
-  <label for="checkbox">Work</label>
-</div>
-
-Styleguide Filter button
-*/
-
-.filter > input {
-  position: absolute;
-  visibility: hidden;
+section {
+  display: none;
 }
 
-.filter > label {
-  font-variant-caps: all-small-caps;
-  display: inline-block;
-  cursor: pointer;
-  width: auto;
-  color: white;
-  background-color: #999999;
-  padding: 0.5em 1em;
-  box-shadow: 0.08em 0.08em 0.2em #333;
+section#about-me {
+  display: initial;
 }
 
-.filter > input:checked+label {
-  background-color: #00aaaa;
-  box-shadow: 0 0 0.3em cyan;
-  transform: translate(0.08em, 0.08em);
+/* These 3 rulesets below are meant to ease developing for smartphone; when
+ * I'll go for responsive design, I'll probably have to throw them away. */
+.main {
+  /* while developing for smartphone */
+  max-width: 300px;
 }
+.body {
+  /* while developing for smartphone */
+  max-width: 350px;
+}
+#page-title {
+  font-size: 1.98rem;
+}
+
