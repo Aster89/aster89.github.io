@@ -68,7 +68,7 @@
       <nav> <!-- consider moving this into the header: http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/introducing-html5-footer-header-nav-article-section-and-aside-elements/ -->
         <ul class="site-nav">
           <li class="switch-button">
-            <input id="posts-radio" value="posts" class="hidden" type="radio" name="nav-tabs" onclick="f(value)">
+            <input id="posts-radio" value="posts" class="hidden" type="radio" name="nav-tabs" onclick="f(value)" checked="checked">
             <label for="posts-radio" class="box-shadow">Posts</label>
           </li>
           <li class="switch-button">
@@ -80,7 +80,7 @@
             <label for="suggested-books-radio" class="box-shadow">Reading</label>
           </li>
           <li class="switch-button">
-            <input id="about-me-radio" value="about-me" class="hidden" type="radio" name="nav-tabs" onclick="f(value)" checked="checked">
+            <input id="about-me-radio" value="about-me" class="hidden" type="radio" name="nav-tabs" onclick="f(value)">
             <label for="about-me-radio" class="box-shadow">Me</label>
           </li>
         </ul>
@@ -89,16 +89,32 @@
         <div class="main centered-container">
           <section id="posts">
             <div class="post-entry">
-              <h3 class="time-interval text-shadow handwritten-font">15/09/2021</h3>
+              <h3 class="time-interval text-shadow handwritten-font">01/09/2021</h3>
               <div class="panel panel--rounded box-shadow text-shadow">
                 <div class="panel__header">
-                  <h2 class="">Alleviate long qualifications in header files</h2>
+                  <h2 class="">Vim plug-in for easy window navigation</h2>
                 </div>
                 <div class="text-shadow">
                   <div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.</p>
+                    <p>Today, <a href="https://github.com/Aster89/WinZoZ">my
+                      Vim plugin for easy window navigation</a>, which I named
+                    <a href="https://nonciclopedia.org/wiki/Windows">WinZoZ</a>,
+                    has got its first star! Given <a
+                      href="https://stackoverflow.com/questions/69007954/vim-remap-ctrl-w-in-insert-mode-to-behave-as-it-does-in-normal-mode#comment121984179_69007954">this
+                      comment on StackOverflow</a>, the star is from the user <a
+                      href="https://stackoverflow.com/users/3271687/yolenoyer">@yolenoyer</a>.
+                    </p>
+                    <p>With this plugin, you can hit <span class="key">&lt;leader&gt;</span><span class="key">w</span> to enter a
+                    sort of "<span class="key">CTRL-W</span> mode", during which each key pressed will
+                    be assumed preceded by <span class="key">CTRL-W</span>.</p>
+                    <p>This can be very helpful, imho, if you're the kind of Vim user
+                    who works with a big monitor and splits the terminal several times
+                    both horizontally and vertically.</p>
+                    <p>Indeed, if this is the case, chances are good
+                    that you hit <span class="key">CTRL-W</span> a lot of times to move from one window
+                    to another. (Search for <code>:help CTRL-W</code> to see how many commands are preceded by <span class="key">CTRL-W</span>.)</p>
+                    <p>Below is a GIF demonstating the use of <a href="https://github.com/Aster89/WinZoZ">my plugin</a>:</p>
+                    <img src="https://user-images.githubusercontent.com/20521900/97799961-55007280-1c31-11eb-9821-8b604345ac1b.gif" alt=""/>
                   </div>
                 </div>
               </div>
@@ -113,7 +129,10 @@
                     <span lang="en">C++ Software Engineer</span>
                     <span lang="it">Sviluppatore C++</span>
                   </h1>
-                  <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
+                  <div>
+                    <img class="company-logo" src="MATLABlogo.png" alt=""/>
+                    <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
+                  </div>
                 </div>
                 <div class="text-shadow">
                   <p lang="en">Design, development, and testing of text comparison back-end tools and algorithms.</p>
@@ -139,7 +158,10 @@
                     <span lang="en">Application Support Engineer</span>
                     <span lang="it">Supporto tecnico</span>
                   </h1>
-                  <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
+                  <div>
+                    <img class="company-logo" src="MATLABlogo.png" alt=""/>
+                    <h3>MathWorks, Cambridge (<span lang="en">UK</span><span lang="it">Regno Unito</span>)</h3>
+                  </div>
                 </div>
                 <div class="text-shadow">
                   <div lang="en">
@@ -182,7 +204,10 @@
               <div class="panel panel--rounded box-shadow text-shadow">
                 <div class="panel__header panel__header--two-children">
                   <h1 class="handwritten-font">Ph.D. in <span lang="en">Aerospace Engineering</span><span lang="it">Ingegneria Aerospaziale</span></h1>
-                  <h3><span lang="en">Federico II, Naples (Italy)</span><span lang="it">Federico II, Napoli (Italia)</span></h3>
+                  <div>
+                    <img class="company-logo" src="https://seeklogo.com/images/U/Universit_and__224__degli_Studi_di_Napoli_Federico_II-logo-D9EDF680E8-seeklogo.com.png" alt=""/>
+                    <h3><span lang="en">Federico II, Naples (Italy)</span><span lang="it">Federico II, Napoli (Italia)</span></h3>
+                  </div>
                 </div>
                 <!-- XXX: to embed PDF in HTML:
                   https://stackoverflow.com/questions/17784037/how-to-display-pdf-file-in-html -->
@@ -212,8 +237,9 @@
           Copyright &copy; <script type="text/javascript" src="js/year.js"></script> Enrico Maria De Angelis
         </div>
       </footer>
-      Stuff to put somewhere
+      <!--Stuff to put somewhere
       <ul>
+        <li>The importance of function objects</li>
         <li>How this site was designed</li>
         <li>Bird meme</li>
         <li>Bitten by SSO</li>
@@ -221,8 +247,9 @@
         <li>How to isolate `using`s when declaring a function object in header file</li>
         <li>WinZoZ</li>
         <li>Haskellize your C++</li>
-        <script id="asciicast-UrSLE5YyCBIld7tpxtSoYgjcw" src="https://asciinema.org/a/UrSLE5YyCBIld7tpxtSoYgjcw.js" async></script>
+        <script class="image-like" id="asciicast-UrSLE5YyCBIld7tpxtSoYgjcw" src="https://asciinema.org/a/UrSLE5YyCBIld7tpxtSoYgjcw.js" async></script>
       </ul>
+      -->
       </div>
   </body>
 </html>

@@ -1,0 +1,30 @@
+/* `img`s should stay within their container */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* `p`aragraphs should be justified, by default */
+p {
+  text-align: justify;
+}
+
+/* links */
+a { /* no persistent underline */
+  text-decoration: none;
+}
+
+a:link {
+  color: var(--brand-color);
+}
+
+a:visited {
+  color: var(--brand-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+}

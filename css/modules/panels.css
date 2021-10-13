@@ -54,9 +54,10 @@ Styleguide Panel.panel.header
   text-align: center;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  position: relative;
 }
 
-.panel__header > * {
+.panel__header * {
   margin: 0;
 }
 
@@ -68,4 +69,14 @@ Styleguide Panel.panel.header
   border-radius: 100%;
   margin: 0.25em auto;
   background-color: var(--fg-color);
+}
+
+.panel__header--two-children > * + * > .company-logo {
+  background: transparent;
+  position: absolute;
+  --height: 2em;
+  height: var(--height);
+  left: 1em;
+  bottom: calc(-0.5*var(--height));
+  filter: brightness(0) invert(1);
 }

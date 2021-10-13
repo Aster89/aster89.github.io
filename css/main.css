@@ -9,10 +9,12 @@
  *
  */
 
+@import url('modules/base-styles.css');
 @import url('modules/border-box-fix.css');
 @import url('modules/double-container-pattern.css');
 @import url('modules/colors.css');
 @import url('modules/fonts.css');
+@import url('modules/keys.css');
 @import url('modules/modal.css');
 @import url('modules/input.css');
 @import url('modules/input/choice-picker.css');
@@ -57,7 +59,7 @@ section {
   display: none;
 }
 
-section#about-me {
+section#posts {
   display: initial;
 }
 
@@ -74,4 +76,3 @@ section#about-me {
 #page-title {
   font-size: 1.98rem;
 }
-
