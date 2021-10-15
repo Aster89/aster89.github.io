@@ -1,14 +1,14 @@
 body {
   --main-font: 'Lato', sans-serif;
-  --handwritten-font: 'Dancing Script', cursive;
+  --handwriting: 'Dancing Script', cursive;
 }
 
 body {
   font-family: var(--main-font);
 }
 
-.handwritten-font {
-  font-family: var(--handwritten-font);
+.handwriting {
+  font-family: var(--handwriting);
 }
 
 /* Reset typical defaults for headings,

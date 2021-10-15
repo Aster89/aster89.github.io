@@ -10,6 +10,7 @@
  */
 
 @import url('modules/base-styles.css');
+@import url('modules/headings.css');
 @import url('modules/border-box-fix.css');
 @import url('modules/double-container-pattern.css');
 @import url('modules/colors.css');
