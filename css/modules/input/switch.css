@@ -18,18 +18,21 @@ Markup:
 Styleguide Input.switch
 */
 
-.switch-button > label {
+button {
+  all: unset;
+}
+
+.switch-button {
   display: inline-block;
   cursor: pointer;
   width: auto;
   padding: 0.5em 1em;
 }
 
-.switch-button > input:checked + label {
+.switch-button[aria-selected=true] {
   box-shadow: var(--brand-glow);
   transform: translate(0.08em, 0.08em);
   background-color: var(--brand-color); /* probably I want to "transparentize"
                                            this color a bit..., in a 3D
                                            way... */
 }
-

@@ -64,30 +64,16 @@
         </div>
       </div>
       <script type="text/javascript" src="js/modal.js"></script>
-      <script type="text/javascript" src="js/tabs.js"></script>
-      <nav> <!-- consider moving this into the header: http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/introducing-html5-footer-header-nav-article-section-and-aside-elements/ -->
-        <ul class="site-nav">
-          <li class="switch-button">
-            <input id="posts-radio" value="posts" class="hidden" type="radio" name="nav-tabs" onclick="f(value)" checked="checked">
-            <label for="posts-radio" class="box-shadow">Posts</label>
-          </li>
-          <li class="switch-button">
-            <input id="projects-radio" value="projects" class="hidden" type="radio" name="nav-tabs" onclick="f(value)">
-            <label for="projects-radio" class="box-shadow">Projects</label>
-          </li>
-          <li class="switch-button">
-            <input id="suggested-books-radio" value="suggested-books" class="hidden" type="radio" name="nav-tabs" onclick="f(value)">
-            <label for="suggested-books-radio" class="box-shadow">Reading</label>
-          </li>
-          <li class="switch-button">
-            <input id="about-me-radio" value="about-me" class="hidden" type="radio" name="nav-tabs" onclick="f(value)">
-            <label for="about-me-radio" class="box-shadow">Me</label>
-          </li>
-        </ul>
+      <nav role="tablist" aria-orientation="horizontal"> <!-- consider moving this into the header: http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/introducing-html5-footer-header-nav-article-section-and-aside-elements/ -->
+        <button role="tab" aria-selected="true"  id="posts-tab" aria-controls="posts-panel" class="switch-button">Posts</button>
+        <button role="tab" aria-selected="false" id="projs-tab" aria-controls="projs-panel" class="switch-button">Projects</button>
+        <button role="tab" aria-selected="false" id="reads-tab" aria-controls="reads-panel" class="switch-button">Reading</button>
+        <button role="tab" aria-selected="false" id="about-tab" aria-controls="about-panel" class="switch-button">Me</button>
       </nav>
+      <script type="text/javascript" src="js/tabs.js"></script>
       <main>
         <div class="main centered-container">
-          <section id="posts">
+          <section role="tabpanel" id="posts-panel" aria-labelledby="posts-tab">
             <div class="post-entry">
               <h4 class="time-interval text-shadow handwriting">01/09/2021</h4>
               <div class="panel panel--rounded box-shadow text-shadow">
@@ -120,7 +106,9 @@
               </div>
             </div>
           </section>
-          <section id="about-me">
+          <section role="tabpanel" id="projs-panel" aria-labelledby="projs-tab" style="display:none"></section>
+          <section role="tabpanel" id="reads-panel" aria-labelledby="reads-tab" style="display:none"></section>
+          <section role="tabpanel" id="about-panel" aria-labelledby="about-tab" style="display:none">
             <div class="cv-entry">
               <h4 class="time-interval text-shadow handwriting">06/2020&mdash;present</h4>
               <div class="panel panel--rounded box-shadow text-shadow">
