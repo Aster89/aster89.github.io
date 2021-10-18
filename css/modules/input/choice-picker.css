@@ -11,7 +11,8 @@
 Opacity-based choice picker.
 
 A disk shown for each possible choice; the disk of the selected choice is 100%
-opaque, whereas the others are 50%.
+opaque, whereas the others are 50%. The transition happens in a time determined
+by `var(--transition-time)`.
 
 **_Note_**: the actual `input` is to be hidden via another module.
 
@@ -45,6 +46,11 @@ Styleguide Input.choice-picker
   opacity: 0.5;
   margin: 0.1em;
   vertical-align: top;
+  transition: opacity var(--transition-time);
+}
+
+.choice-picker > input:hover + label > * {
+  opacity: 0.75;
 }
 
 .choice-picker > input:checked + label > * {
