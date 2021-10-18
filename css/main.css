@@ -17,7 +17,7 @@
 @import url('modules/fonts.css');
 @import url('modules/keys.css');
 @import url('modules/modal.css');
-@import url('modules/input.css');
+@import url('modules/input/input.css');
 @import url('modules/input/choice-picker.css');
 @import url('modules/input/switch.css');
 @import url('modules/input/toggle.css');
