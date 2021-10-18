@@ -56,11 +56,11 @@ main {
   text-align: end;
 }
 
-section {
+.main > section {
   display: none;
 }
 
-section#posts {
+.main > section#posts {
   display: initial;
 }
 
