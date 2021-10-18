@@ -10,3 +10,14 @@
   color: var(--fg-color);
   background-color: var(--panel-bg-color-lighter);
 }
+
+/* These 2 rulesets below are are meant to enable/disable
+ * the tabs depending on which one is selected. However,
+ * I should use a more appropriate pattern for tabs
+ */
+.main > section {
+  display: none;
+}
+.main > section#posts {
+  display: initial;
+}

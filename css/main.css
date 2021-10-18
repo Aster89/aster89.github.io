@@ -58,14 +58,6 @@ main {
   text-align: end;
 }
 
-.main > section {
-  display: none;
-}
-
-.main > section#posts {
-  display: initial;
-}
-
 /* These 3 rulesets below are meant to ease developing for smartphone; when
  * I'll go for responsive design, I'll probably have to throw them away. */
 .main {
