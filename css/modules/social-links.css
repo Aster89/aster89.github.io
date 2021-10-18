@@ -1,0 +1,22 @@
+.social-links {
+  width: 4em;
+  display: flex; /* or just flex? */
+  list-style-type: none;
+  padding-left: 0;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.social-links .fa {
+  color: var(--white);
+}
+
+.social-links {
+  font-size: larger;
+}
+
+.social-links a:hover {
+  text-decoration: none;
+  transform: scale(1.2);
+  transition: transform var(--transition-time);
+}
