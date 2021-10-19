@@ -13,11 +13,11 @@ Styleguide Input.toggle
 */
 
 input.toggle + label {
+  --track-height: 1em; /* this should be moved in a top-most module */
   display: block;
   cursor: pointer;
   padding: 0;
   background-color: var(--ligher-black);
-  --track-height: 1em;
   --track-AR: 2.2;
   --thumb-diameter-to-track-height: 1.3;
   --track-width: calc(var(--track-AR) * var(--track-height));
