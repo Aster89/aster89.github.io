@@ -1,0 +1,98 @@
+/*
+StackOverflow summary
+
+A panel to show StackOverflow reputation and number of bronze, silver, and
+golden badges.
+
+This module defines its own variables and uses high specificity selectors
+(all selectors start by targeting the `.stackoverflow` class).  This is
+done to force it being stable regardless of other styles; after all, I
+ **don't want** it to be coherent with the rest of the site, as it
+ represents a view on an external site.
+
+Markup:
+<div class="stackoverflow">
+  <img class="avatar" src=""/>
+  <span id=reputation>rep</span>
+  <ul class="badges">
+    <li id="gold-badges">xxx</li>
+    <li id="silver-badges">xxx</li>
+    <li id="bronze-badges">xxx</li>
+  </ul>
+</div>
+
+Styleguide External.stackoverflow
+*/
+
+.stackoverflow {
+  --bronze: hsl(28, 31%, 52%);
+  --silver: hsl(210, 3%, 61%);
+  --gold: hsl(45, 100%, 47%);
+  --border: #696f75;
+  color: #c4c8cc;
+  background-color: hsl(0, 0%, 22.5%);
+  font-size: x-small;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Liberation Sans", sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  width: fit-content;
+  padding: 0.3em;
+  border-radius: 0.15em;
+}
+
+.stackoverflow > * {
+  align-self: center;
+}
+
+.stackoverflow * + * {
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  margin-left: 0.6em;
+}
+
+.stackoverflow > .avatar {
+  width: 2em;
+  height: 2em;
+  border-radius: 0.15em;
+}
+
+.stackoverflow .badges {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.stackoverflow .badges > * {
+  color: var(--badge-color);
+  display: flex;
+  align-items: center;
+}
+
+.stackoverflow .badges > *::before {
+  display: inline-block;
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 100%;
+  background-color: var(--badge-color);
+  margin-right: 0.15em;
+}
+
+.stackoverflow #reputation {
+  font-weight: bold;
+}
+
+.stackoverflow #bronze-badges {
+  --badge-color: var(--bronze);
+}
+
+.stackoverflow #silver-badges {
+  --badge-color: var(--silver);
+}
+
+.stackoverflow #gold-badges {
+  --badge-color: var(--gold);
+}
