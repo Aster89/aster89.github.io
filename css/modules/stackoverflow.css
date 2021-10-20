@@ -15,9 +15,9 @@ Markup:
   <img class="avatar" src=""/>
   <span id=reputation>rep</span>
   <ul class="badges">
-    <li id="gold-badges">xxx</li>
-    <li id="silver-badges">xxx</li>
-    <li id="bronze-badges">xxx</li>
+    <li id="gold-badges">123</li>
+    <li id="silver-badges">123</li>
+    <li id="bronze-badges">123</li>
   </ul>
 </div>
 
@@ -31,13 +31,13 @@ Styleguide External.stackoverflow
   --border: #696f75;
   color: #c4c8cc;
   background-color: hsl(0, 0%, 22.5%);
-  font-size: x-small;
+  font-size: small;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Liberation Sans", sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border: 1px solid var(--border);
-  width: fit-content;
+  width: max-content;
   padding: 0.3em;
   border-radius: 0.15em;
 }
@@ -48,9 +48,8 @@ Styleguide External.stackoverflow
 
 .stackoverflow * + * {
   align-self: center;
-  margin: 0;
   padding: 0;
-  margin-left: 0.6em;
+  margin: 0 0 0 0.6em;
 }
 
 .stackoverflow > .avatar {

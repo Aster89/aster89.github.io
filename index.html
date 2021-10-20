@@ -11,8 +11,10 @@
       @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
     </style>
+    <script type="text/javascript" src="js/stackoverflow.js"></script>
+    <script type="text/javascript" src="js/tabs.js"></script>
   </head>
-  <body>
+  <body onload="load_stackoverflow_info()">
     <div class="body centered-container"> <!-- this double container pattern is to avoid getting blind when opening dev tools -->
       <header>
         <div class="top-bar box-shadow">
@@ -22,9 +24,20 @@
           </div>
           <ul class="social-links">
             <!--li><a href="https://www.facebook.com/EnricoMaria1989/" class="fa fa-facebook"></a></li-->
-            <li><a href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a></li>
-            <li><a href="https://github.com/Aster89" class="fa fa-github"></a></li>
-            <li><a href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
+            <li>
+              <a target="_blank" href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a>
+              <div class="stackoverflow box-shadow">
+                <img class="avatar" src="https://graph.facebook.com/10207587812237236/picture?type=large" alt="?"/>
+                <span id=reputation>?</span>
+                <ul class="badges">
+                  <li id="gold-badges">?</li>
+                  <li id="silver-badges">?</li>
+                  <li id="bronze-badges">?</li>
+                </ul>
+              </div>
+            </li>
+            <li><a target="_blank" href="https://github.com/Aster89" class="fa fa-github"></a></li>
+            <li><a target="_blank" href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
           </ul>
           <div class="choice-picker">
             <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="document.documentElement.lang = 'it'">
@@ -69,8 +82,8 @@
           <button class="modal-close" id="close">close</button>
         </div>
       </div>
+      <!-- why does the script need to be here and not above? -->
       <script type="text/javascript" src="js/modal.js"></script>
-      <script type="text/javascript" src="js/tabs.js"></script>
       <nav> <!-- consider moving this into the header: http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/introducing-html5-footer-header-nav-article-section-and-aside-elements/ -->
         <ul class="site-nav">
           <li class="switch-button">
