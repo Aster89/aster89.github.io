@@ -23,6 +23,7 @@ Styleguide Input.switch
   cursor: pointer;
   width: auto;
   padding: 0.5em 1em;
+  transition: all var(--transition-time);
 }
 
 .switch-button > input:checked + label {
