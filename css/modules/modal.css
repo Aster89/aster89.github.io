@@ -1,6 +1,6 @@
 .WIP {
-  --yellow: #f1c923;
-  --grey: #333;
+  --yellow: hsl(48,88%,54%);
+  --grey: hsl(0,0%,20%);
   color: var(--yellow);
   text-align: center;
   font-weight: bolder;

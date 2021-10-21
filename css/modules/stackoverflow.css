@@ -28,8 +28,8 @@ Styleguide External.stackoverflow
   --bronze: hsl(28, 31%, 52%);
   --silver: hsl(210, 3%, 61%);
   --gold: hsl(45, 100%, 47%);
-  --border: #696f75;
-  color: #c4c8cc;
+  --border: hsl(210, 5%, 44%);
+  color: hsl(210, 7%, 78%);
   background-color: hsl(0, 0%, 22.5%);
   font-size: small;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Liberation Sans", sans-serif;
