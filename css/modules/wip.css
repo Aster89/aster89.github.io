@@ -1,0 +1,35 @@
+@property --offset {
+  syntax: '<length>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@keyframes stripes-offset {
+  0% {
+    --offset: 20px;
+  }
+  100% {
+    --offset: 0px;
+  }
+}
+
+.wip {
+  --yellow: hsl(48,88%,54%);
+  --grey: hsl(0,0%,20%);
+  color: var(--yellow);
+  text-align: center;
+  font-weight: bolder;
+}
+
+.wip::after {
+  content: "";
+  display: block;
+  height: 1em;
+  width: 80%;
+  animation: stripes-offset 1.5s linear infinite;
+  background-image: repeating-linear-gradient(-45deg, var(--yellow) var(--offset), var(--yellow) calc(var(--offset) + 10px), var(--grey) calc(var(--offset) + 10px), var(--grey) calc(var(--offset) + 20px));
+  margin: auto;
+  margin-top: 0.5em;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em 0.4em var(--shadow), inset -0.1em -0.1em 0.4em black;
+}
