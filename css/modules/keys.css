@@ -1,4 +1,16 @@
-/* write KSS doc for this */
+/*
+Keyboard keys
+
+A class to show text in a key-like rectangle.
+
+**Note**: the border of the key has color `var(--even-ligher-black)`.
+
+Markup:
+Hit <span class="key">Enter</span> to continue.
+
+Styleguide Rendering.Keyboard key
+*/
+
 .key {
   border-width: 1px;
   border: 1px solid var(--even-ligher-black); /* change this to a brand color */
