@@ -36,9 +36,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--fg-color);
-}
-
-body {
+  min-width: 185px;
   margin: 0;
 }
 

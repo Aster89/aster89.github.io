@@ -1,3 +1,5 @@
+/* At 280px width elements need to become shorter,
+ * maybe using icons instead of text */
 .site-nav {
   display: flex;
   list-style-type: none;
