@@ -11,8 +11,8 @@
       @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
     </style>
-    <script type="text/javascript" src="js/stackoverflow.js"></script>
-    <script type="text/javascript" src="js/tabs.js"></script>
+    <script type="text/javascript" defer src="js/stackoverflow.js"></script>
+    <script type="text/javascript" defer src="js/tabs.js"></script>
   </head>
   <body onload="load_stackoverflow_info()">
     <div class="body centered-container"> <!-- this double container pattern is to avoid getting blind when opening dev tools -->
@@ -245,7 +245,11 @@
       </main>
       <footer class="footer panel box-shadow text-shadow">
         <div class="footer__inner panel__header">
-          Copyright &copy; <script type="text/javascript" src="js/year.js"></script> Enrico Maria De Angelis
+          Copyright &copy;
+          <script>
+            document.write([new Date().getFullYear()].map(x => x == 2021 ? x : "2021-" + String(x))[0])
+          </script>
+          Enrico Maria De Angelis
         </div>
       </footer>
       <!--Stuff to put somewhere
