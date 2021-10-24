@@ -31,7 +31,6 @@ Styleguide External.stackoverflow
   --border: hsl(210, 5%, 44%);
   color: hsl(210, 7%, 78%);
   background-color: hsl(0, 0%, 22.5%);
-  font-size: small;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Liberation Sans", sans-serif;
   display: flex;
   flex-direction: row;
@@ -42,12 +41,11 @@ Styleguide External.stackoverflow
   border-radius: 0.15em;
 }
 
-.stackoverflow > * {
+.stackoverflow * {
   align-self: center;
 }
 
 .stackoverflow * + * {
-  align-self: center;
   padding: 0;
   margin: 0 0 0 0.6em;
 }

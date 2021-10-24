@@ -33,7 +33,6 @@
 
 .social-links a + .stackoverflow {
   position: absolute;
-  top: 3em;
 }
 
 .social-links a:not(:hover) + .stackoverflow {

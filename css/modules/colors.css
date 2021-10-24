@@ -32,4 +32,11 @@
 
 .transparent-50 {
   opacity: 50%;
+  position: relative; /* Setting these two in order to */
+  z-index: -1;        /* prevent the element to come up
+                       * in the stack because of the <1
+                       * opacity. See also these:
+                       *   - https://stackoverflow.com/a/11742116/5825294
+                       *   - https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+                       */
 }
