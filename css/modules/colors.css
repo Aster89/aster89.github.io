@@ -19,6 +19,8 @@
   --white: hsl(210, 25%, 98%);
   --down-right-box-shadow: 0.1em 0.1em 0.4em var(--shadow);
   --brand-glow: 0 0 1em 0.3em var(--brand-color-adot5);
+  --warning-yellow: hsl(48,88%,54%);
+  --warning-grey: hsl(0,0%,20%);
   /*
    * Colors below are taken from
    * https://www.color-hex.com/color-palette/36646

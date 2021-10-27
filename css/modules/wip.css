@@ -14,9 +14,7 @@
 }
 
 .wip {
-  --yellow: hsl(48,88%,54%);
-  --grey: hsl(0,0%,20%);
-  color: var(--yellow);
+  color: var(--warning-yellow);
   text-align: center;
   font-weight: bolder;
 }
@@ -27,7 +25,7 @@
   height: 1em;
   width: 80%;
   animation: stripes-offset 1.5s linear infinite;
-  background-image: repeating-linear-gradient(-45deg, var(--yellow) var(--offset), var(--yellow) calc(var(--offset) + 10px), var(--grey) calc(var(--offset) + 10px), var(--grey) calc(var(--offset) + 20px));
+  background-image: repeating-linear-gradient(-45deg, var(--warning-yellow) var(--offset), var(--warning-yellow) calc(var(--offset) + 10px), var(--warning-grey) calc(var(--offset) + 10px), var(--warning-grey) calc(var(--offset) + 20px));
   margin: auto;
   margin-top: 0.5em;
   border-radius: 0.4em;
