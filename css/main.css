@@ -10,6 +10,7 @@
  */
 
 @import url('modules/variables.css');
+@import url('modules/dark-light-mode.css');
 @import url('modules/base-styles.css');
 @import url('modules/headings.css');
 @import url('modules/border-box-fix.css');
