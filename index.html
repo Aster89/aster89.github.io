@@ -38,7 +38,7 @@
             <li><a target="_blank" href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
           </ul>
           <div class="choice-picker">
-            <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="document.documentElement.lang = 'it'">
+            <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="setLanguage('it')">
             <label for="lang-it" title="Italiano">
               <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
                 <rect width="3" height="2" fill="#009246"/>
@@ -46,8 +46,8 @@
                 <rect width="1" height="2" x="2" fill="#ce2b37"/>
               </svg>
             </label>
-            <input id="lang-uk" class="hidden" type="radio" name="choose-language" onclick="document.documentElement.lang = 'en'" checked="checked">
-            <label for="lang-uk" title="English">
+            <input id="lang-en" class="hidden" type="radio" name="choose-language" onclick="setLanguage('en')">
+            <label for="lang-en" title="English">
               <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
                 <clipPath id="s">
                 <path d="M0,0 v30 h60 v-30 z"/>
@@ -279,6 +279,7 @@
       https://www.klaasnotfound.com/2017/02/16/proper-multilingual-site-with-github-pages-and-jekyll/
       -->
       </div>
+      <script type="text/javascript" defer src="js/language.js"></script>
       <script type="text/javascript" defer src="js/stackoverflow.js"></script>
       <script type="text/javascript" defer src="js/tabs.js"></script>
   </body>
