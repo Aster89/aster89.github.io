@@ -93,3 +93,20 @@ Styleguide External.stackoverflow
 .stackoverflow #gold-badges {
   --badge-color: var(--gold);
 }
+
+a#stackoverflow + .stackoverflow {
+  transform: translate(-50%) scale(0.8);
+}
+
+a#stackoverflow:hover + .stackoverflow {
+  text-decoration: none;
+  transition: opacity var(--transition-time);
+}
+
+a#stackoverflow + .stackoverflow {
+  position: absolute;
+}
+
+a#stackoverflow:not(:hover) + .stackoverflow {
+  opacity: 0;
+}

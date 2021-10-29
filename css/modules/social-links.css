@@ -15,26 +15,8 @@
   font-size: larger;
 }
 
-.social-links a {
-  position: relative;
-}
-
 .social-links a:hover {
   text-decoration: none;
   transform: scale(1.2);
   transition: transform var(--transition-time);
-}
-
-.social-links a:hover + .stackoverflow {
-  text-decoration: none;
-  transform: translate(-50%) scale(0.8);
-  transition: opacity var(--transition-time);
-}
-
-.social-links a + .stackoverflow {
-  position: absolute;
-}
-
-.social-links a:not(:hover) + .stackoverflow {
-  opacity: 0;
 }
