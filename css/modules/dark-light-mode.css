@@ -5,16 +5,14 @@
 .dark-light-mode + label + div {
   position: absolute;
   border: 1px solid black;
+  border-radius: 0.3em;
   color: var(--warning-grey);
   background-color: var(--warning-yellow);
   padding: 0.5ex;
+  left: auto;
+  opacity: 0;
 }
 
 .dark-light-mode + label:hover + div {
   opacity: 100%;
-  transform: translate(-50%);
-}
-
-.dark-light-mode + label:not(:hover) + div {
-  opacity: 0;
 }
