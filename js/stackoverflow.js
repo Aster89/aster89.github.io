@@ -7,10 +7,10 @@ function loadStackoverflowInfo() {
     if (items) {
       const reputation = items[0].reputation;
       const badge_counts = items[0].badge_counts;
-      document.getElementById('reputation').innerHTML = separateThousandsWithComma(reputation);
-      document.getElementById('bronze-badges').innerHTML = badge_counts.bronze;
-      document.getElementById('silver-badges').innerHTML = badge_counts.silver;
-      document.getElementById('gold-badges').innerHTML = badge_counts.gold;
+      $("#reputation").html(separateThousandsWithComma(reputation));
+      $("#bronze-badges").html(badge_counts.bronze);
+      $("#silver-badges").html(badge_counts.silver);
+      $("#gold-badges").html(badge_counts.gold);
     }
   });
 }

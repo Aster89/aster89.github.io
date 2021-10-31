@@ -6,6 +6,6 @@ setLanguage(localStorage.getItem('lang'));
 
 function setLanguage(lang) {
   localStorage.setItem('lang', lang);
-  document.documentElement.lang = lang;
-  document.getElementById('lang-' + lang).checked = true;
+  $('[lang]:first').attr('lang', lang);
+  $('#lang-'+lang).attr('checked', true);
 }

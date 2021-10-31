@@ -19,8 +19,8 @@
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
 function changeTab(idNewTab) {
-  const sections = [...document.getElementById('main').getElementsByTagName('section')];
-  const idx = sections.indexOf(document.getElementById(idNewTab));
+  const sections = [...$('main').find('section')];
+  const idx = $(sections).index($('#'+idNewTab));
   sections.map(section => section.style.setProperty('display', 'none'));
   if (idx != -1) {
     sections[idx].style.setProperty('display', 'initial');
