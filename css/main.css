@@ -59,6 +59,17 @@ main {
   text-align: end;
 }
 
+a.my-email {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+a.my-email:hover {
+  transform: scale(1.05);
+  transition: transform var(--transition-time);
+}
+
 /* These 3 rulesets below are meant to ease developing for smartphone; when
  * I'll go for responsive design, I'll probably have to throw them away. */
 .main {
