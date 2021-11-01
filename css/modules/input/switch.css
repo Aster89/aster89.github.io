@@ -27,7 +27,7 @@ Styleguide Input.switch
 }
 
 .switch-button > input:checked + label {
-  box-shadow: var(--brand-glow);
+  box-shadow: var(--brand-glow-box-shadow);
   transform: translate(0.08em, 0.08em);
   background-color: var(--brand-color); /* probably I want to "transparentize"
                                            this color a bit..., in a 3D

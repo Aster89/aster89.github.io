@@ -1,7 +1,7 @@
 .box-shadow {
-  box-shadow: var(--down-right-box-shadow);
+  box-shadow: var(--down-right-shadow);
 }
 
 .text-shadow {
-  text-shadow: var(--down-right-box-shadow);
+  text-shadow: var(--down-right-shadow);
 }

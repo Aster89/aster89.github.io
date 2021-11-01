@@ -17,8 +17,9 @@
   --ligher-black: hsl(224, 13%, 34%);
   --even-ligher-black: hsl(226, 7%, 64%);
   --white: hsl(210, 25%, 98%);
-  --down-right-box-shadow: 0.1em 0.1em 0.4em var(--shadow);
-  --brand-glow: 0 0 1em 0.3em var(--brand-color-adot5);
+  --down-right-shadow: 0.1em 0.1em 0.4em var(--shadow);
+  --brand-glow-box-shadow: 0 0 1em 0.3em var(--brand-color-adot5);
+  --brand-glow-text-shadow: 0 0 1em var(--brand-color-adot5);
   --warning-yellow: hsl(48,88%,54%);
   --warning-grey: hsl(0,0%,20%);
   /*

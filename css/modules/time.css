@@ -23,5 +23,5 @@ Styleguide Time.time-interval
   border-radius: 100%;
   margin-top: 0.2em;
   background-color: var(--brand-color);
-  box-shadow: var(--down-right-box-shadow);
+  box-shadow: var(--down-right-shadow);
 }
