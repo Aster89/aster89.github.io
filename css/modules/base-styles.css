@@ -27,4 +27,5 @@ a:hover {
 }
 
 a:active {
+  text-shadow: var(--brand-glow-text-shadow);
 }
