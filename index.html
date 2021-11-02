@@ -81,30 +81,29 @@
         </div>
       </header>
       <div class="wip text-shadow">Work in progress&#8230;</div>
-      <!-- why does the script need to be here and not above? -->
       <nav> <!-- consider moving this into the header: http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/introducing-html5-footer-header-nav-article-section-and-aside-elements/ -->
         <ul class="site-nav">
           <li class="switch-button">
-            <input id="posts-radio" value="posts" class="hidden" type="radio" name="nav-tabs" onclick="changeTab(value)" checked>
+            <input class="hidden" type="radio" name="nav-tabs" id="posts-radio" value="posts" checked>
             <label for="posts-radio" class="box-shadow">Posts</label>
           </li>
           <li class="switch-button">
-            <input id="projects-radio" value="projects" class="hidden" type="radio" name="nav-tabs" onclick="changeTab(value)">
+            <input class="hidden" type="radio" name="nav-tabs" id="projects-radio" value="projects">
             <label for="projects-radio" class="box-shadow">Projects</label>
           </li>
           <li class="switch-button">
-            <input id="suggested-books-radio" value="suggested-books" class="hidden" type="radio" name="nav-tabs" onclick="changeTab(value)">
+            <input class="hidden" type="radio" name="nav-tabs" id="suggested-books-radio" value="suggested-books">
             <label for="suggested-books-radio" class="box-shadow">Reading</label>
           </li>
           <li class="switch-button">
-            <input id="about-me-radio" value="about-me" class="hidden" type="radio" name="nav-tabs" onclick="changeTab(value)">
+            <input class="hidden" type="radio" name="nav-tabs" id="about-me-radio" value="about-me">
             <label for="about-me-radio" class="box-shadow">Me</label>
           </li>
         </ul>
       </nav>
       <main id="main">
         <div class="main centered-container">
-          <section id="posts">
+          <section class="tab-page" id="posts-tab">
             <article class="post-entry">
               <h4 class="time-interval text-shadow handwriting">01/09/2021</h4>
               <div class="panel panel--rounded box-shadow text-shadow">
@@ -159,7 +158,7 @@
               </div>
             </article>
           </section>
-          <section id="about-me">
+          <section class="tab-page" id="about-me-tab">
             <div class="cv-entry">
               <h4 class="time-interval text-shadow handwriting">06/2020&mdash;present</h4>
               <div class="panel panel--rounded box-shadow text-shadow">

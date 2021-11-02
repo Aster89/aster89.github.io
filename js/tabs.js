@@ -16,13 +16,27 @@
 // add, because I'm hardcoding the `posts` word in the selector, which is not
 // really nice.
 //
+// Furthermore, the JavaScript/jQuery solution also enables history to work
+// for tabs, which is good.
+//
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
-function changeTab(idNewTab) {
-  const sections = [...$('main').find('section')];
-  const idx = $(sections).index($('#'+idNewTab));
-  sections.map(section => section.style.setProperty('display', 'none'));
-  if (idx != -1) {
-    sections[idx].style.setProperty('display', 'initial');
+$(document).ready(function() {
+  // change visible tab and selected radio button on hash change
+  $(window).on('hashchange', function() {
+    $('.tab-page').hide();
+    $('.tab-page' + location.hash + '-tab').show();
+    $('nav input[value=' + location.hash.substr(1) + ']').prop('checked', true);
+  });
+
+  // change hash on radio button selection
+  $('nav > .site-nav input').click(function() {
+    location.hash = $(this).val().toString();
+  });
+
+  // start-up
+  if (location.hash.length == 0) {
+    location.hash = $('nav input[checked]').val().toString();
   }
-}
+  $(window).trigger('hashchange');
+});
