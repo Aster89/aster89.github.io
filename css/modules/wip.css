@@ -22,12 +22,13 @@
 .wip::after {
   content: "";
   display: block;
-  height: 1em;
+  --height: 1em;
+  height: var(--height);
   width: 80%;
   animation: stripes-offset 1.5s linear infinite;
   background-image: repeating-linear-gradient(-45deg, var(--warning-yellow) var(--offset), var(--warning-yellow) calc(var(--offset) + 10px), var(--warning-grey) calc(var(--offset) + 10px), var(--warning-grey) calc(var(--offset) + 20px));
   margin: auto;
   margin-top: 0.5em;
-  border-radius: 0.4em;
+  border-radius: var(--height);
   box-shadow: 0.1em 0.1em 0.4em var(--shadow), inset -0.1em -0.1em 0.4em black;
 }
