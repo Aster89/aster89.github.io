@@ -18,7 +18,7 @@ Styleguide Copyright
 .footer__inner {
   text-align: center;
   font-family: var(--main-font);
-  font-size: .6em;
+  font-size: 0.6rem;
   padding: 1em 0;
   color: var(--even-ligher-black);
   text-shadow: initial;
