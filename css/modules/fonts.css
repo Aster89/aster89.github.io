@@ -1,40 +1,27 @@
 body {
   --main-font: 'Lato', sans-serif;
   --handwriting: 'Dancing Script', cursive;
+  --handwriting-to-main-font-ratio: 1.53;
 }
 
 body {
   font-family: var(--main-font);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-size: var(--size);
+  --h1-size: 1.3rem;
+  --h6-size: 0.7rem;
+}
+
+h1 { --size: calc(5 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+h2 { --size: calc(4 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+h3 { --size: calc(3 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+h4 { --size: calc(2 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+h5 { --size: calc(1 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+h6 { --size: calc(0 / 5 * (var(--h1-size) - var(--h6-size)) + var(--h6-size)); }
+
 .handwriting {
   font-family: var(--handwriting);
-}
-
-/* Reset typical defaults for headings,
- * so I can customize knowing what I'm
- * dealing with.
- */
-h1 {
-  font-size: 2em
-}
-
-h2 {
-  font-size: 1.5em
-}
-
-h3 {
-  font-size: 1.17em
-}
-
-h4 {
-  font-size: 1em
-}
-
-h5 {
-  font-size: 0.83em
-}
-
-h6 {
-  font-size: 0.67em
+  font-size: calc(var(--size) * var(--handwriting-to-main-font-ratio));
 }
