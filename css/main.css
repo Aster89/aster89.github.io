@@ -69,13 +69,11 @@ a.my-email:hover {
   transition: transform var(--transition-time);
 }
 
-/* These 3 rulesets below are meant to ease developing for smartphone; when
+/* These 2 rulesets below are meant to ease developing for smartphone; when
  * I'll go for responsive design, I'll probably have to throw them away. */
 .main {
-  /* while developing for smartphone */
   max-width: 300px;
 }
 .body {
-  /* while developing for smartphone */
   max-width: 350px;
 }
