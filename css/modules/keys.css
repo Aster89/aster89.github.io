@@ -12,12 +12,14 @@ Styleguide Rendering.Keyboard key
 */
 
 .key {
+  font-family: monospace;
+  font-size: 0.6em;
   border-width: 1px;
   border: 1px solid var(--even-ligher-black); /* change this to a brand color */
   border-radius: 0.3em;
   border-bottom-width: 2px;
-  font-size: 0.4em;
   padding: 0.1em 0.2em;
-  margin: 0 1px;
-  font: 8px monospace;
+  display: inline-block;
+  transform: translateY(-0.25em);
+  margin: 0 1px -1em 1px;
 }
