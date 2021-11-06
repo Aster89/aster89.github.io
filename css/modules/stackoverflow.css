@@ -43,6 +43,7 @@ Styleguide External.stackoverflow
 
 .stackoverflow * {
   align-self: center;
+  font-size: initial;
 }
 
 .stackoverflow * + * {
