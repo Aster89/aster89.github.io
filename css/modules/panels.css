@@ -73,11 +73,14 @@ Styleguide Panel.panel.header
 }
 
 .panel__header .panel-icon {
-  background: transparent;
   position: absolute;
   --height: 2em;
-  height: var(--height);
   left: 1em;
   bottom: calc(-0.5*var(--height));
-  /* filter: brightness(0) invert(1); *//* not sure if it's nicer with or without this */
+}
+
+.panel__header img.panel-icon,
+.panel__header .panel-icon img {
+  background: transparent;
+  height: var(--height);
 }
