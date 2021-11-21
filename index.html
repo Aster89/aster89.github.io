@@ -37,7 +37,7 @@
           </div>
           <ul class="social-links">
             <li>
-              <a id="stackoverflow" target="_blank" href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a>
+              <a id="stackoverflow" href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a>
               <div class="stackoverflow box-shadow">
                 <img class="avatar" src="https://graph.facebook.com/10207587812237236/picture?type=large" alt="?"/>
                 <span id=reputation>?</span>
@@ -48,8 +48,8 @@
                 </ul>
               </div>
             </li>
-            <li><a target="_blank" href="https://github.com/Aster89" class="fa fa-github"></a></li>
-            <li><a target="_blank" href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
+            <li><a href="https://github.com/Aster89" class="fa fa-github"></a></li>
+            <li><a href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
           </ul>
           <div class="choice-picker">
             <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="setLanguage('it')">
@@ -189,8 +189,8 @@ Ovl ovl2{ovl}; // this triggers the compilation error
                   however, making <code>ovl</code> a <code>const</code> object solves the problem, which gave me some food for thoughts.
                   </p>
 
-                  <p>By peeping for some time into <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/functional/partial.hpp" target="_blank"><code>hana::partial</code></a>
-                                    and <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/functional/overload.hpp" target="_blank"><code>hana::overload</code></a>
+                  <p>By peeping for some time into <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/functional/partial.hpp"><code>hana::partial</code></a>
+                                    and <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/functional/overload.hpp"><code>hana::overload</code></a>
                   I could later make up a less minimal, but more meaningful example:
                                     </p>
                   <pre><code class="language-cpp">
@@ -211,8 +211,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error
                   <p>To understand what's going on, I had to look once more,
                   and for more than just a few minutes, into the implementation of
                   <a
-                    href="https://github.com/boostorg/hana/blob/998033e9dba8c82e3c9496c274a3ad1acf4a2f36/include/boost/hana/functional/overload.hpp#L41-L71"
-                    target="_blank"><code>hana::overload_t</code></a>,
+                    href="https://github.com/boostorg/hana/blob/998033e9dba8c82e3c9496c274a3ad1acf4a2f36/include/boost/hana/functional/overload.hpp#L41-L71"><code>hana::overload_t</code></a>,
                   and to play a bit the role of the compiler, by "manually
                   instantiating" it:</p>
                   <pre><code>
