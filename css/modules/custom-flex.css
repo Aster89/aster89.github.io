@@ -1,0 +1,104 @@
+/*
+Flex-box with center-spaced items
+
+Flex-box with first item flushed left, last item flushed right, and all other
+evenly speced with respect to their centers.
+
+The first example below shows a flex-box with evenly spaced items that share the same width.
+
+The second example shows what happens when the widths are different: the items shift to make
+the space **between** them equal; the consequence is that their centers are not evenly spaced,
+for instance (the center is approximately highlighted by the 1px wide red lines.
+
+The third example shows the solution that this module proposes:
+
+  - using `class="centers-based-flex"` for the element that is the flex-box
+  - wrapping each of the "natural" items of the `flex`box in a dedicated HTML element (e.g. a `div`)
+
+The CSS of this module then takes care of applying the styles necessary to
+
+  - declare `display: flex;`,
+  - set the `width: 0;` for the dedicated wrappers,
+  - making the `overflow: visible;` for those wrappers,
+  - translating the actual items (those inside the _ad-hoc_ wrappers) to center them
+   (except the first and last, which are translated such that they don't overflow the
+   `flex`box).
+
+**Note**: see also [this (first animated example)](https://stackoverflow.com/a/32583512/5825294).
+
+Markup:
+flex-box with items of equal length
+<div style="width: 25em; border: solid 1px black; display: flex; justify-content: space-between;" class="">
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+</div>
+<br>
+flex-box with items of different length
+<div style="width: 25em; border: solid 1px black; display: flex; justify-content: space-between;" class="">
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 1em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 3em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 2em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 2em;"></div>
+  <div style="background-color: blue; opacity: 50%; height: 1em; width: 4em;"></div>
+</div>
+<div style="width: 25em; border: solid 1px black; display: flex; justify-content: space-between;" class="">
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+</div>
+<br>
+flex-box with items of different length, but distributed with respect to their center
+<div style="width: 25em; border: solid 1px black;" class="centers-based-flex">
+  <div>
+    <div style="background-color: green; opacity: 50%; height: 1em; width: 1em;"></div>
+  </div>
+  <div>
+    <div style="background-color: green; opacity: 50%; height: 1em; width: 3em;"></div>
+  </div>
+  <div>
+    <div style="background-color: green; opacity: 50%; height: 1em; width: 2em;"></div>
+  </div>
+  <div>
+    <div style="background-color: green; opacity: 50%; height: 1em; width: 2em;"></div>
+  </div>
+  <div>
+    <div style="background-color: green; opacity: 50%; height: 1em; width: 4em;"></div>
+  </div>
+</div>
+<div style="width: 25em; border: solid 1px black; display: flex; justify-content: space-between;" class="">
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+  <div style="background-color: red; opacity: 50%; height: 1em; width: 1px;"></div>
+</div>
+
+Styleguide Customization.flex-box
+*/
+
+.centers-based-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.centers-based-flex > * {
+  width: 0;
+  overflow: visible;
+}
+
+.centers-based-flex > *:nth-child(n) > * {
+  transform: translateX(-50%);
+}
+
+.centers-based-flex > *:nth-child(1) > * {
+  transform: translateX(0);
+}
+
+.centers-based-flex > *:nth-last-child(1) > * {
+  transform: translateX(-100%);
+}

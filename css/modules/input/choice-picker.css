@@ -40,20 +40,28 @@ Markup:
 Styleguide Input.choice-picker
 */
 
-.choice-picker > input + label > * {
-  display: inline-block;
+.choice-picker {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  justify-content: space-between;
+  margin: 0;
+  width: fit-content;
+}
+
+.choice-picker input + label > * {
   cursor: pointer;
   opacity: 0.5;
-  margin: 0.1em;
+  margin: 0.1em 0 0.1em 0.5em;
   vertical-align: top;
   transition: opacity var(--transition-time);
 }
 
-.choice-picker > input:hover + label > * {
+.choice-picker input:hover + label > * {
   opacity: 0.75;
 }
 
-.choice-picker > input:checked + label > * {
+.choice-picker input:checked + label > * {
   box-shadow: 0 0 0.2em 1px var(--shadow);
   opacity: 1;
 }

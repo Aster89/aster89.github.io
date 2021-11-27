@@ -26,58 +26,68 @@
   <body onload="loadStackoverflowInfo()">
     <div class="body centered-container"> <!-- this double container pattern is to avoid getting blind when opening dev tools -->
       <header>
-        <div class="top-bar box-shadow">
+        <div class="top-bar box-shadow centers-based-flex">
           <div>
-            <input id="toggle" class="toggle hidden dark-light-mode" type="checkbox"/>
-            <label for="toggle"></label>
             <div>
-              <span lang="en">dark and light mode coming soon&hellip;-ish</span>
-              <span lang="it">modalità chiara e scura in arrivo&hellip;</span>
+              <input id="toggle" class="toggle hidden dark-light-mode" type="checkbox"/>
+              <label for="toggle"></label>
+              <div>
+                <span lang="en">dark and light mode coming soon&hellip;-ish</span>
+                <span lang="it">modalità chiara e scura in arrivo&hellip;</span>
+              </div>
             </div>
           </div>
-          <ul class="social-links">
-            <li>
-              <a id="stackoverflow" href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a>
-              <div class="stackoverflow box-shadow">
-                <img class="avatar" src="https://graph.facebook.com/10207587812237236/picture?type=large" alt="?"/>
-                <span id=reputation>?</span>
-                <ul class="badges">
-                  <li id="gold-badges">?</li>
-                  <li id="silver-badges">?</li>
-                  <li id="bronze-badges">?</li>
-                </ul>
-              </div>
-            </li>
-            <li><a href="https://github.com/Aster89" class="fa fa-github"></a></li>
-            <li><a href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
-          </ul>
-          <div class="choice-picker">
-            <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="setLanguage('it')">
-            <label for="lang-it" title="Italiano">
-              <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
-                <rect width="3" height="2" fill="#009246"/>
-                <rect width="2" height="2" x="1" fill="#fff"/>
-                <rect width="1" height="2" x="2" fill="#ce2b37"/>
-              </svg>
-            </label>
-            <input id="lang-en" class="hidden" type="radio" name="choose-language" onclick="setLanguage('en')">
-            <label for="lang-en" title="English">
-              <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
-                <clipPath id="s">
-                <path d="M0,0 v30 h60 v-30 z"/>
-                </clipPath>
-                <clipPath id="t">
-                <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-                </clipPath>
-                <g clip-path="url(#s)">
-                <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-                <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
-                <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
-                <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
-                </g>
-              </svg>
-            </label>
+          <div>
+            <ul class="social-links">
+              <li><a href="https://github.com/Aster89" class="fa fa-github"></a></li>
+              <li>
+                <a id="stackoverflow" href="https://stackoverflow.com/users/5825294" class="fa fa-stack-overflow"></a>
+                <div class="stackoverflow box-shadow">
+                  <img class="avatar" src="https://graph.facebook.com/10207587812237236/picture?type=large" alt="?"/>
+                  <span id=reputation>?</span>
+                  <ul class="badges">
+                    <li id="gold-badges">?</li>
+                    <li id="silver-badges">?</li>
+                    <li id="bronze-badges">?</li>
+                  </ul>
+                </div>
+              </li>
+              <li><a href="https://www.linkedin.com/in/enrico-maria-de-angelis-1b9b1a116/" class="fa fa-linkedin"></a></li>
+            </ul>
+          </div>
+          <div>
+            <ul class="choice-picker">
+              <li>
+                <input id="lang-it" class="hidden" type="radio" name="choose-language" onclick="setLanguage('it')">
+                <label for="lang-it" title="Italiano">
+                  <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
+                    <rect width="3" height="2" fill="#009246"/>
+                    <rect width="2" height="2" x="1" fill="#fff"/>
+                    <rect width="1" height="2" x="2" fill="#ce2b37"/>
+                  </svg>
+                </label>
+              </li>
+              <li>
+                <input id="lang-en" class="hidden" type="radio" name="choose-language" onclick="setLanguage('en')">
+                <label for="lang-en" title="English">
+                  <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
+                    <clipPath id="s">
+                    <path d="M0,0 v30 h60 v-30 z"/>
+                    </clipPath>
+                    <clipPath id="t">
+                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+                    </clipPath>
+                    <g clip-path="url(#s)">
+                    <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                    <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+                    <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                    </g>
+                  </svg>
+                </label>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="page-title-and-author">

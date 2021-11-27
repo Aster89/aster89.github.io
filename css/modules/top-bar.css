@@ -1,13 +1,16 @@
 .top-bar {
   padding: 0.5em 1em;
   background-color: var(--brand-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: fixed;
   width: 100%;
   left: 0;
   top: 0;
   z-index: 1;
+  align-items: center; /* not sure this is the right module for this property,
+                        * because this property applies to a flex-box, and I
+                        * am setting up the flex-box via another module; so,
+                        * in some way, having this property in the present
+                        * module, I'm kind of making the assumption that
+                        * someother module has made this element a flex-box.
+                        */
 }
-
