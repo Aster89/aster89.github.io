@@ -1,3 +1,5 @@
+/* make documentation for radar diagram */
+
 .trigonometry * {
   /* https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97 */
   --alpha: calc(var(--alpha-deg) * 3.141593 / 180);
@@ -8,7 +10,6 @@
   --tan-term4: calc((17/315) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half));
   --t: calc(var(--tan-term1) + var(--tan-term2) + var(--tan-term3) + var(--tan-term4));
   --sin-alpha: calc(2 * var(--t) / (1 + var(--t) * var(--t)));
-  /*--cos-alpha: calc((1 - var(--t) * var(--t)) / (1 + var(--t) * var(--t)));*/
 }
 
 .round-canvas {
@@ -18,31 +19,39 @@
   /* radius is assumed to be in `em`, but the unit can't be given explicitly; see below the reason */
   --radius-em: 10;
   --line-width: 0.5px;
-  margin: 2.5em auto;
   height: calc(2em * var(--radius-em) + var(--line-width));
   width: calc(2em * var(--radius-em) + var(--line-width));
   border-radius: 100%;
   /* similary, angles can't explicitly use the `deg` unit */
   --alpha-deg: calc(360 / var(--n));
-  background: linear-gradient(30deg,  transparent calc(50% - var(--line-width)), var(--panel-bg-color-lighter) calc(50% - var(--line-width) / 2), var(--panel-bg-color-lighter) calc(50% + var(--line-width) / 2), transparent calc(50% + var(--line-width)), transparent 100%),
-              linear-gradient(90deg,  transparent calc(50% - var(--line-width)), var(--panel-bg-color-lighter) calc(50% - var(--line-width) / 2), var(--panel-bg-color-lighter) calc(50% + var(--line-width) / 2), transparent calc(50% + var(--line-width)), transparent 100%),
-              linear-gradient(150deg, transparent calc(50% - var(--line-width)), var(--panel-bg-color-lighter) calc(50% - var(--line-width) / 2), var(--panel-bg-color-lighter) calc(50% + var(--line-width) / 2), transparent calc(50% + var(--line-width)), transparent 100%),
-              repeating-radial-gradient(var(--panel-bg-color-lighter), var(--panel-bg-color-lighter) calc(var(--line-width) / 2), transparent var(--line-width), transparent calc(1em * var(--radius-em) / 5 - var(--line-width)), var(--panel-bg-color-lighter) calc(1em * var(--radius-em) / 5 - var(--line-width) / 2), var(--panel-bg-color-lighter) calc(1em * var(--radius-em) / 5));
+  background: linear-gradient(30deg,  transparent                     calc(50% - var(--line-width)),
+                                      var(--panel-bg-color-lighter)   calc(50% - var(--line-width) / 2),
+                                      var(--panel-bg-color-lighter)   calc(50% + var(--line-width) / 2),
+                                      transparent                     calc(50% + var(--line-width)),
+                                      transparent                     100%),
+              linear-gradient(90deg,  transparent                     calc(50% - var(--line-width)),
+                                      var(--panel-bg-color-lighter)   calc(50% - var(--line-width) / 2),
+                                      var(--panel-bg-color-lighter)   calc(50% + var(--line-width) / 2),
+                                      transparent                     calc(50% + var(--line-width)),
+                                      transparent 100%),
+              linear-gradient(150deg, transparent                     calc(50% - var(--line-width)),
+                                      var(--panel-bg-color-lighter)   calc(50% - var(--line-width) / 2),
+                                      var(--panel-bg-color-lighter)   calc(50% + var(--line-width) / 2),
+                                      transparent                     calc(50% + var(--line-width)),
+                                      transparent 100%),
+              repeating-radial-gradient(var(--panel-bg-color-lighter),
+                                        var(--panel-bg-color-lighter) calc(var(--line-width) / 2),
+                                        transparent                   var(--line-width),
+                                        transparent                   calc(1em * var(--radius-em) / var(--max-skill-adj) - var(--line-width)),
+                                        var(--panel-bg-color-lighter) calc(1em * var(--radius-em) / var(--max-skill-adj) - var(--line-width) / 2),
+                                        var(--panel-bg-color-lighter) calc(1em * var(--radius-em) / var(--max-skill-adj)));
+  overflow: hidden; /* to prevent the transparent half of the triangles
+                     * from protruding beyond the element borders (which
+                     * can result in a nasty behavior where an horizontal
+                     * scroll bar appears because those elements protrude
+                     * beyond `<html>`)
+                     */
 }
-
-/*.round-canvas::before {
-  display: block;
-  content: '';
-  height: calc(3.5em + 2em * var(--radius-em));
-  width: calc(3.5em + 2em * var(--radius-em));
-  border-radius: 100%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-origin: 0 0;
-  transform: translate(-50%,-50%);
-  border: 1px solid black;
-}*/
 
 .round-canvas .wedge > div {
   display: block;
@@ -52,7 +61,7 @@
   left: 50%;
   top: 50%;
   transform-origin: 0 0;
-  transform: rotate(calc(var(--i) * var(--alpha-deg) * 1deg)) translate(-50%, calc(-100% - var(--radius-em) * 1em));
+  transform: rotate(calc(var(--i) * var(--alpha-deg) * 1deg)) translate(-50%, calc(-1 * var(--radius-em) * 1em));
 }
 
 .round-canvas .wedge > div > img {
@@ -75,12 +84,13 @@
   transform: rotate(calc(-90deg + var(--i) * var(--alpha-deg) * 1deg)) skew(calc((90 - var(--alpha-deg)) * 1deg)) scaleY(calc(var(--sin-alpha) * (var(--side2) / var(--side1))));
 }
 
-.programming-skills {
-  align-content: center;
+.programming-skills  h2 {
+  text-align: center;
 }
 
 .programming-skills * {
-  --side1: calc(var(--radius-em) * var(--this-skill) / var(--max-skill));
-  --side2: calc(var(--radius-em) * var(--next-skill) / var(--max-skill));
+  --max-skill-adj: calc(var(--max-skill) + 1);
+  --side1: calc(var(--radius-em) / var(--max-skill-adj) * var(--this-skill));
+  --side2: calc(var(--radius-em) / var(--max-skill-adj) * var(--next-skill));
   --n: var(--number-of-skills);
 }
