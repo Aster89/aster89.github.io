@@ -128,6 +128,188 @@
         <div class="main centered-container">
           <section class="tab-page" id="posts-tab">
             <article class="post-entry">
+              <h6 class="time-interval text-shadow handwriting">06/12/2021</h6>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header">
+                  <img class="panel-icon" src="img/c++-logo.png" alt="">
+                  <h2><span lang="en">Bitten by</span><span lang="it">Scottato dalla</span> SSO</h2>
+                </div>
+                <div class="text-shadow">
+                  <p>I was working on a text processing tool that
+                  accepts text in a form as simple as
+                  <pre><code class="language-cpp">
+std::string input{"this is the text the algorithm is fed with"};
+                  </code></pre>
+                  and does simple stuff like filtering and transforming text (e.g.
+                  removing vocals, converting tabs to spaces, &hellip;,
+                  whatever comes to mind), eventually showing the string in some
+                  GUI with colored overlays based on the outcome of those text
+                  operations.
+                  </p>
+
+                  <p>Instead of performing these operations eagerly, by dealing with
+                  actual <code class=language-cpp">std::string</code>s (which
+                  would mean that potentially a lot of
+                  <code class=language-cpp">std::string</code>
+                  are constructed, copied, and moved around), the algorithm
+                  works with views, and returns a collection of views on the input string,
+                  without actually instantiating, copying, or moving
+                  any <code class=language-cpp">std::string</code>.
+                  Making the simplifying assumption that the algorithm truly retuns
+                  one single <code class="language-cpp">std::string_view</code>, the code
+                  could look like this
+                  <pre><code class="language-cpp">
+std::string_view algo(std::string const&amp; s) {
+    // very complex algorithm: chops off first and last characters
+    return std::string_view(s.c_str() + 1,
+                            s.size() - 1);
+}
+                  </code></pre>
+                  and be used like this
+                  <pre><code class="language-cpp">
+auto out = algo(input);
+                  </code></pre>
+                  </p>
+
+                  Now, in the application I was working on, the
+                    <code>out</code> object played the role of the <i>model</i>
+                    in the <a href="https://it.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM pattern</a>,
+                    and it was not directly used in the GUI.
+                  </p>
+
+                  <p>What was used in the GUI were two things:
+                  <ul>
+                    <li>the actual text contained in <code>input</code>
+                      in order to&hellip; well, show the text on screen,</li>
+                    <li>and the <a href="https://it.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel"><i>viewmodel</i></a>
+                      which, in practice, just consisted of <code>out.length()</code>.
+                    </li>
+                  </ul>
+                  And how where these two things made available to the front end? By wrapping them both
+                  in a class like this
+                  <pre><code class="language-cpp">
+struct TextAndViewmodel {
+    std::string s;
+    int vm;
+    TextAndViewmodel(std::string&amp;&amp; s, int vm)
+        : s{std::move(s)}, vm{vm}
+    {}
+};
+                  </code></pre>
+                  and that's were a silent bug was waiting for me! Can you spot it?
+                  </p>
+
+                  <p>The bug is in that <code>TextAndViewmodel</code> holds the
+                  text by value (rather than via a <code>std::unique_ptr</code>
+                  or some other owning wrapper with pointer or reference
+                  semantics).</p>
+
+                  <p>Because of that, when such an object was initialized, for instance
+                  via
+                  <pre><code class="language-cpp">
+TextAndViewmodel tv{std::move(input), out.length()};
+                  </code></pre>
+                  the <code>input</code> was moved from under the
+                  <code>std::string_view</code> returned by the algorithm
+                  (<code>out</code>), which end up
+                  being dangling.
+                  </p>
+
+                  <p>To be precise, this is was not yet a bug: the <code>std::string</code>
+                  underlying <code>out</code> was gone forever, but <code>out.length()</code>
+                  was not affected, so the <code>TextAndViewmodel</code> object was just fine.
+                  </p>
+
+                  <p>It became a bug as soon as, for other reasons, I had to include
+                  <code>out</code> itself into <code>tv</code>,
+                  and make use of it to decide whether <code>vm</code> should be used or not
+                  for each of the <code>TextAndViewmodel</code> objects (it was
+                  a kind of a last-minute filtering right before sending stuff to
+                  the GUI).
+                  <pre><code class="language-cpp">
+struct TextAndViewmodel {
+    std::string s;
+    std::string_view sv;
+    TextAndViewmodel(std::string&amp;&amp; s,
+                     std::string_view vm)
+        : s{std::move(s)}, sv{sv}
+    {}
+    // if the client needs what was `vm` in the
+    // previous snippet, they can go for `sv.length()`
+};
+                  </code></pre>
+                  At that point, indeed, I started noticing some
+                  weird things going on in the GUI:
+                  <ul>
+                    <li>the text was ok, because <code>input</code> was moved into <code>tv</code>,</li>
+                    <li>and for "normally sized" text files everything was fine in all respects,</li>
+                    <li>but whenever I tried with a few characters long files, the GUI
+                      behaved as the filtering I mentioned above never happened, even if it should.</li>
+                  </ul>
+                  </p>
+
+                  <p>After spending some time (I really can't unveil how much) debugging and banging my
+                  head on the monitor, I understood what was going on: <a
+                                                                           href="https://stackoverflow.com/questions/10315041/meaning-of-acronym-sso-in-the-context-of-stdstring">SSO</a>
+                  was biting me. Actually, the other way around: SSO is the only reason why I could see
+                  the bug, otherwise it could have lingered there, silent for a long while, waiting for
+                  somebody other than me, maybe a customer, to bite.</p>
+
+                  <p>So what was going on?</p>
+
+                  <p>When <code>input</code> was long enough and
+                  SSO wasn't kicking in, the <code>char
+                    const*</code> inside it was left intact, as the "movement"
+                  of resources simply consisted in the pointer held by
+                  <code>input</code> was copied into the one held by
+                  <code>tv.s</code>, and then set to <code>nullptr</code>
+                  (yes, <a
+                    href="https://stackoverflow.com/questions/3413470/what-is-stdmove-and-when-should-it-be-used"><code>std::move</code>
+                    doesn't move anything</a>).
+                  </p>
+                  <p>The consequence is that <code>out</code> was "legally"
+                  invalid, because <code>input</code> was
+                  <code>std::move</code>d from under it, but "romantically"
+                  (aka SSO not kicking in) still looking onto the correct area
+                  of memory.
+                  </p>
+
+                  <p>On the other hand, when SSO kicked in, then the actual <code>char</code>s
+                  stored in the "special short-string compartment" in
+                  <code>input</code> were truly copied, one by one, into the corresponding
+                  memebr of <code>tv.s</code>, and then freed, which for me resulted in
+                  <code>input</code> being left full of garbage <code>char</code>acters and,
+                  in turn, the filtering I mentioned not happening at all.
+                  </p>
+
+                  <p>In the process of debugging, I wrote this little code to print
+                  the string length for which the SSO is disabled (which is an implementation
+                  detail, by the way):
+                  <pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()
+{
+    std::string str1{""};
+    bool sso{true};
+    while (sso) {
+        str1 += "x";
+        char const* ptr = str1.c_str();
+        std::string str2{std::move(str1)};
+        sso = (void*)ptr != (void*)str2.c_str();
+        std::cout &lt;&lt; (void*)ptr &lt;&lt; std::endl;
+        std::cout &lt;&lt; (void*)str2.c_str() &lt;&lt; std::endl;
+        str1 = str2;
+    }
+    std::cout &lt;&lt; str1.length() &lt;&lt; std::endl;
+}
+                  </code></pre>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry">
               <h6 class="time-interval text-shadow handwriting">20/11/2021</h6>
               <div class="panel panel--rounded box-shadow text-shadow">
                 <div class="panel__header">
