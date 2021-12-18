@@ -1,3 +1,15 @@
+function incrementURLPage(url) {
+  // XXX: This is actually mutating `url`. Probably I don't care...  What about
+  // deep copying? Probably the garbage collector can do a good job...
+  return attachPageToURL(url, Number(url.searchParams.get('page')) + 1);
+
+  function attachPageToURL(url, page) {
+    // XXX: ditto
+    url.searchParams.set('page', page.toFixed(0));
+    return url;
+  }
+}
+
 function loadStackoverflowInfo() {
   const url = 'https://api.stackexchange.com/2.3/users/5825294?order=desc&sort=reputation&site=stackoverflow';
   fetch(url)
