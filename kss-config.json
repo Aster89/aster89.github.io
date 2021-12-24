@@ -8,6 +8,6 @@
       "../css/main.css"
     ],
     "js": [
-      "../js/docs.js"
+      "../js/swipeable-container.js"
     ]
 }

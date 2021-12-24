@@ -1,0 +1,63 @@
+/*
+Swipeable container
+
+
+A container with a `flex`box in it such that
+
+  - one item at a time is shown,
+  - swiping left/right moves to the previous/next element.
+
+I adapted it from [a very good tutorial on CSS
+Tricks](https://css-tricks.com/simple-swipe-with-vanilla-javascript/).  One
+difference is that, in that tutorial, `overflow-x: hidden;` is applied to to
+the whole `<body>` element, because each of the children of the swipeable
+container is meant to fit the whole body. In my solution, I want to be able to
+make any HTML element swipeable, so I wrap the solution from CSS Tricks in
+another element (which can be `<body>` but needn't be), and that is the one
+targeted by the module.
+
+_Note:_ The plain `<div>`, which is **inside** the `.swipeable-container` and contains
+the children to be swiped through, is necessary, because _it_ is the `flex`box, not
+the outer `.swipeable-container`.
+
+_Note:_ This module is accompained by some JavaScript.
+
+Markup:
+<div class="swipeable-container" style="margin: auto; width: 80%; border: 25px solid black;">
+  <div>
+    <div style="border-width: 25px; border-style: solid; border-color: red;">
+      <div style="margin: auto; width: 8em; height: 5em; background-color: red;"></div>
+    </div>
+    <div style="border-width: 25px; border-style: solid; border-color: green;">
+      <div style="margin: auto; width: 12em; height: 10em; background-color: green;"></div>
+    </div>
+    <div style="border-width: 25px; border-style: solid; border-color: blue;">
+      <div style="margin: auto; width: 16em; height: 15em; background-color: blue;"></div>
+    </div>
+  </div>
+</div>
+
+Styleguide Containers.swipeable-container
+*/
+
+.swipeable-container {
+  /* to avoid horizontal scroll bar */
+  overflow-x: hidden;
+}
+
+.swipeable-container > * {
+  --n: 1; /* probably only needed for no JavaScript, but in this case, the solution is broken anyway */
+  display: flex;
+  width: calc(var(--n, 1)*100%);
+  transform: translate(calc(var(--tx, 0px) + var(--i, 0)/var(--n)*-100%));
+}
+
+.swipeable-container > * > * {
+  width: calc(100%/var(--n));
+  user-select: none;
+  pointer-events: none;
+}
+
+.swipeable-container > .smooth {
+  transition: transform calc(var(--f, 1)*.5s) cubic-bezier(1, 1.59, .61, .74);
+}

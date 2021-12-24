@@ -14,6 +14,7 @@
 @import url('modules/base-styles.css');
 @import url('modules/border-box-fix.css');
 @import url('modules/double-container-pattern.css');
+@import url('modules/swipeable-container.css');
 @import url('modules/custom-flex.css');
 @import url('modules/colors.css');
 @import url('modules/fonts.css');
