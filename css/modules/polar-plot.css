@@ -1,0 +1,139 @@
+/*
+Maths and geometry
+
+**Note**: Many quantities in this module (e.g. `--canvas-radius-em`) are meant
+to be given without unit (e.g. `--canvas-radius-em` can be set to just `10`,
+not `10em`) because they are frequently divided by each other, which couldn't
+be done if they had a unit. Nonetheless, that unitless number is assigned a
+unit internally, and that unit should be included in the name of the variable
+so that the reader can understand how it's used (e.g. `--canvas-radius-em: 12`
+means that the `12` will be internally multiplied by `1em`).
+
+Styleguide Maths and geometry
+*/
+
+/*
+Triangles
+
+Creates a triangle according to the following inputs:
+
+  - `--side1-em` and `--side2-em`: the lengths of two of the triangle's sides,
+    let them be *side_1* and *side_2*, the former coming "before" the latter in
+    a clockwise sense, and the vertex between them being the orgin (that can be
+    `position`ed via dedicated rulesets);
+  - `--alpha-deg`: the angle between *side_1* and *side_2*;
+  - `--offset-deg`: the clockwise offset of *side_1* with respect to the positive vertical direction;
+  - `--color` (default: `black`): fill color of the triangle,
+  - `--opacity`: opacity of the filling of the triangle,
+
+**Implentation**: An `::after` pseudo-element with the shape of a square with
+side equal to `--side1-em` is created, then scaled along the y axis and skewed
+(according to the ratio between `--side1-em` and  `--side2-em`, and to
+`--alpha-deg` and its sine), and rotated (according to `--offset-deg`).
+
+**Note**: The dashed square in the example below is the one from which the
+triangle is obtained, and *it* (not the triangle) is what affects the document
+flow. Clearly, `position`ing the triangle allows one to remove the spacing that
+the dashed square would cause. See also the `.center-origin--after` class.
+
+Markup:
+<style>
+#untransformed-square {
+  position: relative;
+  left: 0;
+  right: 0;
+  width: 20em;
+  height: 20em;
+  display: block;
+  content: '';
+  border: 1px dashed black;
+}
+#untransformed-square + * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+</style>
+<div id="untransformed-square"></div>
+<div class="trigonometry triangle" style="--side1-em: 20; --side2-em: 8; --alpha-deg: 30; --offset-deg: 100; --color: red; --opacity: 100%;"></div>
+
+Weight: 2
+
+Styleguide Maths and geometry.triangles
+*/
+
+.trigonometry.triangle::after {
+  display: block;
+  content: '';
+  width: calc(1em * var(--side1-em));
+  height: calc(1em * var(--side1-em));
+  transform-origin: 0 0;
+  transform: rotate(calc(-90deg + var(--offset-deg) * 1deg))
+             skew(calc((90 - var(--alpha-deg)) * 1deg))
+             scaleY(calc(var(--sin-alpha) * (var(--side2-em) / var(--side1-em))));
+  --blur-distance: 0.25px; /* to soften the "diagonal" side */
+  background-image: linear-gradient(135deg, var(--color, black) calc(50% - var(--blur-distance)), transparent calc(50% + var(--blur-distance)));
+  opacity: var(--opacity, 100%);
+}
+
+/*
+Polar canvas
+
+Creates a polar canvas according to the following inputs:
+
+  - `--line-width`: width of the grid lines,
+  - `--canvas-radius-em`: multiplied by `1em` is approximately the radius of the canvas,
+  - `--n-radial-lines`: number of grid lines in the radial direction,
+  - `--grid-color`: the color of the grid lines.
+
+**Note**: The number of grid lines in the circumferential direction is 6 (or 3,
+depending how you look at it), and cannot be changed, because each line corresponds
+to a separate `linear-gradient`.
+
+**Note**: The rule `overflow: hidden;` is used to prevent some nasty effects.
+Specifically, since the diagrams are drawn via triangles, and since triangles
+are rendered as rectangles with 100% transpacenty on one side of a diagonal, it
+can happen that the transparent half of the rectangles protrudes beyond the
+elements borders, which can cause the appearance of an horizontal scroll bar.
+
+**Note**: The rule `position: relative;` is set to allow precise positioning of
+elements on top of the canvas.
+
+Weight: 3
+
+Markup:
+<div class="polar-canvas" style="--line-width: 2px; --canvas-radius-em: 3; --n-radial-lines: 3; --grid-color: red;"></div>
+
+Styleguide Maths and geometry.polar-canvas
+*/
+
+.polar-canvas {
+  display: block;
+  content: '';
+  position: relative;
+  height: calc(2em * var(--canvas-radius-em) + var(--line-width));
+  width: calc(2em * var(--canvas-radius-em) + var(--line-width));
+  border-radius: 100%;
+  background: linear-gradient(30deg,  transparent                calc(50% - var(--line-width)),
+                                      var(--grid-color, black)   calc(50% - var(--line-width) / 2),
+                                      var(--grid-color, black)   calc(50% + var(--line-width) / 2),
+                                      transparent                calc(50% + var(--line-width)),
+                                      transparent                100%),
+              linear-gradient(90deg,  transparent                calc(50% - var(--line-width)),
+                                      var(--grid-color, black)   calc(50% - var(--line-width) / 2),
+                                      var(--grid-color, black)   calc(50% + var(--line-width) / 2),
+                                      transparent                calc(50% + var(--line-width)),
+                                      transparent 100%),
+              linear-gradient(150deg, transparent                calc(50% - var(--line-width)),
+                                      var(--grid-color, black)   calc(50% - var(--line-width) / 2),
+                                      var(--grid-color, black)   calc(50% + var(--line-width) / 2),
+                                      transparent                calc(50% + var(--line-width)),
+                                      transparent                100%),
+              repeating-radial-gradient(var(--grid-color, black),
+                                        var(--grid-color, black) calc(var(--line-width) / 2),
+                                        transparent              var(--line-width),
+                                        transparent              calc(1em * var(--canvas-radius-em) / var(--n-radial-lines) - var(--line-width)),
+                                        var(--grid-color, black) calc(1em * var(--canvas-radius-em) / var(--n-radial-lines) - var(--line-width) / 2),
+                                        var(--grid-color, black) calc(1em * var(--canvas-radius-em) / var(--n-radial-lines)));
+  overflow: hidden;
+}

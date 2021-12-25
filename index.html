@@ -25,7 +25,7 @@
     <script src="highlight/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
   </head>
-  <body onload="loadStackoverflowInfo()">
+  <body onload="retrieveStackOverflowBadgesAndTotalRep(); retrieveStackOverflowRepByTag();">
     <div class="body centered-container"> <!-- this double container pattern is to avoid getting blind when opening dev tools -->
       <header>
         <div class="top-bar box-shadow centers-based-flex">
@@ -569,13 +569,73 @@ struct overload_t&lt;L1, L2, L3&gt;
           <section class="tab-page" id="about-me-tab">
             <div class="programming-skills">
               <h2 class="handwriting">Programming skills</h2>
-              <div class="trigonometry round-canvas centered-container img-shadow" style="--max-skill: 5; --number-of-skills: 6;">
-                <div class="wedge" style="--i: 0; --this-skill: 5; --next-skill: 4.5;"><div><img src="img/c++-logo.png" alt="C++" title="C++"></div></div>
-                <div class="wedge" style="--i: 1; --this-skill: 4.5; --next-skill: 4;"><div><img src="img/bash-logo.png" alt="bash" title="bash"></div></div>
-                <div class="wedge" style="--i: 2; --this-skill: 4; --next-skill: 3.5;"><div><img src="img/css3-logo.png" alt="CSS" title="CSS"></div></div>
-                <div class="wedge" style="--i: 3; --this-skill: 3.5; --next-skill: 2.5;"><div><img src="img/html-logo.png" alt="HTML" title="HTML"></div></div>
-                <div class="wedge" style="--i: 4; --this-skill: 2.5; --next-skill: 3.5;"><div><img src="img/javascript-logo.png" alt="JS" title="JavaScript"></div></div>
-                <div class="wedge" style="--i: 5; --this-skill: 3.5; --next-skill: 5;"><div><img src="img/haskell_logo_2.png" alt="Haskell" title="Haskell"></div></div>
+              <div id="radar-plot" class="radar-plot polar-canvas centered-container img-shadow" style=" --number-of-skills: 6;">
+                <div style="--i: 0;" title="c++">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 5; --next-skill: 4.5; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/c++-logo.png" alt="C++" title="c++">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
+                <div style="--i: 1;" title="bash">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 4.5; --next-skill: 4; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/bash-logo.png" alt="bash" title="bash">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
+                <div style="--i: 2;" title="css">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 4; --next-skill: 3.5; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/css3-logo.png" alt="CSS" title="css">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
+                <div style="--i: 3;" title="html">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 3.5; --next-skill: 2.5; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/html-logo.png" alt="HTML" title="html">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
+                <div style="--i: 4;" title="javascript">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 2.5; --next-skill: 3.5; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/javascript-logo.png" alt="JS" title="javascript">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
+                <div style="--i: 5;" title="haskell" id="haskell-icon">
+                  <div class="imho trigonometry triangle center-origin--after skill" style="--this-skill: 3.5; --next-skill: 5; --max-skill: 5;">
+                    <div class="polar-diagram-icon polar-position">
+                      <img src="img/haskell_logo_2.png" alt="Haskell" title="haskell" id="haskell-icon">
+                    </div>
+                  </div>
+                  <div class="from-stackoverflow trigonometry triangle center-origin--after skill">
+                    <div class="polar-diagram-icon polar-position">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="cv-entry">

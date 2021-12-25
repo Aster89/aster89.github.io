@@ -1,3 +1,12 @@
+const rotate = _.curry((n,v) => {
+  const M = v.length;
+  const m = ((n % M) + M) % M;
+  return _.flatten([_.drop(m, v), _.take(m, v)]);
+});
+
+/**
+ * URL-manip functions and constants.
+ */
 const setSearchParam = (url, key, value) => {
   url.searchParams.set(key, value);
   return url;
@@ -68,7 +77,7 @@ const API = (() => {
 
 const ME = '5825294'; // my id
 
-function loadStackoverflowInfo() {
+function retrieveStackOverflowBadgesAndTotalRep() {
   fetchAllJSONItems(new URL(`${API}/users/${ME}`))
     .then(items => {
       const repAndBadges = {
@@ -204,10 +213,31 @@ function repChangesToRepByTagMap(repChanges) {
     });
 };
 
-function work() {
+function retrieveStackOverflowRepByTag() {
   getRepChanges(ME)
     .then(repChangesToRepByTagMap)
     .then(tagToRepMap => {
       localStorage.setItem('reputationByTag', JSON.stringify(tagToRepMap));
+    })
+    .finally(() => {
+      const reputationByTagStr = localStorage.getItem('reputationByTag');
+      if (reputationByTagStr != null) {
+        const reputationByTag = JSON.parse(reputationByTagStr);
+        const entries = $('#radar-plot').children();
+        const tagNames = _.map(x => $(x).attr('title'), entries);
+        const maxRep = _.max(_.map(tagName => reputationByTag[tagName], tagNames));
+        const tagNamesShifted = rotate(1, tagNames);
+        _.forEach(
+          x => {
+            const elem = x[0];
+            const thisTagRep = reputationByTag[x[1]];
+            const nextTagRep = reputationByTag[x[2]];
+            elem.css('--this-skill', thisTagRep);
+            elem.css('--next-skill', nextTagRep);
+            elem.css('--max-skill', maxRep * 6/5);
+          },
+          _.zipAll([_.map(x => $(x).find('.from-stackoverflow'), entries), tagNames, tagNamesShifted])
+        );
+      }
     });
 }

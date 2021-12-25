@@ -1,0 +1,40 @@
+.radar-plot {
+  /* Inputs for `.polar-canvas` */
+  --line-width: 0.5px;
+  --canvas-radius-em: 10;
+  --n-radial-lines: 6;
+  --grid-color: var(--panel-bg-color-lighter);
+}
+
+.polar-diagram-icon > * {
+  --icons-width: 1.3em;
+  width: var(--icons-width);
+}
+
+.polar-diagram-icon {
+  /* Inputs for `.polar-position` */
+  --theta-deg: var(--offset-deg);
+  --rho-em: var(--canvas-radius-em);
+}
+
+.programming-skills > h2 {
+  text-align: center;
+}
+
+.skill {
+  /* Inputs for `.trigonometry .triangle::after` */
+  --side1-em: calc(var(--canvas-radius-em) / (var(--max-skill) + 1) * var(--this-skill));
+  --side2-em: calc(var(--canvas-radius-em) / (var(--max-skill) + 1) * var(--next-skill));
+  --alpha-deg: calc(360 / var(--number-of-skills));
+  --offset-deg: calc(var(--i) * var(--alpha-deg));
+  --opacity: 75%;
+}
+
+.imho {
+  --color: var(--brand-color);
+}
+
+.from-stackoverflow {
+  --stackoverflow-theme-primary-color: #f48225;
+  --color: var(--stackoverflow-theme-primary-color);
+}

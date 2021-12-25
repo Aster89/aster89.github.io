@@ -29,14 +29,17 @@
 @import url('modules/top-bar.css');
 @import url('modules/stackoverflow.css');
 @import url('modules/social-links.css');
+@import url('modules/positioning.css');
 @import url('modules/trigonometry.css');
-@import url('modules/radar-diagram.css');
+@import url('modules/polar-plot.css');
+@import url('modules/programming-skills.css');
 @import url('modules/nav.css');
 @import url('modules/panels.css');
 @import url('modules/shadows.css');
 @import url('modules/time.css');
 @import url('modules/copyright.css');
 @import url('kss-workarounds.css');
+@import url('special-cases.css');
 
 body {
   background-color: var(--bg-color);
