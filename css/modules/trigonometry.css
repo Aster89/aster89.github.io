@@ -1,0 +1,20 @@
+/*
+Trigonometry
+
+Given `--alpha-deg` a variable holding the measure of an angle in degrees, this
+module defines `--sin-alpha` to be an approximation of the sine of that angle.
+
+Styleguide Utilities.trigonometry
+*/
+
+.trigonometry * {
+  /* https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97 */
+  --alpha: calc(var(--alpha-deg) * 3.141593 / 180);
+  --alpha-half: calc(var(--alpha)/2);
+  --tan-term1: var(--alpha-half);
+  --tan-term2: calc((1/3) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half));
+  --tan-term3: calc((2 / 15) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half));
+  --tan-term4: calc((17/315) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half) * var(--alpha-half));
+  --t: calc(var(--tan-term1) + var(--tan-term2) + var(--tan-term3) + var(--tan-term4));
+  --sin-alpha: calc(2 * var(--t) / (1 + var(--t) * var(--t)));
+}
