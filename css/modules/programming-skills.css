@@ -17,10 +17,6 @@
   --rho-em: var(--canvas-radius-em);
 }
 
-.programming-skills > h2 {
-  text-align: center;
-}
-
 .skill {
   /* Inputs for `.trigonometry .triangle::after` */
   --side1-em: calc(var(--canvas-radius-em) / (var(--max-skill) + 1) * var(--this-skill));
