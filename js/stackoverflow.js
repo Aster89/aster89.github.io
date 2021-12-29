@@ -158,16 +158,13 @@ function repChangesToRepByTagMap(repChanges) {
   const aIdToRep = makeIdToRepMap(repChangesFromAs);
   const qIdToRep = makeIdToRepMap(repChangesFromQs);
 
+  // TODO: from here downward there's a lot of code duplication
   const tagRepFromQsWithAs = _.compose(
     _.reduce(_.mergeWith(_.add), {}),
     _.map(
       _.compose(
         _.fromPairs,
-        x => {
-          const tags = x[0];
-          const rep = x[1];
-          return _.zip(tags, Array(tags.length).fill(rep));
-        },
+        ([tags, rep]) => _.zip(tags, Array(tags.length).fill(rep)),
         _.over([
           _.iteratee('tags'),
           _.compose(
@@ -187,11 +184,7 @@ function repChangesToRepByTagMap(repChanges) {
     _.map(
       _.compose(
         _.fromPairs,
-        x => {
-          const tags = x[0];
-          const rep = x[1];
-          return _.zip(tags, Array(tags.length).fill(rep));
-        },
+        ([tags, rep]) => _.zip(tags, Array(tags.length).fill(rep)),
         _.over([
           _.iteratee('tags'),
           _.compose(x => qIdToRep[x], _.iteratee('question_id'))
