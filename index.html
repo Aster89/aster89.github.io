@@ -566,6 +566,125 @@ struct overload_t&lt;L1, L2, L3&gt;
               </div>
             </article>
           </section>
+          <section class="tab-page" id="suggested-books-tab">
+            <article class="post-entry">
+              <h6 class="time-interval text-shadow handwriting">30/12/2021</h6>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <h2>Clojure Programming</h2>
+                  <img class="panel-icon" src="img/Clojure_logo.png" alt=""/>
+                </div>
+                <div class="text-shadow">
+                  <p>In this post, I'm collecting my thoughts on the <a
+                    href="https://www.oreilly.com/library/view/clojure-programming/9781449310387/"><i>Clojure Programming</i></a>
+                  book published by O'Reilly.</p>
+
+                  <p>
+                  At page 165, in the middle of the section named <i>Promises</i>, the authors claim that
+                  <blockquote>
+                    An immediately practical application of promises is in easily making callback-based APIs synchronous.
+                  </blockquote>
+                  and then propose this asynchronous function,
+                  <pre><code class="language-clojure">
+(defn call-service
+  [arg1 arg2 callback-fn]
+  ; ... do stuff
+  (future (callback-fn (+ arg1 arg2) (- arg1 arg2))))
+                  </code></pre>
+                  this synchronous wrapper,
+                  <pre><code class="language-clojure">
+(defn sync-fn
+  [async-fn]
+  (fn [&amp; args]
+    (let [result (promise)]
+      (apply async-fn (conj (vec args)
+                            #(deliver result %&amp;)))
+      @result)))
+                  </code></pre>
+                  and this use case,
+                  <pre><code class="language-clojure">
+((sync-fn call-service) 10 7) ; (17 3)
+                  </code></pre>
+                  </p>
+                  <p>What puzzled me of this solution, is the fact that
+                  <code>sync-fn</code> doesn't really preserve
+                  <code>call-service</code>'s API: we can't even pass a
+                  callback function to
+                  <code>call-service</code> anymore, because the callback is
+                  encoded in <code>sync-fn</code> itself, specifically in the
+                  function literal (aka lambda) <code>#(deliver result %&amp;)</code>
+                  which entangles together two businesses
+                  <ul>
+                    <li>executing a pure function on the inputs (the two inputs
+                      that <code>call-service</code> passes to
+                      <code>callback-fn</code>);
+                    </li>
+                    <li>populating the <code>result</code> promise via the
+                      non-pure <code>deliver</code> utility.
+                    </li>
+                  </ul>
+                  </p>
+                  <p>
+                  Indeed, <code>#(deliver result %&amp;)</code> is a variadic function
+                  that wraps all its arguments into a sequence, via <code>%&amp;</code>,
+                  and then passes that sequence as the second argument to <code>deliver</code>,
+                  so we can rewrite it as the composition of those two businesses
+                  <pre><code class="language-clojure">
+; equivalent to #(deliver result %&amp;)
+(comp (partial deliver result) list)
+                  </code></pre>
+                  </p>
+                  <p>It is apparent, at this point, that <code>list</code> is just one possible
+                  function that we want <code>call-service</code> to use on <code>callback-fn</code>'s
+                  arguments, so there's no reason for hard-coding it into <code>sync-fn</code>.
+                  </p>
+                  <p>
+                  In fact, we can make it an input to <code>sync-fn</code>:
+                  <pre><code class="language-clojure">
+(defn sync-fn
+  [async-fn callback-fn]
+  (fn [&amp; args]
+    (let [result (promise)]
+      (apply async-fn (conj (vec args)
+                            (comp (partial deliver result)
+                                  callback-fn)))
+      @result)))
+                  </code></pre>
+                  which can then be used like this
+                  <pre><code class="language-clojure">
+((sync-fn call-service list)          10 7) ; (17 3)
+((sync-fn call-service vector)        10 7) ; [17 3]
+((sync-fn call-service #(apply + %&amp;)) 10 7) ; 20
+((sync-fn call-service #(apply * %&amp;)) 10 7) ; 51
+                  </code></pre>
+                  where we pass, as <code>sync-fn</code>'s second argument, the same lambda
+                  we would pass to <code>call-service</code> as a third argument.
+                  </p>
+                  <p>This way, <code>sync-fn</code> doesn't even need any change in the face of
+                  changes in what <code>call-service</code> expects the callback to look like
+                  (even though the fact that <code>call-service</code> expects the callback
+                  function as the last argument is still hard-coded in <code>sync-fn</code>).
+                  For instance, if <code>call-service</code> expected a <code>callback-fn</code>
+                  that takes a list of arguments rather than distinct arguments,
+                  <pre><code class="language-clojure">
+(defn call-service-2
+  [arg1 arg2 callback-fn]
+  ; ... do stuff
+  (future (callback-fn (list (+ arg1 arg2) (- arg1 arg2)))))
+                  </code></pre>
+                  then we'd only need to adapt the callback lambdas by making them accept
+                  one argument instead of many:
+                  <pre><code class="language-clojure">
+((sync-fn call-service-2 identity)          10 7) ; (17 3)
+((sync-fn call-service-2 vec)               10 7) ; [17 3]
+((sync-fn call-service-2 (partial apply +)) 10 7) ; 20
+((sync-fn call-service-2 (partial apply *)) 10 7) ; 51
+                  </code></pre>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </section>
           <section class="tab-page" id="about-me-tab">
             <div class="programming-skills">
               <h2 class="handwriting">Programming skills</h2>
