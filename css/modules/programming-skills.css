@@ -34,3 +34,17 @@
   --stackoverflow-theme-primary-color: #f48225;
   --color: var(--stackoverflow-theme-primary-color);
 }
+
+.legend {
+  text-align: center;
+}
+
+.legend-entry {
+  border-bottom: 0.5em solid var(--color);
+  display: inline-block;
+  margin: 1em 0.5em;
+}
+
+.legend-entry img {
+  height: 1em;
+}
