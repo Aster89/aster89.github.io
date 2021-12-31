@@ -522,6 +522,252 @@ struct overload_t&lt;L1, L2, L3&gt;
           </section>
           <section class="tab-page" id="projects-tab">
             <article class="post-entry">
+              <h6 class="time-interval text-shadow handwriting">4/1/2022</h6>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <img class="panel-icon" src="img/css3-logo.png" alt="">
+                  <h2 lang="en">CSS-only radar diagram</h2>
+                  <h2 lang="it">Diagramma a radar con solo CSS</h2>
+                </div>
+                <div class="text-shadow">
+                  <p>
+                  I still remeber I was flying back or away from home when I started thinking about this webpage
+                  with these thoughts coming in sequence
+                  <i>
+                    <ul>
+                      <li>Oh, I really enjoyed <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i>,</li>
+                      <li>I think I could really leverage that to make a good blog;</li>
+                      <li>I should probably start by doing what I initally planned to do: putting my CV online&hellip;</li>
+                      <li>&hellip; with my working experience and all my skills&hellip;</li>
+                      <li>Yeah, especially all my programming skills!</li>
+                      <li>A diagram with the skills would be nice&hellip;</li>
+                      <li>I should try doing it without any JavaScript!</li>
+                      <li>With CSS I can certainly do it!</li>
+                    </ul>
+                  </i>
+                  </p>
+                  <p>Well, the reality was not that smooth though. As soon as I
+                  had put my feet literally back on earth and played around a bit,
+                  I realized that there's a fundamental problem with making
+                  CSS-only plots:
+                  <ul>
+                    <li>ideally, the data, e.g. the <i>x</i> and <i>y</i> coordinates of a piecewise linear plot,
+                      should be contained in the HTML markup, they are part of the content of the page, having
+                      nothing to do with style (CSS), let alone dynamics (JavaScript);
+                    </li>
+                    <li>it is reasonable to think that each pair <i>(x, y)</i> should belong to one HTML element
+                      representing a "point" of the curve;
+                    </li>
+                    <li>then CSS should take care of "drawing" lines, curves, colors, and what not.</li>
+                  </ul>
+                  </p>
+                  <p>So how should that ideal HTML look like? Probably something along these lines
+                  <pre><code class="language-html">
+&lt;div class="plot"&gt;
+  &lt;!-- 6 points of the y = x² parabola --&gt;
+  &lt;div class="point" style="--x: 0; --y: 0;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--x: 1; --y: 1;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--x: 2; --y: 4;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--x: 3; --y: 9;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--x: 4; --y: 16;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--x: 5; --y: 25;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+                  </code></pre>
+                  where the <i>x</i> and <i>y</i> coordinates are in the <code>style</code> attribute
+                  so that CSS can pick it up easily.
+                  </p>
+                  <p>But now the point is the following:
+                  <blockquote>How the heck do I draw anything, say a line,
+                    via CSS according to quantities specific to two <i><b>separate</b></i> elements?
+                  </blockquote>
+                  </p>
+                  <p>Well, the answer is simply that <i>I cannot</i>, the reason being that,
+                  in order to draw lines or more complex stuff via CSS, one has to leverage things
+                  like <code>border</code>s (to draw lines), <code>background-color</code>s (to
+                  draw areas), and so on. But those things are specific to <b><i>one</i></b> element,
+                  and cannot bridge between two elements.
+                  </p>
+                  <p>Regardless of how reasonable my self-argument sounded, I couldn't really
+                  just think I had the correct answer already, and so I wanted to search a bit
+                  online:
+                  <ul>
+                    <li>First, searching online for "CSS plot" <i>et similia</i> I
+                      generally found stuff containing <code>.js</code> written
+                      here or there, sooner or later down the page, which already
+                      made me feel like I could be right.
+                    </li>
+                    <li>Second, I found <a href="https://css-tricks.com/how-to-make-a-line-chart-with-css/">this article from <i>CSS Tricks</i></a>,
+                      which links to <a href="https://www.chartjs.org/">Chart.js</a> in the first few lines, and later shows
+                      a solution that features, for each HTML element
+                      representing a point, not just the <code>--x</code> and
+                      <code>--y</code> CSS properties, but also properties
+                      <code>--hypotenuse</code> and <code>--angle</code> in a
+                      nested HTML element (peep into the code and you'll see).
+                      If you tamper with those, you'll see the lines detaching
+                      from the points; in other words, the lines are not bound
+                      to the points, and you have to recompute the values of
+                      <code>--hypotenuse</code> and <code>--angle</code> by
+                      hand if you change <code>--x</code> and <code>--y</code>.
+                    </li>
+                    <li>Finally, I found <a href="https://chartscss.org/">Chart.css</a>
+                      a <i>CSS data visualization framework</i> that claims
+                      <blockquote>
+                      Charts.css is a modern CSS framework. It uses CSS utility classes to style HTML elements as charts.
+                      </blockquote>
+                      (By the way, the very chart I was looking for, <a href="https://chartscss.org/charts/radar/">the radar chart, is under development</a>
+                      while I'm writing these notes.)
+                    </li>
+                  </ul>
+                  </p>
+                  <p>The last result was kind of illuminating.
+                  Indeed, if you look at the documentation page of the maybe simplest example, the <a href="https://chartscss.org/charts/line/">line</a>,
+                  you'll see that it states the following:
+                  <blockquote>When you add data, you need to supply not
+                    only the data <code>--size</code> variable but also the
+                    <code>--start</code> variable that indicates the
+                    starting point.
+                  </blockquote>
+                  Rephrasing it (and you can verify it by playing around with the code),
+                  each HTML element that represents a point in the graph must provide
+                  data to the CSS not just for that point, but also for the point before it.
+                  And this is in the simple scenario of piecewise linear curve; if you
+                  think about something more complex, there might be need for one HTML
+                  element to carry data about more neighboring points.
+                  </p>
+                  <p>Given this (bad) news and going back to the HTML snippet above,
+                  we could rewrite it like this (where the trailing <code>p</code> of
+                  <code>--xp</code> and <code>--yp</code> stands for <i>previous</i>),
+                  <pre><code class="language-html">
+&lt;div class="plot"&gt;
+  &lt;!-- 5 segments (between the 6 points) of the y = x² parabola --&gt;
+  &lt;div class="point" style="--xp: 0; --yp: 0; --x: 1; --y: 1;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--xp: 1; --yp: 1; --x: 2; --y: 4;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--xp: 2; --yp: 4; --x: 3; --y: 9;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--xp: 3; --yp: 9; --x: 4; --y: 16;"&gt;&lt;/div&gt;
+  &lt;div class="point" style="--xp: 4; --yp: 16;--x: 5; --y: 25;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+                  </code></pre>
+                  giving a chance to our CSS to pick the coordinates of the two
+                  points between which line has to be drawn.
+                  </p>
+                  <p>As regards how that line is drawn, I don't think there's one single
+                  solution, and to be honest, I haven't bothered making up some random plots;
+                  I targeted full steam ahead the radar plot I wanted.</p>
+                  <p>Here are the few points on which that chart is based (I'm referring to
+                  the data content of the graph, and not the meta content, aka the grid):
+                  <ol>
+                    <li>a radar diagram looks like a polygon, with as many vertices (and sides)
+                      as the number of quantities we want to show, say <i>N</i>, so we need
+                    to priovide that <i>N</i> via a CSS property, say
+                    <code>--N</code> that we can encode in the HTML in the root
+                    parent of the chart;</li>
+                    <li>that polygon is made up of <i>N</i> triangles;</li>
+                    <li>all triangles have one vertex in common, the one at the
+                      center of the chart (so let's call that vertext <i>the center</i>),
+                      and the angle insisting on that vertex is the same for
+                      all triangles, being it equal to 350° divided by
+                      <i>N</i>; <code>position</code>, <code>left</code>, and <code>right</code>
+                      CSS properties can be used to achieve the translational positioning, whereas
+                      <code>transform</code> and its <code>rotate</code> value can be used to
+                      achieve the angular positioning;
+                    </li>
+                    <li>for each triangle, the lengths of the two sides starting from the
+                      center are exactly the "current" quantity and the "previous" quantity,
+                      so we need to make those quantities available to the CSS, as I've already
+                      explained and shown in the previous HTML snippet;</li>
+                    <li>any triangle can be thought of as half of an appropriate parallelogram,
+                      the half on one side of the appropriate diagonal, and any parallelogram can be thought of as a square
+                      subject to anisotropic scaling (that makes it a rectangle)
+                      and shear (that makes it "skewed"), so we can make use of the
+                    <code>background-image</code> CSS property and setting it to
+                    something along the lines of
+                    <code>linear-gradient(45deg, black 50%, transparent 50%);</code>
+                    to have a black orthogonal triangle, and the <code>transform</code>
+                    property with its <code>skew</code> and <code>scale</code> values.
+                    </li>
+                  </ol>
+                  That's mostly it, but the difficult part is actually writing CSS code
+                  such that it is reusable. Doing so goes through making appropriate use
+                  of <a href="https://css-tricks.com/a-complete-guide-to-custom-properties/">CSS custom properties</a>.
+                  </p>
+                  <p>Thoroughly inspecting my Radar plot <a href="https://aster89.github.io/#about-me">here</a>,
+                  both HTML-wise and CSS-wise, should be enough to understand how the various bricks
+                  fit together. But it's not the easies of the things&hellip;
+                  </p>
+                  <p>A few external references:
+                  <ul>
+                    <li>the general idea about how to draw triangles came from <a href="https://css.michaelschrauzer.com/demos/css-triangles.html">eCCSplorations</a></li>
+                    <li>the idea about including the "previous point" in the HTML, as said, came from <a href="https://chartscss.org/">Chart.css</a></li>
+                    <li>for trigonometric computations, the built on <a href="https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97">this gist from stereokai</a></li>
+                    <li>all the rest comes from the already mentioned <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i></li>
+                  </ul>
+                  </p>
+                  <p>
+                  However, here is an example of a plot with 12 skills (in hindsight,
+                  I should probably put some effort in drawing as many diameters in the
+                  canvas as the are skills on the plot, but that's easier said than done,
+                  considering that each of those lines is done with one dedicated
+                  <code>linear-gradient</code> in the CSS):
+                  </p>
+                  <div class="radar-plot polar-canvas img-shadow" style=" --number-of-skills: 12; --max-skill: 5;">
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 0; --this-skill: 5; --next-skill: 3"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 1; --this-skill: 3; --next-skill: 4"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 2; --this-skill: 4; --next-skill: 1"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 3; --this-skill: 1; --next-skill: 3"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 4; --this-skill: 3; --next-skill: 3"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 5; --this-skill: 3; --next-skill: 4"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 6; --this-skill: 4; --next-skill: 2"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 7; --this-skill: 2; --next-skill: 5"></div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 8; --this-skill: 5; --next-skill: 2">
+                      <div class="polar-diagram-icon polar-position">
+                        <div>A</div>
+                      </div>
+                    </div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 9; --this-skill: 2; --next-skill: 3">
+                      <div class="polar-diagram-icon polar-position">
+                        <div>B</div>
+                      </div>
+                    </div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 10; --this-skill: 3; --next-skill: 3">
+                      <div class="polar-diagram-icon polar-position">
+                        <div>&hellip;</div>
+                      </div>
+                    </div>
+                    <div class="trigonometry triangle center-origin--after skill" style="--i: 11; --this-skill: 3; --next-skill: 5"></div>
+                  </div>
+                  <p>
+                   Notice that the markup is essentially very simple, as each
+                   entry of the plot has 4 <code>class</code>es and 3 CSS
+                   custom properties; here are the first two entries:
+                   <pre><code class="language-html">&lt;div class="trigonometry triangle center-origin--after skill" style="--i: 0; --this-skill: 5; --next-skill: 3"&gt;&lt;/div&gt;
+&lt;div class="trigonometry triangle center-origin--after skill" style="--i: 1; --this-skill: 3; --next-skill: 4"&gt;&lt;/div&gt;
+&lt;div class="trigonometry triangle center-origin--after skill" style="--i: 2; --this-skill: 4; --next-skill: 1"&gt;&lt;/div&gt;
+&lt;div class="trigonometry triangle center-origin--after skill" style="--i: 3; --this-skill: 1; --next-skill: 3"&gt;&lt;/div&gt;</code></pre>
+                   The markup is just a bit more complicated, with two more nested elements, when we want to add some "labels"
+                   to each entry; here's the entry labelled as <i>B</i>:
+                   <pre><code class="language-html">&lt;div class="trigonometry triangle center-origin--after skill" style="--i: 9; --this-skill: 2; --next-skill: 3"&gt;
+  &lt;div class="polar-diagram-icon polar-position"&gt;
+    &lt;div&gt;B&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </p>
+                  <p>It is understood that using JavaScript we could
+                  dynamically set <code>--next-skill</code> instead of
+                  hardcoding it in the HTML, which clutters it with
+                  content which is not semantically relevant.
+                  </p>
+                  <p>A few external references:
+                  <ul>
+                    <li>the general idea about how to draw triangles came from <a href="https://css.michaelschrauzer.com/demos/css-triangles.html">eCCSplorations</a></li>
+                    <li>the idea about including the "previous point" in the HTML, as said, came from <a href="https://chartscss.org/">Chart.css</a></li>
+                    <li>for trigonometric computations, the built on <a href="https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97">this gist from stereokai</a></li>
+                    <li>all the rest comes from the already mentioned <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i></li>
+                  </ul>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry">
               <h6 class="time-interval text-shadow handwriting">21/11/2021</h6>
               <div class="panel panel--rounded box-shadow text-shadow">
                 <div class="panel__header center-text-horz">
