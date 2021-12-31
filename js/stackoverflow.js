@@ -33,39 +33,37 @@ function incrementURLPage(url) {
 }
 
 function fetchAllJSONItems(url) {
-  // TODO: maybe I shouldn't throw but just return an empty array; then
-  // the client code would take action: got empty array? Use whatever is
-  // in the `localStorage`, if anything, otherwise show a "can't retrieve
-  // data" message on the page. Well, I could just as well throw that
-  // message as an error, then catch it and use it to show an error on
-  // the page.
-  return fetch(setCommonParams(url).toString())
-    .then(response => {
-      if (!response.ok) {
-        debugger;
-        throw new Error('Network response was not OK');
-      }
-      return response.json();
-    })
-    .then(async JSONbody => {
-      console.log("quota_remaining = " + JSONbody.quota_remaining);
-      if (JSONbody.backoff) {
-        const sleep = (sec = 1) => new Promise((r) => setTimeout(r, sec * 1e3));
-        await sleep(JSONbody.backoff);
-        return fetchAllJSONItems(url).then(more => JSONbody.items.concat(more));
-      }
-      if (JSONbody.has_more) {
-        return fetchAllJSONItems(incrementURLPage(url)).then(more => JSONbody.items.concat(more));
-      }
-      return JSONbody.items;
-    })
+  return fetchAllJSONItemsImpl(url)
     .catch(error => {
-      console.error('There has been a problem with your fetch operation:', error);
-      throw error;
+      console.error('Fetch not complete because of "' + `${error}`
+        + '"; throwing away everything and returning empty array.');
+      return [];
     });
 
-  function setCommonParams(url) {
-    return setSearchParams(url, {site: 'stackoverflow', key: '7z9N1)FsIJR4xwpIVNBYJA(('});
+  function fetchAllJSONItemsImpl(url) {
+    return fetch(setCommonParams(url).toString())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not OK');
+        }
+        return response.json();
+      })
+      .then(async JSONbody => {
+        console.log("quota_remaining = " + JSONbody.quota_remaining);
+        if (JSONbody.backoff) {
+          const sleep = (sec = 1) => new Promise((r) => setTimeout(r, sec * 1e3));
+          await sleep(JSONbody.backoff);
+          return fetchAllJSONItemsImpl(url).then(more => JSONbody.items.concat(more));
+        }
+        if (JSONbody.has_more) {
+          return fetchAllJSONItemsImpl(incrementURLPage(url)).then(more => JSONbody.items.concat(more));
+        }
+        return JSONbody.items;
+      });
+
+    function setCommonParams(url) {
+      return setSearchParams(url, {site: 'stackoverflow', key: '7z9N1)FsIJR4xwpIVNBYJA(('});
+    }
   }
 }
 
