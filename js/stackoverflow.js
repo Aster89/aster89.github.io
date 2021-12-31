@@ -75,24 +75,59 @@ const API = (() => {
 
 const ME = '5825294'; // my id
 
-function retrieveStackOverflowBadgesAndTotalRep() {
-  fetchAllJSONItems(new URL(`${API}/users/${ME}`))
+function downloadSOBadgesAndTotalRep() {
+  return fetchAllJSONItems(new URL(`${API}/users/${ME}`))
     .then(items => {
-      const repAndBadges = {
-        rep: items[0].reputation,
-        bronze: items[0].badge_counts.bronze,
-        silver: items[0].badge_counts.silver,
-        gold: items[0].badge_counts.gold
-      };
-      if (repAndBadges) {
-        localStorage.setItem('BadgesAndTotRep', JSON.stringify(repAndBadges));
+      if (items.length != 0) {
+        return {
+          rep: items[0].reputation,
+          bronze: items[0].badge_counts.bronze,
+          silver: items[0].badge_counts.silver,
+          gold: items[0].badge_counts.gold
+        };
+      } else {
+        throw new Error('Fetch resulted in empty `items` array.');
       }
     })
+    .catch(error => {
+      console.error('Fetch error because of "' + `${error}`
+        + '"; returning empty object.');
+      return {};
+    });
+}
+
+function updateOrPickOld(nameInLocalStorage, getNewValue) {
+
+  const lastUpdate = JSON.parse(localStorage.getItem('LastUpdate'));
+  const oldValue = JSON.parse(localStorage.getItem(nameInLocalStorage));
+  const tooOld = Math.round(Date.now()/1000) - lastUpdate > 3600;
+
+  const mustUpdate = lastUpdate === null || oldValue === null || tooOld;
+
+  return Promise.all([
+    mustUpdate ? getNewValue() : oldValue,
+    oldValue,
+    mustUpdate
+  ])
+    .then(([newValue, oldValue, triedUpdate]) => {
+      if (!_.isEmpty(newValue) && triedUpdate) {
+        setInLocalStorage(nameInLocalStorage, JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+
+  function setInLocalStorage(key, valueStr) {
+    localStorage.setItem(key, valueStr);
+    localStorage.setItem('LastUpdate', JSON.stringify(Math.round(Date.now()/1000)));
+  }
+}
+
+function populateSOProfileWidged() {
+  updateOrPickOld('BadgesAndTotRep', downloadSOBadgesAndTotalRep)
     .finally(() => {
-      const repAndBadges = localStorage.getItem('BadgesAndTotRep');
-      if (repAndBadges != null) {
-        const items = JSON.parse(repAndBadges);
-        const separateThousandsWithComma = (num) => num.toString().match(/(\d{1,3})(?=(\d{3})*$)/g).join();
+      const items = JSON.parse(localStorage.getItem('BadgesAndTotRep'));
+      if (!_.isEmpty(items)) {
+        const separateThousandsWithComma = num => num.toString().match(/(\d{1,3})(?=(\d{3})*$)/g).join();
         $("#reputation").html(separateThousandsWithComma(items.rep));
         $("#bronze-badges").html(items.bronze);
         $("#silver-badges").html(items.silver);
@@ -101,11 +136,10 @@ function retrieveStackOverflowBadgesAndTotalRep() {
     });
 }
 
-const fetchFirstJSONItem = url => fetchAllJSONItems(url).then(_.head);
-const getRepChanges = id => fetchAllJSONItems(
+const getRepChanges = () => fetchAllJSONItems(
   appendFilter(
     '!-0(_vn*f-VJQ', // selects only `reputation_change`, `post_type`, and `post_id`
-    new URL(`${API}/users/${id}/reputation`)
+    new URL(`${API}/users/${ME}/reputation`)
   )
 );
 const getQsWithAsFromAsIds = ids => fetchAllJSONItems(
@@ -116,7 +150,7 @@ const getQsWithAsFromAsIds = ids => fetchAllJSONItems(
 );
 const getQsFromIds = ids => fetchAllJSONItems(new URL(`${API}/questions/${ids}`));
 
-function repChangesToRepByTagMap(repChanges) {
+function repChangesToRepByTag(repChanges) {
 
   const getPostIdRepAndType = _.compose(
     _.filter('reputation_change'),
@@ -204,25 +238,22 @@ function repChangesToRepByTagMap(repChanges) {
     });
 };
 
-function retrieveStackOverflowRepByTag() {
-  getRepChanges(ME)
-    .then(repChangesToRepByTagMap)
-    .then(tagToRepMap => {
-      localStorage.setItem('reputationByTag', JSON.stringify(tagToRepMap));
-    })
+function populateSORadarPlot() {
+  updateOrPickOld('AllRepChanges', getRepChanges)
+    .then(repChanges => updateOrPickOld('RepByTag', () => repChangesToRepByTag(repChanges)))
     .finally(() => {
-      const reputationByTagStr = localStorage.getItem('reputationByTag');
+      const reputationByTagStr = localStorage.getItem('RepByTag');
       if (reputationByTagStr != null) {
-        const reputationByTag = JSON.parse(reputationByTagStr);
+        const repByTag = JSON.parse(reputationByTagStr);
         const entries = $('#radar-plot').children();
         const tagNames = _.map(x => $(x).attr('title'), entries);
-        const maxRep = _.max(_.map(tagName => reputationByTag[tagName], tagNames));
+        const maxRep = _.max(_.map(tagName => repByTag[tagName], tagNames));
         const tagNamesShifted = rotate(1, tagNames);
         _.forEach(
           x => {
             const elem = x[0];
-            const thisTagRep = reputationByTag[x[1]];
-            const nextTagRep = reputationByTag[x[2]];
+            const thisTagRep = repByTag[x[1]];
+            const nextTagRep = repByTag[x[2]];
             elem.css('--this-skill', thisTagRep);
             elem.css('--next-skill', nextTagRep);
             elem.css('--max-skill', maxRep * 6/5);
