@@ -1,0 +1,13 @@
+/*
+Cartesian geometry
+
+**Note**: Many quantities in this module (e.g. `--canvas-radius-em`) are meant
+to be given without unit (e.g. `--canvas-radius-em` can be set to just `10`,
+not `10em`) because they are frequently divided by each other, which couldn't
+be done if they had a unit. Nonetheless, that unitless number is assigned a
+unit internally, and that unit should be included in the name of the variable
+so that the reader can understand how it's used (e.g. `--canvas-radius-em: 12`
+means that the `12` will be internally multiplied by `1em`).
+
+Styleguide Cartesian geometry
+*/

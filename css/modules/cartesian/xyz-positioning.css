@@ -1,0 +1,52 @@
+/*
+Center element (or its ::after) in ancestor
+
+Moves the origin of the target element to the center of closest positioned
+ancestor element.
+
+**Note**: The example below includes a `<style>` to target the element and its
+pseudo-element by id, because pseudo-elements can't be created in HTML; you need
+not copy it, and would apply `display: block`, `content: ''`, and whatever else
+is needed via other selectors.
+
+Markup:
+<style>
+#pseudo-element-owner,
+#pseudo-element-owner::after {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-image: linear-gradient(225deg, white 50%, transparent 50%);
+}
+#pseudo-element-owner::after {
+  background-image: linear-gradient(45deg, white 50%, transparent 50%);
+}
+</style>
+<div style="position: relative; display: block; content: ''; width: 5em; height: 5em; background-color: black">
+<div class="center-origin {{modifier_class}}" id="pseudo-element-owner">
+</div>
+</div>
+
+.center-origin--after  - Only applies to the `::after` pseudo-element of the target element.
+
+Styleguide Cartesian geometry.center-in-container
+*/
+
+.center-origin {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+.center-origin--after {
+  top: unset;
+  left: unset;
+  position: unset;
+}
+
+.center-origin--after::after {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}

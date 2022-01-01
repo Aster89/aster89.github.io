@@ -1,0 +1,63 @@
+/*
+Triangle
+
+Creates a triangle according to the following inputs:
+
+  - `--side1-em` and `--side2-em`: the lengths of two of the triangle's sides,
+    let them be *side_1* and *side_2*, the former coming "before" the latter in
+    a clockwise sense, and the vertex between them being the orgin (that can be
+    `position`ed via dedicated rulesets);
+  - `--alpha-deg`: the angle between *side_1* and *side_2*;
+  - `--offset-deg`: the clockwise offset of *side_1* with respect to the positive vertical direction;
+  - `--color` (default: `black`): fill color of the triangle,
+  - `--opacity`: opacity of the filling of the triangle,
+
+**Implentation**: An `::after` pseudo-element with the shape of a square with
+side equal to `--side1-em` is created, then scaled along the y axis and skewed
+(according to the ratio between `--side1-em` and  `--side2-em`, and to
+`--alpha-deg` and its sine), and rotated (according to `--offset-deg`).
+
+**Note**: The dashed square in the example below is the one from which the
+triangle is obtained, and *it* (not the triangle) is what affects the document
+flow. Clearly, `position`ing the triangle allows one to remove the spacing that
+the dashed square would cause. See also the `.center-origin--after` class.
+
+Markup:
+<style>
+#untransformed-square {
+  position: relative;
+  left: 0;
+  right: 0;
+  width: 20em;
+  height: 20em;
+  display: block;
+  content: '';
+  border: 1px dashed black;
+}
+#untransformed-square + * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+</style>
+<div id="untransformed-square"></div>
+<div class="trigonometry triangle" style="--side1-em: 20; --side2-em: 8; --alpha-deg: 30; --offset-deg: 100; --color: red; --opacity: 100%;"></div>
+
+Weight: 2
+
+Styleguide Cartesian geometry.triangles
+*/
+
+.trigonometry.triangle::after {
+  display: block;
+  content: '';
+  width: calc(1em * var(--side1-em));
+  height: calc(1em * var(--side1-em));
+  transform-origin: 0 0;
+  transform: rotate(calc(-90deg + var(--offset-deg) * 1deg))
+             skew(calc((90 - var(--alpha-deg)) * 1deg))
+             scaleY(calc(var(--sin-alpha) * (var(--side2-em) / var(--side1-em))));
+  --blur-distance: 0.25px; /* to soften the "diagonal" side */
+  background-image: linear-gradient(135deg, var(--color, black) calc(50% - var(--blur-distance)), transparent calc(50% + var(--blur-distance)));
+  opacity: var(--opacity, 100%);
+}

@@ -9,6 +9,12 @@
  *
  */
 
+@import url('modules/cartesian/cartesian.css');
+@import url('modules/cartesian/polar-canvas.css');
+@import url('modules/cartesian/polar-positioning.css');
+@import url('modules/cartesian/xyz-positioning.css');
+@import url('modules/cartesian/triangle.css');
+@import url('modules/cartesian/trigonometry.css');
 @import url('modules/alignment.css');
 @import url('modules/variables.css');
 @import url('modules/dark-light-mode.css');
@@ -30,9 +36,6 @@
 @import url('modules/top-bar.css');
 @import url('modules/stackoverflow.css');
 @import url('modules/social-links.css');
-@import url('modules/positioning.css');
-@import url('modules/trigonometry.css');
-@import url('modules/polar-plot.css');
 @import url('modules/programming-skills.css');
 @import url('modules/nav.css');
 @import url('modules/panels.css');
