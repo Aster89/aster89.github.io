@@ -1,6 +1,5 @@
 .*.sw*
 Session.vim
-docs
 node_modules
 package-lock.json
 highlight/*

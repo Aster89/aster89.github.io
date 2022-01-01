@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>My pattern library</title>
+
+  <meta name="description" content=""/>
+  <meta name="generator" content="kss-node"/>
+  <meta name="viewport" content="width=device-width"/>
+
+  <link rel="stylesheet" href="kss-assets/kss.css"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+
+</head>
+<body id="kss-node" >
+
+<div class="kss-sidebar kss-style">
+  <header class="kss-header">
+    <h1 class="kss-doc-title">My pattern library</h1>
+  </header>
+  <nav class="kss-nav" aria-label="Style Guide">
+    <ul class="kss-nav__menu">
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="./">
+          <span class="kss-nav__ref">0</span
+          ><span class="kss-nav__name">Overview</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-asynchrony.html">
+          <span class="kss-nav__ref">1</span><span class="kss-nav__name">Asynchrony</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-cartesian-geometry.html">
+          <span class="kss-nav__ref">2</span><span class="kss-nav__name">Cartesian geometry</span>
+        </a>
+            <ul class="kss-nav__menu-child">
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-center-in-container">
+                  <span class="kss-nav__ref ">2.1</span
+                  ><span class="kss-nav__name">Center element in ancestor</span>
+                </a>
+              </li>
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-center-origin-in-container">
+                  <span class="kss-nav__ref ">2.2</span
+                  ><span class="kss-nav__name">Center element&#x27;s (or its ::after) origin in ancestor</span>
+                </a>
+              </li>
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-polar-position">
+                  <span class="kss-nav__ref ">2.3</span
+                  ><span class="kss-nav__name">Polar positioning</span>
+                </a>
+              </li>
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-trigonometry">
+                  <span class="kss-nav__ref ">2.4</span
+                  ><span class="kss-nav__name">Trigonometry</span>
+                </a>
+              </li>
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-triangles">
+                  <span class="kss-nav__ref ">2.5</span
+                  ><span class="kss-nav__name">Triangle</span>
+                </a>
+              </li>
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-cartesian-geometry.html#kssref-cartesian-geometry-polar-canvas">
+                  <span class="kss-nav__ref ">2.6</span
+                  ><span class="kss-nav__name">Polar canvas</span>
+                </a>
+              </li>
+            </ul>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-containers.html">
+          <span class="kss-nav__ref">3</span><span class="kss-nav__name">Containers</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-copyright.html">
+          <span class="kss-nav__ref">4</span><span class="kss-nav__name">Copyright note</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-country-flag.html">
+          <span class="kss-nav__ref">5</span><span class="kss-nav__name">Country Flag</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-customization.html">
+          <span class="kss-nav__ref">6</span><span class="kss-nav__name">Customization</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-external.html">
+          <span class="kss-nav__ref">7</span><span class="kss-nav__name">External</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-input.html">
+          <span class="kss-nav__ref">8</span><span class="kss-nav__name">Inputs</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-panel.html">
+          <span class="kss-nav__ref">9</span><span class="kss-nav__name">Panel</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-rendering.html">
+          <span class="kss-nav__ref">10</span><span class="kss-nav__name">Rendering</span>
+        </a>
+      </li>
+      <li class="kss-nav__menu-item">
+        <a class="kss-nav__menu-link" href="section-time.html">
+          <span class="kss-nav__ref">11</span><span class="kss-nav__name">Time</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<main class="kss-main" aria-label="Content">
+  <article>
+
+    <div id="kssref-cartesian-geometry" class="kss-section kss-section--depth-1 ">
+
+      <div class="kss-style">
+        <h1 class="kss-title kss-title--level-1">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry">
+            <span class="kss-title__ref">
+              2
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry
+              </span>
+            </span>
+            Cartesian geometry
+          </a>
+        </h1>
+
+
+          <div class="kss-description">
+            <p><strong>Note</strong>: Many quantities in this module (e.g. <code>--canvas-radius-em</code>) are meant
+to be given without unit (e.g. <code>--canvas-radius-em</code> can be set to just <code>10</code>,
+not <code>10em</code>) because they are frequently divided by each other, which couldn't
+be done if they had a unit. Nonetheless, that unitless number is assigned a
+unit internally, and that unit should be included in the name of the variable
+so that the reader can understand how it's used (e.g. <code>--canvas-radius-em: 12</code>
+means that the <code>12</code> will be internally multiplied by <code>1em</code>).</p>
+
+          </div>
+
+
+      </div>
+
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/cartesian.css</code>, line 1
+        </div>
+
+    </div>
+    <section id="kssref-cartesian-geometry-center-in-container" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-center-in-container">
+            <span class="kss-title__ref">
+              2.1
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.center-in-container
+              </span>
+            </span>
+            Center element in ancestor
+          </a>
+        </h2>
+
+          <p class="kss-toolbar">
+              <a href="#kssref-cartesian-geometry-center-in-container" data-kss-fullscreen="kssref-cartesian-geometry-center-in-container">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-cartesian-geometry-center-in-container.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-cartesian-geometry-center-in-container" data-kss-guides="true">
+              <span class="kss-toolbar__tooltip">Toggle example guides</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="54" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
+              </svg>
+            </a>
+            <a href="#kssref-cartesian-geometry-center-in-container" data-kss-markup="true">
+              <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
+                <path class="kss-toolbar__icon-fill" d="M26.445,17.761l-6.103,-6.103l-20.342,20.342l20.342,20.342l6.103,-6.103l-14.24,-14.239l14.24,-14.239Z"/>
+              </svg>
+            </a>
+          </p>
+
+
+
+      </div>
+
+        <div class="kss-modifier__wrapper">
+          <div class="kss-modifier__heading kss-style">
+            Example
+          </div>
+
+
+          <div class="kss-modifier__example">
+            <style>
+#uffa {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-color: white;
+}
+</style>
+<div style="position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black">
+<div class="center" id="uffa">
+</div>
+</div>
+            <div class="kss-modifier__example-footer"></div>
+          </div>
+
+        </div>
+
+          <details class="kss-markup kss-style">
+            <summary>
+                Markup
+            </summary>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-id">#uffa</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">background-color</span>: white;
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"center"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"uffa"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+          </details>
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/xyz-positioning.css</code>, line 54
+        </div>
+
+    </section>
+    <section id="kssref-cartesian-geometry-center-origin-in-container" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-center-origin-in-container">
+            <span class="kss-title__ref">
+              2.2
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.center-origin-in-container
+              </span>
+            </span>
+            Center element&#x27;s (or its ::after) origin in ancestor
+          </a>
+        </h2>
+
+          <p class="kss-toolbar">
+              <a href="#kssref-cartesian-geometry-center-origin-in-container" data-kss-fullscreen="kssref-cartesian-geometry-center-origin-in-container">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-cartesian-geometry-center-origin-in-container.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-cartesian-geometry-center-origin-in-container" data-kss-guides="true">
+              <span class="kss-toolbar__tooltip">Toggle example guides</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="54" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
+              </svg>
+            </a>
+            <a href="#kssref-cartesian-geometry-center-origin-in-container" data-kss-markup="true">
+              <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
+                <path class="kss-toolbar__icon-fill" d="M26.445,17.761l-6.103,-6.103l-20.342,20.342l20.342,20.342l6.103,-6.103l-14.24,-14.239l14.24,-14.239Z"/>
+              </svg>
+            </a>
+          </p>
+
+          <div class="kss-description">
+            <p>Moves the origin of the target element to the center of closest positioned
+ancestor element.</p>
+<p><strong>Note</strong>: The example below includes a <code>&lt;style&gt;</code> to target the element and its
+pseudo-element by id, because pseudo-elements can't be created in HTML; you need
+not copy it, and would apply <code>display: block</code>, <code>content: ''</code>, and whatever else
+is needed via other selectors.</p>
+
+          </div>
+
+
+      </div>
+
+        <div class="kss-modifier__wrapper">
+          <div class="kss-modifier__heading kss-style">
+            Examples
+          </div>
+
+            <div class="kss-modifier__default-name kss-style">
+              Default styling
+            </div>
+
+          <div class="kss-modifier__example">
+            <style>
+#pseudo-element-owner,
+#pseudo-element-owner::after {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-image: linear-gradient(225deg, white 50%, transparent 50%);
+}
+#pseudo-element-owner::after {
+  background-image: linear-gradient(45deg, white 50%, transparent 50%);
+}
+</style>
+<div style="position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black">
+<div class="center-origin " id="pseudo-element-owner">
+</div>
+</div>
+            <div class="kss-modifier__example-footer"></div>
+          </div>
+
+            <div class="kss-modifier__name kss-style">
+              .center-origin--after
+            </div>
+            <div class="kss-modifier__description kss-style">
+              Only applies to the <code>::after</code> pseudo-element of the target element.
+            </div>
+            <div class="kss-modifier__example">
+              <style>
+#pseudo-element-owner,
+#pseudo-element-owner::after {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-image: linear-gradient(225deg, white 50%, transparent 50%);
+}
+#pseudo-element-owner::after {
+  background-image: linear-gradient(45deg, white 50%, transparent 50%);
+}
+</style>
+<div style="position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black">
+<div class="center-origin center-origin--after" id="pseudo-element-owner">
+</div>
+</div>
+              <div class="kss-modifier__example-footer"></div>
+            </div>
+        </div>
+
+          <details class="kss-markup kss-style">
+            <summary>
+                Markup
+            </summary>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-id">#pseudo-element-owner</span>,
+<span class="hljs-selector-id">#pseudo-element-owner</span><span class="hljs-selector-pseudo">::after</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">225deg</span>, white <span class="hljs-number">50%</span>, transparent <span class="hljs-number">50%</span>);
+}
+<span class="hljs-selector-id">#pseudo-element-owner</span><span class="hljs-selector-pseudo">::after</span> {
+  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>, white <span class="hljs-number">50%</span>, transparent <span class="hljs-number">50%</span>);
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"center-origin [modifier class]"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"pseudo-element-owner"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+          </details>
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/xyz-positioning.css</code>, line 1
+        </div>
+
+    </section>
+    <section id="kssref-cartesian-geometry-polar-position" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-polar-position">
+            <span class="kss-title__ref">
+              2.3
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.polar-position
+              </span>
+            </span>
+            Polar positioning
+          </a>
+        </h2>
+
+          <p class="kss-toolbar">
+              <a href="#kssref-cartesian-geometry-polar-position" data-kss-fullscreen="kssref-cartesian-geometry-polar-position">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-cartesian-geometry-polar-position.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-cartesian-geometry-polar-position" data-kss-guides="true">
+              <span class="kss-toolbar__tooltip">Toggle example guides</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="54" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
+              </svg>
+            </a>
+            <a href="#kssref-cartesian-geometry-polar-position" data-kss-markup="true">
+              <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
+                <path class="kss-toolbar__icon-fill" d="M26.445,17.761l-6.103,-6.103l-20.342,20.342l20.342,20.342l6.103,-6.103l-14.24,-14.239l14.24,-14.239Z"/>
+              </svg>
+            </a>
+          </p>
+
+          <div class="kss-description">
+            <p>Positions direct children of the target element at the point with radius
+<code>--rho-em</code>, and angle <code>--theta-deg</code> (clockwise from the upward vertical) with
+respect to the closest positioned ancestor, without rotating them.</p>
+<p>Inputs:</p>
+<ul>
+<li><code>--theta-deg</code>: angular coordinate (clockwise from the upward vertical)</li>
+<li><code>--rho-em</code>: radial coordinate</li>
+</ul>
+<p><strong>Note</strong>: The children are position right inside the radius <code>--rho-em</code>. This is
+because positioning them (partly) outside, exposes them to be overlapped with
+other elements. This way, instead, if the positioned ancestor does not overlap,
+they shouldn't overlap as well, as they are totally inside of it.</p>
+
+          </div>
+
+
+      </div>
+
+        <div class="kss-modifier__wrapper">
+          <div class="kss-modifier__heading kss-style">
+            Example
+          </div>
+
+
+          <div class="kss-modifier__example">
+            <style>
+#dummy {
+  width: 10em;
+  height: 10em;
+  border-radius: 100%;
+  display: block;
+  content: '';
+  border: 1px solid black;
+}
+#dummy > div > div {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-image: linear-gradient(225deg, black 50%, transparent 50%);
+}
+</style>
+<div id="dummy" style="--rho-em: 5; position: relative;">
+  <div class="polar-position" style="--theta-deg: 0;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 1;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 2;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 3;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 5;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 8;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 13;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 21;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 34;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 55;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 89;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 144;"><div></div></div>
+  <div class="polar-position" style="--theta-deg: 233;"><div></div></div>
+</div>
+            <div class="kss-modifier__example-footer"></div>
+          </div>
+
+        </div>
+
+          <details class="kss-markup kss-style">
+            <summary>
+                Markup
+            </summary>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-id">#dummy</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">10em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">10em</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
+}
+<span class="hljs-selector-id">#dummy</span> &gt; <span class="hljs-selector-tag">div</span> &gt; <span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">225deg</span>, black <span class="hljs-number">50%</span>, transparent <span class="hljs-number">50%</span>);
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dummy"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--rho-em: 5; position: relative;"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 0;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 1;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 2;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 3;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 5;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 8;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 13;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 21;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 34;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 55;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 89;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 144;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-position"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--theta-deg: 233;"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+          </details>
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/polar-positioning.css</code>, line 1
+        </div>
+
+    </section>
+    <section id="kssref-cartesian-geometry-trigonometry" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-trigonometry">
+            <span class="kss-title__ref">
+              2.4
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.trigonometry
+              </span>
+            </span>
+            Trigonometry
+          </a>
+        </h2>
+
+
+          <div class="kss-description">
+            <p>Given <code>--alpha-deg</code> a variable holding the measure of an angle in degrees, this
+module defines <code>--sin-alpha</code> to be an approximation of the sine of that angle.</p>
+<p><strong>Note</strong>: Inspired by <a href="https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97">this</a>.</p>
+
+          </div>
+
+
+      </div>
+
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/trigonometry.css</code>, line 1
+        </div>
+
+    </section>
+    <section id="kssref-cartesian-geometry-triangles" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-triangles">
+            <span class="kss-title__ref">
+              2.5
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.triangles
+              </span>
+            </span>
+            Triangle
+          </a>
+        </h2>
+
+          <p class="kss-toolbar">
+              <a href="#kssref-cartesian-geometry-triangles" data-kss-fullscreen="kssref-cartesian-geometry-triangles">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-cartesian-geometry-triangles.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-cartesian-geometry-triangles" data-kss-guides="true">
+              <span class="kss-toolbar__tooltip">Toggle example guides</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="54" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
+              </svg>
+            </a>
+            <a href="#kssref-cartesian-geometry-triangles" data-kss-markup="true">
+              <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
+                <path class="kss-toolbar__icon-fill" d="M26.445,17.761l-6.103,-6.103l-20.342,20.342l20.342,20.342l6.103,-6.103l-14.24,-14.239l14.24,-14.239Z"/>
+              </svg>
+            </a>
+          </p>
+
+          <div class="kss-description">
+            <p>Creates a triangle according to the following inputs:</p>
+<ul>
+<li><code>--side1-em</code> and <code>--side2-em</code>: the lengths of two of the triangle's sides,
+let them be <em>side_1</em> and <em>side_2</em>, the former coming &quot;before&quot; the latter in
+a clockwise sense, and the vertex between them being the orgin (that can be
+<code>position</code>ed via dedicated rulesets);</li>
+<li><code>--alpha-deg</code>: the angle between <em>side_1</em> and <em>side_2</em>;</li>
+<li><code>--offset-deg</code>: the clockwise offset of <em>side_1</em> with respect to the positive vertical direction;</li>
+<li><code>--color</code> (default: <code>black</code>): fill color of the triangle,</li>
+<li><code>--opacity</code>: opacity of the filling of the triangle,</li>
+</ul>
+<p><strong>Implentation</strong>: An <code>::after</code> pseudo-element with the shape of a square with
+side equal to <code>--side1-em</code> is created, then scaled along the y axis and skewed
+(according to the ratio between <code>--side1-em</code> and  <code>--side2-em</code>, and to
+<code>--alpha-deg</code> and its sine), and rotated (according to <code>--offset-deg</code>).</p>
+<p><strong>Note</strong>: The dashed square in the example below is the one from which the
+triangle is obtained, and <em>it</em> (not the triangle) is what affects the document
+flow. Clearly, <code>position</code>ing the triangle allows one to remove the spacing that
+the dashed square would cause. See also the <code>.center-origin--after</code> class.</p>
+
+          </div>
+
+
+      </div>
+
+        <div class="kss-modifier__wrapper">
+          <div class="kss-modifier__heading kss-style">
+            Example
+          </div>
+
+
+          <div class="kss-modifier__example">
+            <style>
+#untransformed-square {
+  position: relative;
+  left: 0;
+  right: 0;
+  width: 20em;
+  height: 20em;
+  display: block;
+  content: '';
+  border: 1px dashed black;
+}
+#untransformed-square + * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+</style>
+<div id="untransformed-square"></div>
+<div class="trigonometry triangle" style="--side1-em: 20; --side2-em: 8; --alpha-deg: 30; --offset-deg: 100; --color: red; --opacity: 100%;"></div>
+            <div class="kss-modifier__example-footer"></div>
+          </div>
+
+        </div>
+
+          <details class="kss-markup kss-style">
+            <summary>
+                Markup
+            </summary>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-id">#untransformed-square</span> {
+  <span class="hljs-attribute">position</span>: relative;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">20em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">20em</span>;
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> dashed black;
+}
+<span class="hljs-selector-id">#untransformed-square</span> + * {
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"untransformed-square"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"trigonometry triangle"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--side1-em: 20; --side2-em: 8; --alpha-deg: 30; --offset-deg: 100; --color: red; --opacity: 100%;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+          </details>
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/triangle.css</code>, line 1
+        </div>
+
+    </section>
+    <section id="kssref-cartesian-geometry-polar-canvas" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-cartesian-geometry-polar-canvas">
+            <span class="kss-title__ref">
+              2.6
+              <span class="kss-title__permalink-hash">
+                  #Cartesian geometry.polar-canvas
+              </span>
+            </span>
+            Polar canvas
+          </a>
+        </h2>
+
+          <p class="kss-toolbar">
+              <a href="#kssref-cartesian-geometry-polar-canvas" data-kss-fullscreen="kssref-cartesian-geometry-polar-canvas">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-cartesian-geometry-polar-canvas.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-cartesian-geometry-polar-canvas" data-kss-guides="true">
+              <span class="kss-toolbar__tooltip">Toggle example guides</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="35" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="21" width="5" height="9"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="5" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="0" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="5" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="54" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="49" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="5" y="49" width="5" height="15"/>
+                <rect class="kss-toolbar__icon-fill" x="0" y="54" width="15" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="35" y="54" width="9" height="5"/>
+                <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
+              </svg>
+            </a>
+            <a href="#kssref-cartesian-geometry-polar-canvas" data-kss-markup="true">
+              <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
+              <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
+                <path class="kss-toolbar__icon-fill" d="M26.445,17.761l-6.103,-6.103l-20.342,20.342l20.342,20.342l6.103,-6.103l-14.24,-14.239l14.24,-14.239Z"/>
+              </svg>
+            </a>
+          </p>
+
+          <div class="kss-description">
+            <p>Creates a polar canvas according to the following inputs:</p>
+<ul>
+<li><code>--line-width</code>: width of the grid lines,</li>
+<li><code>--canvas-radius-em</code>: multiplied by <code>1em</code> is approximately the radius of the canvas,</li>
+<li><code>--n-radial-lines</code>: number of grid lines in the radial direction,</li>
+<li><code>--grid-color</code>: the color of the grid lines.</li>
+</ul>
+<p><strong>Note</strong>: The number of grid lines in the circumferential direction is 6 (or 3,
+depending how you look at it), and cannot be changed, because each line corresponds
+to a separate <code>linear-gradient</code>.</p>
+<p><strong>Note</strong>: The rule <code>overflow: hidden;</code> is used to prevent some nasty effects.
+Specifically, since the diagrams are drawn via triangles, and since triangles
+are rendered as rectangles with 100% transpacenty on one side of a diagonal, it
+can happen that the transparent half of the rectangles protrudes beyond the
+elements borders, which can cause the appearance of an horizontal scroll bar.</p>
+<p><strong>Note</strong>: The rule <code>position: relative;</code> is set to allow precise positioning of
+elements on top of the canvas.</p>
+
+          </div>
+
+
+      </div>
+
+        <div class="kss-modifier__wrapper">
+          <div class="kss-modifier__heading kss-style">
+            Example
+          </div>
+
+
+          <div class="kss-modifier__example">
+            <div class="polar-canvas" style="--line-width: 2px; --canvas-radius-em: 3; --n-radial-lines: 3; --grid-color: red;"></div>
+            <div class="kss-modifier__example-footer"></div>
+          </div>
+
+        </div>
+
+          <details class="kss-markup kss-style">
+            <summary>
+                Markup
+            </summary>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"polar-canvas"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--line-width: 2px; --canvas-radius-em: 3; --n-radial-lines: 3; --grid-color: red;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+          </details>
+
+        <div class="kss-source kss-style">
+          Source: <code>css/modules/cartesian/polar-canvas.css</code>, line 1
+        </div>
+
+    </section>
+</article>
+</main>
+
+<!-- SCRIPTS -->
+<script src="kss-assets/kss.js"></script>
+<script src="kss-assets/scrollspy.js"></script>
+<script src="kss-assets/kss-fullscreen.js"></script>
+<script src="kss-assets/kss-guides.js"></script>
+<script src="kss-assets/kss-markup.js"></script>
+<script>
+  var spy = new ScrollSpy('#kss-node', {
+    nav: '.kss-nav__menu-child > li > a',
+    className: 'is-in-viewport'
+  });
+  var kssFullScreen = new KssFullScreen({
+    idPrefix: 'kss-fullscreen-',
+    bodyClass: 'kss-fullscreen-mode',
+    elementClass: 'is-fullscreen'
+  });
+  var kssGuides = new KssGuides({
+    bodyClass: 'kss-guides-mode'
+  });
+  var kssMarkup = new KssMarkup({
+    bodyClass: 'kss-markup-mode',
+    detailsClass: 'kss-markup'
+  });
+</script>
+<script src="../js/swipeable-container.js"></script>
+
+
+
+<!-- Automatically built using <a href="https://github.com/kss-node/kss-node">kss-node</a>. -->
+</body>
+</html>
