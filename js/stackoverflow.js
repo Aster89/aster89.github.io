@@ -245,7 +245,7 @@ function populateSORadarPlot() {
       const reputationByTagStr = localStorage.getItem('RepByTag');
       if (reputationByTagStr != null) {
         const repByTag = JSON.parse(reputationByTagStr);
-        const entries = $('#radar-plot>.radar-plot').children();
+        const entries = $('#radar-plot>.radar-plot>.entries').children();
         const tagNames = _.map(x => $(x).attr('title'), entries);
         const maxRep = _.max(_.map(tagName => repByTag[tagName], tagNames));
         const tagNamesShifted = rotate(1, tagNames);
@@ -261,5 +261,6 @@ function populateSORadarPlot() {
           _.zipAll([_.map(x => $(x).find('.from-stackoverflow'), entries), tagNames, tagNamesShifted])
         );
       }
+      $('#radar-plot .loader-wheel').hide();
     });
 }

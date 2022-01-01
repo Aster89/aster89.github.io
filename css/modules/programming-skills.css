@@ -31,7 +31,6 @@
 }
 
 .from-stackoverflow {
-  --stackoverflow-theme-primary-color: #f48225;
   --color: var(--stackoverflow-theme-primary-color);
 }
 

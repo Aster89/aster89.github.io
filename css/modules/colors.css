@@ -7,6 +7,7 @@
  Add a KSS gallery of colors
  */
 :root {
+  --stackoverflow-theme-primary-color: #f48225;
   --brand-color: hsl(204, 100%, 50%);
   --brand-color-adot5: hsl(204, 100%, 50%, 13%);
   --bg-color: hsl(227, 14%, 25%);
