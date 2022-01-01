@@ -1,11 +1,10 @@
 /*
 Loader wheel
 
-A loader wheel
+A spinning loader wheel.
 
 Markup:
 <div class="loader-wheel"></div>
-
 
 Styleguide Asynchrony.loader-wheel
 */
@@ -13,13 +12,13 @@ Styleguide Asynchrony.loader-wheel
 .loader-wheel {
   border: 1em solid transparent;
   border-radius: 50%;
-  border-top: 1em solid var(--stackoverflow-theme-primary-color);
+  border-top: 1em solid var(--color, black);
   width: 4em;
   height: 4em;
   animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

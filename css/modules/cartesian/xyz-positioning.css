@@ -1,5 +1,5 @@
 /*
-Center element (or its ::after) in ancestor
+Center element's (or its ::after) origin in ancestor
 
 Moves the origin of the target element to the center of closest positioned
 ancestor element.
@@ -23,14 +23,14 @@ Markup:
   background-image: linear-gradient(45deg, white 50%, transparent 50%);
 }
 </style>
-<div style="position: relative; display: block; content: ''; width: 5em; height: 5em; background-color: black">
+<div style="position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black">
 <div class="center-origin {{modifier_class}}" id="pseudo-element-owner">
 </div>
 </div>
 
 .center-origin--after  - Only applies to the `::after` pseudo-element of the target element.
 
-Styleguide Cartesian geometry.center-in-container
+Styleguide Cartesian geometry.center-origin-in-container
 */
 
 .center-origin {
@@ -49,4 +49,31 @@ Styleguide Cartesian geometry.center-in-container
   top: 50%;
   left: 50%;
   position: absolute;
+}
+
+/*
+Center element in ancestor
+
+Markup:
+<style>
+#uffa {
+  display: block;
+  content: '';
+  width: 1em;
+  height: 1em;
+  background-color: white;
+}
+</style>
+<div style="position: relative; display: block; content: ''; width: 6em; height: 4em; background-color: black">
+<div class="center" id="uffa">
+</div>
+</div>
+
+Styleguide Cartesian geometry.center-in-container
+*/
+
+.center {
+  position: absolute;
+  inset: 0;
+  margin: auto;
 }

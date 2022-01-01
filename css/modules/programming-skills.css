@@ -30,7 +30,8 @@
   --color: var(--brand-color);
 }
 
-.from-stackoverflow {
+.from-stackoverflow,
+.radar-plot .loader-wheel {
   --color: var(--stackoverflow-theme-primary-color);
 }
 
