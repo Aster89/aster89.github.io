@@ -139,9 +139,7 @@
                 <div class="text-shadow">
                   <p>I was working on a text processing tool that
                   accepts text in a form as simple as
-                  <pre><code class="language-cpp">
-std::string input{"this is the text the algorithm is fed with"};
-                  </code></pre>
+                  <pre><code class="language-cpp">std::string input{"this is the text the algorithm is fed with"};</code></pre>
                   and does simple stuff like filtering and transforming text (e.g.
                   removing vocals, converting tabs to spaces, &hellip;,
                   whatever comes to mind), eventually showing the string in some
@@ -160,17 +158,13 @@ std::string input{"this is the text the algorithm is fed with"};
                   Making the simplifying assumption that the algorithm truly returns
                   one single <code class="language-cpp">std::string_view</code>, the code
                   could look like this
-                  <pre><code class="language-cpp">
-std::string_view algo(std::string const&amp; s) {
+                  <pre><code class="language-cpp">std::string_view algo(std::string const&amp; s) {
     // very complex algorithm: chops off first and last characters
     return std::string_view(s.c_str() + 1,
                             s.size() - 1);
-}
-                  </code></pre>
+}</code></pre>
                   and be used like this
-                  <pre><code class="language-cpp">
-auto out = algo(input);
-                  </code></pre>
+                  <pre><code class="language-cpp">auto out = algo(input);</code></pre>
                   </p>
 
                   Now, in the application I was working on, the
@@ -189,15 +183,13 @@ auto out = algo(input);
                   </ul>
                   And how where these two things made available to the front end? By wrapping them both
                   in a class like this
-                  <pre><code class="language-cpp">
-struct TextAndViewmodel {
+                  <pre><code class="language-cpp">struct TextAndViewmodel {
     std::string s;
     int vm;
     TextAndViewmodel(std::string&amp;&amp; s, int vm)
         : s{std::move(s)}, vm{vm}
     {}
-};
-                  </code></pre>
+};</code></pre>
                   and that's were a silent bug was waiting for me! Can you spot it?
                   </p>
 
@@ -208,9 +200,7 @@ struct TextAndViewmodel {
 
                   <p>Because of that, when such an object was initialized, for instance
                   via
-                  <pre><code class="language-cpp">
-TextAndViewmodel tv{std::move(input), out.length()};
-                  </code></pre>
+                  <pre><code class="language-cpp">TextAndViewmodel tv{std::move(input), out.length()};</code></pre>
                   the <code>input</code> was moved from under the
                   <code>std::string_view</code> returned by the algorithm
                   (<code>out</code>), which end up
@@ -228,8 +218,7 @@ TextAndViewmodel tv{std::move(input), out.length()};
                   for each of the <code>TextAndViewmodel</code> objects (it was
                   a kind of a last-minute filtering right before sending stuff to
                   the GUI).
-                  <pre><code class="language-cpp">
-struct TextAndViewmodel {
+                  <pre><code class="language-cpp">struct TextAndViewmodel {
     std::string s;
     std::string_view sv;
     TextAndViewmodel(std::string&amp;&amp; s,
@@ -238,8 +227,7 @@ struct TextAndViewmodel {
     {}
     // if the client needs what was `vm` in the
     // previous snippet, they can go for `sv.length()`
-};
-                  </code></pre>
+};</code></pre>
                   At that point, indeed, I started noticing some
                   weird things going on in the GUI:
                   <ul>
@@ -287,8 +275,7 @@ struct TextAndViewmodel {
                   <p>In the process of debugging, I wrote this little code to print
                   the string length for which the SSO is disabled (which is an implementation
                   detail, by the way):
-                  <pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                  <pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 
 int main()
@@ -305,8 +292,7 @@ int main()
         str1 = str2;
     }
     std::cout &lt;&lt; str1.length() &lt;&lt; std::endl;
-}
-                  </code></pre>
+}</code></pre>
                   </p>
                 </div>
               </div>
@@ -327,13 +313,11 @@ int main()
                   to a visitor, the reason being that I had to visit several <code>std::variant</code>s with the same visitor (in different places of the code,
                   so passing all the <code>std::variant</code>s at the same time to <code>std::visit</code> was not viable).</p>
                   <p>Sure, I could quickly write a lambda to do the job:</p>
-                  <pre><code class="language-cpp">
-auto visitWith = [](auto const&amp; visitor){
+                  <pre><code class="language-cpp">auto visitWith = [](auto const&amp; visitor){
   return [](auto const&amp;... variants){
     return std::visit(visitor, variants...);
   };
-};
-                  </code></pre>
+};</code></pre>
                   <p>but why should I, if there's already the <a href="http://boostorg.github.io/hana/">Boost.Hana</a> library out there that offers
                   <a href="http://boostorg.github.io/hana/group__group-functional.html#ga778b2daa27882e71d28b6f2b38982ddf"><code>hana::partial</code></a>?
                   However, to do so, I had the problem that
@@ -341,11 +325,9 @@ auto visitWith = [](auto const&amp; visitor){
                   href="https://stackoverflow.com/questions/65811716/most-terse-and-reusable-way-of-wrapping-template-or-overloaded-functions-in-func">it can't be passed around</a> just like if
                   it was an object. Easy peasy, I wrapped it in a lambda:
                   </p>
-                  <pre><code class="language-cpp">
-auto visit = [](auto const&amp; visitor, auto const&amp;... variants){
+                  <pre><code class="language-cpp">auto visit = [](auto const&amp; visitor, auto const&amp;... variants){
   return std::visit(visitor, variants...);
-};
-                  </code></pre>
+};</code></pre>
                   <p>Yeah, I hear you: if I'm happy with this lambda, why should the previous one bother me?</p>
                   <p>Well, that's true, but the point is that stubbornly trying to use <code>hana::partial</code>
                   is what made me understand, once more, that Scott Meyers' book is a holy bible!
@@ -356,14 +338,12 @@ auto visit = [](auto const&amp; visitor, auto const&amp;... variants){
                   object, however, wasn't enough to be able to partially
                   apply <code>visit</code> to a visitor; not in the naive code
                   I wrote,</p>
-                  <pre><code class="language-cpp">
-auto visitor = hana::overload(
+                  <pre><code class="language-cpp">auto visitor = hana::overload(
   [](auto arg)               { /* whatever */ },
   [](double arg)             { /* whatever */ },
   [](const std::string&amp; arg) { /* whatever */ });
 
-auto visitWithVis = hana::partial(visit, visitor);
-                  </code></pre>
+auto visitWithVis = hana::partial(visit, visitor);</code></pre>
                   <p>which was failing to compile, <a href="https://godbolt.org/z/9GnT9fzox">with a pretty confusing error</a>, the key part of which was (in hindsight!)</p>
                   <pre><code>error: no matching function for call to ‘hana::overload_t&lt;main()::&lt;lambda(double)&gt;, main()::&lt;lambda(const string&amp;)&gt; &gt;::overload_t()’</code></pre>
 
@@ -372,12 +352,10 @@ auto visitWithVis = hana::partial(visit, visitor);
 
                   <h5>The investigation</h5>
                   <p>Eventually, I was able to set up a very minimal example to reproduce the problem: </p>
-                  <pre><code class="language-cpp">
-#include &lt;boost/hana/functional/overload.hpp&gt;
+                  <pre><code class="language-cpp">#include &lt;boost/hana/functional/overload.hpp&gt;
 auto ovl{hana::overload(l1, l2, l3)};
 using Ovl = decltype(ovl);
-Ovl ovl2{ovl}; // this triggers the compilation error
-                  </code></pre>
+Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   <p>From the comment you understand that there's something wrong with copying the <code>ovl</code> object.
                   As suggested in <a href="https://stackoverflow.com/questions/68099079/understanding-error-when-using-partial-function-application-or-curry-in-conjunct?noredirect=1#comment123799416_68099079">a comment</a>,
                   however, making <code>ovl</code> a <code>const</code> object solves the problem, which gave me some food for thoughts.
@@ -387,8 +365,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error
                                     and <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/functional/overload.hpp"><code>hana::overload</code></a>
                   I could later make up a less minimal, but more meaningful example:
                                     </p>
-                  <pre><code class="language-cpp">
-#include &lt;boost/hana/functional/overload.hpp&gt;
+                  <pre><code class="language-cpp">#include &lt;boost/hana/functional/overload.hpp&gt;
 
 auto l1 = [](int){};    using L1 = decltype(l1);
 auto l2 = [](double){}; using L2 = decltype(l2);
@@ -398,8 +375,7 @@ using Ovl = hana::overload_t&lt;L1, L2, L3&gt;
 
 Ovl ovl{l1,l2,l3};
 
-Ovl ovl2{ovl}; // this triggers the compilation error
-                  </code></pre>
+Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   <p>where <code>hana::overload_t</code> is the (template) class of the object returned by <code>hana::overload</code>.</p>
 
                   <p>To understand what's going on, I had to look once more,
@@ -408,8 +384,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error
                     href="https://github.com/boostorg/hana/blob/998033e9dba8c82e3c9496c274a3ad1acf4a2f36/include/boost/hana/functional/overload.hpp#L41-L71"><code>hana::overload_t</code></a>,
                   and to play a bit the role of the compiler, by "manually
                   instantiating" it:</p>
-                  <pre><code>
-struct overload_t&lt;L1, L2, L3&gt;
+                  <pre><code>struct overload_t&lt;L1, L2, L3&gt;
     : L1
     , overload_t&lt;L2, L3&gt;
 {
@@ -422,8 +397,7 @@ struct overload_t&lt;L1, L2, L3&gt;
         : L1(static_cast&lt;F_&amp;&amp;&gt;(f))
         , overload_t&lt;L2, L3&gt;(static_cast&lt;G_&amp;&amp;&gt;(g)...) // error points here
     { }
-};
-                  </code></pre>
+};</code></pre>
 
                   <h5>The solution</h5>
                   <p>It is then clear what's going on: the code <code>Ovl
@@ -562,8 +536,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                   </ul>
                   </p>
                   <p>So how should that ideal HTML look like? Probably something along these lines
-                  <pre><code class="language-html">
-&lt;div class="plot"&gt;
+                  <pre><code class="language-html">&lt;div class="plot"&gt;
   &lt;!-- 6 points of the y = x² parabola --&gt;
   &lt;div class="point" style="--x: 0; --y: 0;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--x: 1; --y: 1;"&gt;&lt;/div&gt;
@@ -571,8 +544,7 @@ struct overload_t&lt;L1, L2, L3&gt;
   &lt;div class="point" style="--x: 3; --y: 9;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--x: 4; --y: 16;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--x: 5; --y: 25;"&gt;&lt;/div&gt;
-&lt;/div&gt;
-                  </code></pre>
+&lt;/div&gt;</code></pre>
                   where the <i>x</i> and <i>y</i> coordinates are in the <code>style</code> attribute
                   so that CSS can pick it up easily.
                   </p>
@@ -637,16 +609,14 @@ struct overload_t&lt;L1, L2, L3&gt;
                   <p>Given this (bad) news and going back to the HTML snippet above,
                   we could rewrite it like this (where the trailing <code>p</code> of
                   <code>--xp</code> and <code>--yp</code> stands for <i>previous</i>),
-                  <pre><code class="language-html">
-&lt;div class="plot"&gt;
+                  <pre><code class="language-html">&lt;div class="plot"&gt;
   &lt;!-- 5 segments (between the 6 points) of the y = x² parabola --&gt;
   &lt;div class="point" style="--xp: 0; --yp: 0; --x: 1; --y: 1;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--xp: 1; --yp: 1; --x: 2; --y: 4;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--xp: 2; --yp: 4; --x: 3; --y: 9;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--xp: 3; --yp: 9; --x: 4; --y: 16;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--xp: 4; --yp: 16;--x: 5; --y: 25;"&gt;&lt;/div&gt;
-&lt;/div&gt;
-                  </code></pre>
+&lt;/div&gt;</code></pre>
                   giving a chance to our CSS to pick the coordinates of the two
                   points between which line has to be drawn.
                   </p>
@@ -833,26 +803,20 @@ struct overload_t&lt;L1, L2, L3&gt;
                     An immediately practical application of promises is in easily making callback-based APIs synchronous.
                   </blockquote>
                   and then propose this asynchronous function,
-                  <pre><code class="language-clojure">
-(defn call-service
+                  <pre><code class="language-clojure">(defn call-service
   [arg1 arg2 callback-fn]
   ; ... do stuff
-  (future (callback-fn (+ arg1 arg2) (- arg1 arg2))))
-                  </code></pre>
+  (future (callback-fn (+ arg1 arg2) (- arg1 arg2))))</code></pre>
                   this synchronous wrapper,
-                  <pre><code class="language-clojure">
-(defn sync-fn
+                  <pre><code class="language-clojure">(defn sync-fn
   [async-fn]
   (fn [&amp; args]
     (let [result (promise)]
       (apply async-fn (conj (vec args)
                             #(deliver result %&amp;)))
-      @result)))
-                  </code></pre>
+      @result)))</code></pre>
                   and this use case,
-                  <pre><code class="language-clojure">
-((sync-fn call-service) 10 7) ; (17 3)
-                  </code></pre>
+                  <pre><code class="language-clojure">((sync-fn call-service) 10 7) ; (17 3)</code></pre>
                   </p>
                   <p>What puzzled me of this solution, is the fact that
                   <code>sync-fn</code> doesn't really preserve
@@ -877,10 +841,8 @@ struct overload_t&lt;L1, L2, L3&gt;
                   that wraps all its arguments into a sequence, via <code>%&amp;</code>,
                   and then passes that sequence as the second argument to <code>deliver</code>,
                   so we can rewrite it as the composition of those two businesses
-                  <pre><code class="language-clojure">
-; equivalent to #(deliver result %&amp;)
-(comp (partial deliver result) list)
-                  </code></pre>
+                  <pre><code class="language-clojure">; equivalent to #(deliver result %&amp;)
+(comp (partial deliver result) list)</code></pre>
                   </p>
                   <p>It is apparent, at this point, that <code>list</code> is just one possible
                   function that we want <code>call-service</code> to use on <code>callback-fn</code>'s
@@ -888,23 +850,19 @@ struct overload_t&lt;L1, L2, L3&gt;
                   </p>
                   <p>
                   In fact, we can make it an input to <code>sync-fn</code>:
-                  <pre><code class="language-clojure">
-(defn sync-fn
+                  <pre><code class="language-clojure">(defn sync-fn
   [async-fn callback-fn]
   (fn [&amp; args]
     (let [result (promise)]
       (apply async-fn (conj (vec args)
                             (comp (partial deliver result)
                                   callback-fn)))
-      @result)))
-                  </code></pre>
+      @result)))</code></pre>
                   which can then be used like this
-                  <pre><code class="language-clojure">
-((sync-fn call-service list)          10 7) ; (17 3)
+                  <pre><code class="language-clojure">((sync-fn call-service list)          10 7) ; (17 3)
 ((sync-fn call-service vector)        10 7) ; [17 3]
 ((sync-fn call-service #(apply + %&amp;)) 10 7) ; 20
-((sync-fn call-service #(apply * %&amp;)) 10 7) ; 51
-                  </code></pre>
+((sync-fn call-service #(apply * %&amp;)) 10 7) ; 51</code></pre>
                   where we pass, as <code>sync-fn</code>'s second argument, the same lambda
                   we would pass to <code>call-service</code> as a third argument.
                   </p>
@@ -914,20 +872,16 @@ struct overload_t&lt;L1, L2, L3&gt;
                   function as the last argument is still hard-coded in <code>sync-fn</code>).
                   For instance, if <code>call-service</code> expected a <code>callback-fn</code>
                   that takes a list of arguments rather than distinct arguments,
-                  <pre><code class="language-clojure">
-(defn call-service-2
+                  <pre><code class="language-clojure">(defn call-service-2
   [arg1 arg2 callback-fn]
   ; ... do stuff
-  (future (callback-fn (list (+ arg1 arg2) (- arg1 arg2)))))
-                  </code></pre>
+  (future (callback-fn (list (+ arg1 arg2) (- arg1 arg2)))))</code></pre>
                   then we'd only need to adapt the callback lambdas by making them accept
                   one argument instead of many:
-                  <pre><code class="language-clojure">
-((sync-fn call-service-2 identity)          10 7) ; (17 3)
+                  <pre><code class="language-clojure">((sync-fn call-service-2 identity)          10 7) ; (17 3)
 ((sync-fn call-service-2 vec)               10 7) ; [17 3]
 ((sync-fn call-service-2 (partial apply +)) 10 7) ; 20
-((sync-fn call-service-2 (partial apply *)) 10 7) ; 51
-                  </code></pre>
+((sync-fn call-service-2 (partial apply *)) 10 7) ; 51</code></pre>
                   </p>
                 </div>
               </div>
