@@ -157,7 +157,7 @@ std::string input{"this is the text the algorithm is fed with"};
                   works with views, and returns a collection of views on the input string,
                   without actually instantiating, copying, or moving
                   any <code class=language-cpp">std::string</code>.
-                  Making the simplifying assumption that the algorithm truly retuns
+                  Making the simplifying assumption that the algorithm truly returns
                   one single <code class="language-cpp">std::string_view</code>, the code
                   could look like this
                   <pre><code class="language-cpp">
@@ -279,7 +279,7 @@ struct TextAndViewmodel {
                   <p>On the other hand, when SSO kicked in, then the actual <code>char</code>s
                   stored in the "special short-string compartment" in
                   <code>input</code> were truly copied, one by one, into the corresponding
-                  memebr of <code>tv.s</code>, and then freed, which for me resulted in
+                  member of <code>tv.s</code>, and then freed, which for me resulted in
                   <code>input</code> being left full of garbage <code>char</code>acters and,
                   in turn, the filtering I mentioned not happening at all.
                   </p>
@@ -334,7 +334,7 @@ auto visitWith = [](auto const&amp; visitor){
   };
 };
                   </code></pre>
-                  <p>but why should I, if there's already the <a href="http://boostorg.github.io/hana/">Boost.Hana</a> libary out there that offers
+                  <p>but why should I, if there's already the <a href="http://boostorg.github.io/hana/">Boost.Hana</a> library out there that offers
                   <a href="http://boostorg.github.io/hana/group__group-functional.html#ga778b2daa27882e71d28b6f2b38982ddf"><code>hana::partial</code></a>?
                   However, to do so, I had the problem that
                   <code>std::visit</code> is a template function, so <a
@@ -427,8 +427,8 @@ struct overload_t&lt;L1, L2, L3&gt;
 
                   <h5>The solution</h5>
                   <p>It is then clear what's going on: the code <code>Ovl
-                    ovl2{ovl};</code>, which should make use of a the copy
-                  construtor, is using instead the template member function
+                    ovl2{ovl};</code>, which should make use of the copy
+                  constructor, is using instead the template member function
                   above, with <code>F_ = overload_t&lt;L1, L2,
                     L3&gt;&amp;</code> and <code>G_ = {}</code> (i.e.
                   <code>G_</code> is an empty pack), which in turn causes an
@@ -448,7 +448,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                     <code>cloneOfP</code> is being initialized with a
                     non-<code>const</code> lvalue (<code>p</code>), and that
                     means that the templetized constructor can be instantiated
-                    totake a non-<code>const</code> lvalue of type
+                    to take a non-<code>const</code> lvalue of type
                     <code>Person</code>
                     </p>
                     <p>
@@ -493,7 +493,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                     <p>Indeed, if this is the case, chances are good
                     that you hit <span class="key">CTRL-W</span> a lot of times to move from one window
                     to another. (Search for <i><code>:help CTRL-W</code></i> to see how many commands start by <span class="key">CTRL-W</span>.)</p>
-                    <p>Below is a GIF demonstating the use of <a href="https://github.com/Aster89/WinZoZ">WinZoZ</a>:</p>
+                    <p>Below is a GIF demonstrating the use of <a href="https://github.com/Aster89/WinZoZ">WinZoZ</a>:</p>
                     <img src="https://user-images.githubusercontent.com/20521900/97799961-55007280-1c31-11eb-9821-8b604345ac1b.gif" alt=""/>
                   </div>
                   <div lang='it'>
@@ -509,7 +509,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                     interpretato come preceduto da <span class="key">CTRL-W</span>.</p>
                     <p>Questo può essere molto utile, secondo me se sei il tipo di utente Vim
                     che lavora con un grande monitor e divide il terminale molte volte
-                    sia orizontalmente che verticalmente.</p>
+                    sia orizzontalmente che verticalmente.</p>
                     <p>In questo caso, infatti, ci sono buone probabilità che tu sia costretto a premere
                     <span class="key">CTRL-W</span> tantissime volte per muoversi da una finestra
                     all'altra. (Cerca <i><code>:help CTRL-W</code></i> per vedere quanti comandi iniziano con <span class="key">CTRL-W</span>.)</p>
@@ -531,13 +531,13 @@ struct overload_t&lt;L1, L2, L3&gt;
                 </div>
                 <div class="text-shadow">
                   <p>
-                  I still remeber I was flying back or away from home when I started thinking about this webpage
+                  I still remember I was flying back or away from home when I started thinking about this webpage
                   with these thoughts coming in sequence
                   <i>
                     <ul>
                       <li>Oh, I really enjoyed <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i>,</li>
                       <li>I think I could really leverage that to make a good blog;</li>
-                      <li>I should probably start by doing what I initally planned to do: putting my CV online&hellip;</li>
+                      <li>I should probably start by doing what I initially planned to do: putting my CV online&hellip;</li>
                       <li>&hellip; with my working experience and all my skills&hellip;</li>
                       <li>Yeah, especially all my programming skills!</li>
                       <li>A diagram with the skills would be nice&hellip;</li>
@@ -658,12 +658,12 @@ struct overload_t&lt;L1, L2, L3&gt;
                   <ol>
                     <li>a radar diagram looks like a polygon, with as many vertices (and sides)
                       as the number of quantities we want to show, say <i>N</i>, so we need
-                    to priovide that <i>N</i> via a CSS property, say
+                    to provide that <i>N</i> via a CSS property, say
                     <code>--N</code> that we can encode in the HTML in the root
                     parent of the chart;</li>
                     <li>that polygon is made up of <i>N</i> triangles;</li>
                     <li>all triangles have one vertex in common, the one at the
-                      center of the chart (so let's call that vertext <i>the center</i>),
+                      center of the chart (so let's call that vertex <i>the center</i>),
                       and the angle insisting on that vertex is the same for
                       all triangles, being it equal to 350° divided by
                       <i>N</i>; <code>position</code>, <code>left</code>, and <code>right</code>
@@ -1038,7 +1038,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                 </div>
                 <div class="text-shadow">
                   <p lang="en">Design, development, and testing of text comparison back-end tools and algorithms.</p>
-                  <p lang="it">Design, sviluppo, e test di algoritmi e strumenti di back-end per confonto di testi</p>
+                  <p lang="it">Design, sviluppo, e test di algoritmi e strumenti di back-end per confronto di testi</p>
                   <h4 lang="en">Expertise:</h4>
                   <h4 lang="it">Esperienza con:</h4>
                   <ul>
@@ -1123,12 +1123,12 @@ struct overload_t&lt;L1, L2, L3&gt;
                     </h4>
                     <p>
                     <span lang="en">Development of a 3D fluid-dynamic solver for turbulent flows from scratch</span>
-                    <span lang="it">Sviluppo da zero di un solutore fluidodinamico tridimensionale per flussi turbulenti</span>
+                    <span lang="it">Sviluppo da zero di un solutore fluidodinamico tridimensionale per flussi turbulent</span>
                     </p>
                     <ul>
                       <li>
                         <span lang="en">Object-Oriented Fortran 2003/2008 + MPI 3.1-parallel</span>
-                        <span lang="it">Fortran 2003/2008 orientato agli oggeti, parellelizzato tramite MPI 3.1</span>
+                        <span lang="it">Fortran 2003/2008 orientato agli oggetti, parallelizzato tramite MPI 3.1</span>
                       </li>
                       <li>
                         <span lang="en">employed MPI three-dimensional domain decomposition</span>
@@ -1165,7 +1165,7 @@ struct overload_t&lt;L1, L2, L3&gt;
                   <ul>
                     <li>Multimedia signal processing</li>
                     <li>Control theory</li>
-                    <li>Complements of gasdynamics (e.g. shockwave structure)</li>
+                    <li>Complements of gas dynamics (e.g. shockwave structure)</li>
                   </ul>
                 </div>
               </div>
