@@ -1,75 +1,70 @@
 /*
-StackOverflow summary
+StackOverflow widget
 
-A panel to show StackOverflow reputation and number of bronze, silver, and
-golden badges.
+A panel to show StackOverflow-specific stuff.
 
-This module defines its own variables and uses high specificity selectors
-(all selectors start by targeting the `.stackoverflow` class).  This is
-done to force it being stable regardless of other styles; after all, I
- **don't want** it to be coherent with the rest of the site, as it
- represents a view on an external site.
+This module defines its own variables and uses high specificity selectors.
+This is done to force it being stable regardless of other styles; after all, I
+**don't want** it to be coherent with the rest of the site, as it represents a
+view on an external site.
 
 Markup:
-<div class="stackoverflow">
-  <img class="avatar" src=""/>
-  <span id=reputation>rep</span>
-  <ul class="badges">
-    <li id="gold-badges">123</li>
-    <li id="silver-badges">123</li>
-    <li id="bronze-badges">123</li>
-  </ul>
+<style>
+.stackoverflow-widget {
+  width: 10em;
+  height: 5em;
+}
+</style>
+<div class="stackoverflow-widget box-shadow">
+hello world
 </div>
 
-Styleguide External.stackoverflow
+Styleguide External.stackoverflow-widget
 */
 
-.stackoverflow {
-  --bronze: hsl(28, 31%, 52%);
-  --silver: hsl(210, 3%, 61%);
-  --gold: hsl(45, 100%, 47%);
+.stackoverflow-widget {
   --border: hsl(210, 5%, 44%);
   color: hsl(210, 7%, 78%);
   background-color: hsl(0, 0%, 22.5%);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Liberation Sans", sans-serif;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   border: 1px solid var(--border);
   width: max-content;
   padding: 0.3em;
   border-radius: 0.15em;
 }
 
-.stackoverflow * {
+.stackoverflow-widget.flex,
+.stackoverflow-widget .flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.stackoverflow-widget * {
   align-self: center;
   font-size: initial;
 }
 
-.stackoverflow * + * {
+.stackoverflow-widget.flex > * + *,
+.stackoverflow-widget .flex > * + * {
   padding: 0;
   margin: 0 0 0 0.6em;
 }
 
-.stackoverflow > .avatar {
+.stackoverflow-widget > .avatar {
   width: 2em;
   height: 2em;
   border-radius: 0.15em;
 }
 
-.stackoverflow .badges {
-  display: flex;
-  list-style-type: none;
-  justify-content: space-between;
-}
-
-.stackoverflow .badges > * {
+.stackoverflow-widget > .badges > * {
   color: var(--badge-color);
   display: flex;
   align-items: center;
 }
 
-.stackoverflow .badges > *::before {
+.stackoverflow-widget > .badges > *::before {
   display: inline-block;
   content: "";
   width: 0.5em;
@@ -79,36 +74,36 @@ Styleguide External.stackoverflow
   margin-right: 0.15em;
 }
 
-.stackoverflow #reputation {
+.stackoverflow-widget > .reputation {
   font-weight: bold;
 }
 
-.stackoverflow #bronze-badges {
-  --badge-color: var(--bronze);
+.stackoverflow-widget > .badges > .bronze {
+  --badge-color: var(--stackoverflow-bronze-darker);
 }
 
-.stackoverflow #silver-badges {
-  --badge-color: var(--silver);
+.stackoverflow-widget > .badges > .silver {
+  --badge-color: var(--stackoverflow-silver-darker);
 }
 
-.stackoverflow #gold-badges {
-  --badge-color: var(--gold);
+.stackoverflow-widget > .badges > .gold {
+  --badge-color: var(--stackoverflow-gold-darker);
 }
 
-a#stackoverflow + .stackoverflow {
+a#stackoverflow-link + .stackoverflow-widget {
   left: 50%;
   transform: translate(-50%) scale(0.8);
 }
 
-a#stackoverflow:hover + .stackoverflow {
+a#stackoverflow-link:hover + .stackoverflow-widget {
   text-decoration: none;
   transition: opacity var(--transition-time);
 }
 
-a#stackoverflow + .stackoverflow {
+a#stackoverflow-link + .stackoverflow-widget {
   position: absolute;
 }
 
-a#stackoverflow:not(:hover) + .stackoverflow {
+a#stackoverflow-link:not(:hover) + .stackoverflow-widget {
   opacity: 0;
 }

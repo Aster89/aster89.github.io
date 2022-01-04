@@ -8,6 +8,9 @@
  */
 :root {
   --stackoverflow-theme-primary-color: #f48225;
+  --stackoverflow-bronze-darker: hsl(28, 31%, 52%);
+  --stackoverflow-silver-darker: hsl(210, 3%, 61%);
+  --stackoverflow-gold-darker: hsl(45, 100%, 47%);
   --theme-color: hsl(204, 100%, 50%);
   --theme-color-adot5: hsl(204, 100%, 50%, 13%);
   --bg-color: hsl(227, 14%, 25%);

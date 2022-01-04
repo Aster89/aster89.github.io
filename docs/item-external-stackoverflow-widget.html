@@ -87,23 +87,23 @@
 <main class="kss-main" aria-label="Content">
   <article>
 
-    <div id="kssref-external-stackoverflow" class="kss-section kss-section--depth-2 is-fullscreen">
+    <div id="kssref-external-stackoverflow-widget" class="kss-section kss-section--depth-2 is-fullscreen">
 
       <div class="kss-style">
         <h2 class="kss-title kss-title--level-2">
-          <a class="kss-title__permalink" href="#kssref-external-stackoverflow">
+          <a class="kss-title__permalink" href="#kssref-external-stackoverflow-widget">
             <span class="kss-title__ref">
               7.1
               <span class="kss-title__permalink-hash">
-                  #External.stackoverflow
+                  #External.stackoverflow-widget
               </span>
             </span>
-            StackOverflow summary
+            StackOverflow widget
           </a>
         </h2>
 
           <p class="kss-toolbar">
-            <a href="#kssref-external-stackoverflow" data-kss-guides="true">
+            <a href="#kssref-external-stackoverflow-widget" data-kss-guides="true">
               <span class="kss-toolbar__tooltip">Toggle example guides</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
@@ -124,7 +124,7 @@
                 <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
               </svg>
             </a>
-            <a href="#kssref-external-stackoverflow" data-kss-markup="true">
+            <a href="#kssref-external-stackoverflow-widget" data-kss-markup="true">
               <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
@@ -134,13 +134,11 @@
           </p>
 
           <div class="kss-description">
-            <p>A panel to show StackOverflow reputation and number of bronze, silver, and
-golden badges.</p>
-<p>This module defines its own variables and uses high specificity selectors
-(all selectors start by targeting the <code>.stackoverflow</code> class).  This is
-done to force it being stable regardless of other styles; after all, I
-<strong>don't want</strong> it to be coherent with the rest of the site, as it
-represents a view on an external site.</p>
+            <p>A panel to show StackOverflow-specific stuff.</p>
+<p>This module defines its own variables and uses high specificity selectors.
+This is done to force it being stable regardless of other styles; after all, I
+<strong>don't want</strong> it to be coherent with the rest of the site, as it represents a
+view on an external site.</p>
 
           </div>
 
@@ -154,14 +152,14 @@ represents a view on an external site.</p>
 
 
           <div class="kss-modifier__example">
-            <div class="stackoverflow">
-  <img class="avatar" src=""/>
-  <span id=reputation>rep</span>
-  <ul class="badges">
-    <li id="gold-badges">123</li>
-    <li id="silver-badges">123</li>
-    <li id="bronze-badges">123</li>
-  </ul>
+            <style>
+.stackoverflow-widget {
+  width: 10em;
+  height: 5em;
+}
+</style>
+<div class="stackoverflow-widget box-shadow">
+hello world
 </div>
             <div class="kss-modifier__example-footer"></div>
           </div>
@@ -172,14 +170,14 @@ represents a view on an external site.</p>
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stackoverflow"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"avatar"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">""</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">reputation</span>&gt;</span>rep<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"badges"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"gold-badges"</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"silver-badges"</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bronze-badges"</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-class">.stackoverflow-widget</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">10em</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">5em</span>;
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stackoverflow-widget box-shadow"</span>&gt;</span>
+hello world
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
           </details>
 

@@ -128,10 +128,10 @@ function populateSOProfileWidged() {
       const items = JSON.parse(localStorage.getItem('BadgesAndTotRep'));
       if (!_.isEmpty(items)) {
         const separateThousandsWithComma = num => num.toString().match(/(\d{1,3})(?=(\d{3})*$)/g).join();
-        $("#reputation").html(separateThousandsWithComma(items.rep));
-        $("#bronze-badges").html(items.bronze);
-        $("#silver-badges").html(items.silver);
-        $("#gold-badges").html(items.gold);
+        $(".stackoverflow-widget>.reputation").html(separateThousandsWithComma(items.rep));
+        $(".badges>.bronze").html(items.bronze);
+        $(".badges>.silver").html(items.silver);
+        $(".badges>.gold").html(items.gold);
       }
     });
 }
