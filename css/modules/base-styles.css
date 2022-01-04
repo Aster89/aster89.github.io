@@ -15,11 +15,11 @@ a { /* no persistent underline */
 }
 
 a:link {
-  color: var(--brand-color);
+  color: var(--theme-color);
 }
 
 a:visited {
-  color: var(--brand-color);
+  color: var(--theme-color);
 }
 
 a:hover {
@@ -27,5 +27,5 @@ a:hover {
 }
 
 a:active {
-  text-shadow: var(--brand-glow-text-shadow);
+  text-shadow: var(--theme-glow-text-shadow);
 }

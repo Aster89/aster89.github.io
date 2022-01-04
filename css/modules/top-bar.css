@@ -1,6 +1,6 @@
 .top-bar {
   padding: 0.5em 1em;
-  background-color: var(--brand-color);
+  background-color: var(--theme-color);
   position: fixed;
   width: 100%;
   left: 0;

@@ -27,7 +27,7 @@
 }
 
 .imho {
-  --color: var(--brand-color);
+  --color: var(--theme-color);
 }
 
 .from-stackoverflow,

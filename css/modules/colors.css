@@ -8,9 +8,10 @@
  */
 :root {
   --stackoverflow-theme-primary-color: #f48225;
-  --brand-color: hsl(204, 100%, 50%);
-  --brand-color-adot5: hsl(204, 100%, 50%, 13%);
+  --theme-color: hsl(204, 100%, 50%);
+  --theme-color-adot5: hsl(204, 100%, 50%, 13%);
   --bg-color: hsl(227, 14%, 25%);
+  --bg-color-darker: hsl(227, 14%, 15%);
   --fg-color: hsl(210, 25%, 98%);
   --shadow: hsl(228, 14%, 7%);
   --panel-bg-color: hsl(224, 13%, 34%);
@@ -19,8 +20,8 @@
   --even-ligher-black: hsl(226, 7%, 64%);
   --white: hsl(210, 25%, 98%);
   --down-right-shadow: 0.1em 0.1em 0.4em var(--shadow);
-  --brand-glow-box-shadow: 0 0 1em 0.3em var(--brand-color-adot5);
-  --brand-glow-text-shadow: 0 0 1em var(--brand-color-adot5);
+  --theme-glow-box-shadow: 0 0 1em 0.3em var(--theme-color-adot5);
+  --theme-glow-text-shadow: 0 0 1em var(--theme-color-adot5);
   --warning-yellow: hsl(48,88%,54%);
   --warning-grey: hsl(0,0%,20%);
   /*
