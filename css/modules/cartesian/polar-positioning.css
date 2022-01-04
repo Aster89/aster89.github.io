@@ -63,5 +63,6 @@ Styleguide Cartesian geometry.polar-position
 }
 
 .polar-position > * {
+  text-align: center;
   transform: rotate(calc(var(--minus-theta-deg) * 1deg));
 }
