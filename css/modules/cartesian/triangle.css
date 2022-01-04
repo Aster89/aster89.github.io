@@ -58,6 +58,6 @@ Styleguide Cartesian geometry.triangles
              skew(calc((90 - var(--alpha-deg)) * 1deg))
              scaleY(calc(var(--sin-alpha) * (var(--side2-em) / var(--side1-em))));
   --blur-distance: 0.25px; /* to soften the "diagonal" side */
-  background-image: linear-gradient(135deg, var(--color, black) calc(50% - var(--blur-distance)), transparent calc(50% + var(--blur-distance)));
+  background-image: linear-gradient(135deg, var(--color, var(--theme-color, white)) calc(50% - var(--blur-distance)), transparent calc(50% + var(--blur-distance)));
   opacity: var(--opacity, 100%);
 }
