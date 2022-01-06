@@ -181,8 +181,7 @@
                   could look like this
                   <pre><code class="language-cpp">std::string_view algo(std::string const&amp; s) {
     // very complex algorithm: chops off first and last characters
-    return std::string_view(s.c_str() + 1,
-                            s.size() - 1);
+    return std::string_view(s.c_str() + 1, s.size() - 1);
 }</code></pre>
                   and be used like this
                   <pre><code class="language-cpp">auto out = algo(input);</code></pre>
@@ -247,8 +246,7 @@
                   <pre><code class="language-cpp">struct TextAndViewmodel {
     std::string s;
     std::string_view sv;
-    TextAndViewmodel(std::string&amp;&amp; s,
-                     std::string_view vm)
+    TextAndViewmodel(std::string&amp;&amp; s, std::string_view vm)
         : s{std::move(s)}, sv{sv}
     {}
     // if the client needs what was `vm` in the
@@ -819,6 +817,461 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
           </section>
           <section class="tab-page" id="suggested-books-tab">
             <article class="post-entry">
+              <h6 class="time-interval text-shadow handwriting">05/06/2021</h6>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <h2>Clean Code (?) - part 1</h2>
+                </div>
+                <div class="text-shadow">
+                  <p>I didn't like that book.</p>
+                  <p>&hellip;</p>
+                  <p>(OK, maybe I should be more verbose than that.)</p>
+                  <p>First of all, it's full of just Java code. With
+                  such a premise, I can't hope that the author expresses
+                  as general ideas as the title would imply, and indeed
+                  he doesn't; what he does instead, is trying to give
+                  a recipe made up of dogmatic rules for writing presumably
+                  clean Java code. And given that languages evolve (I guess
+                  Java does too, doesn't it? I don't know Java,
+                  <strike>un</strike>fortunately), that old book is probably
+                  not applicable anymore.
+                  </p>
+                  <p>Secondly, the book does have something good: I do agree
+                  with several statements across the book, and those statements
+                  are often engraved in section titles&hellip;</p>
+                  <p>&hellip; but as long as examples are concerned,
+                  I think they are flat out wrong: they mislead, and generally
+                  go against what the titles express, at least based on the
+                  few chapters I could read before giving up.
+                  </p>
+                  <p>And yes, this is gonna be a rant. (And it's not just my
+                  rant: <i><a href="https://qntm.org/clean">It's probably time to
+                      stop recommending Clean Code</a></i>.)</p>
+                  <p>Take Chapter 2, <i>Meaningful Names</i>.</p>
+                  <p>After an
+                  <i>Introduction</i> that is as non-controversial as it is a
+                  tautology, a section named <i>Use Intention-Revealing Names</i>
+                  gives an example of a badly named variable
+                  </p>
+                  <blockquote>
+                    <pre><code class="language-java">int d; // elapsed time in days</code></pre>
+                    The name <code>d</code> reveals nothing.
+                  </blockquote>
+                  <p>
+                  followed by examples of presumably better names for variables representing time
+                  </p>
+                  <blockquote>
+                    We should choose a name that specifies what is being
+                    measured and the unit of that measurement:
+                    <pre><code class="language-java">int elapsedTimeInDays;
+int daysSinceCreation;
+int daysSinceModification;
+int fileAgeInDays;</code></pre>
+                  </blockquote>
+                  <p>Now, I do understand and appreciate the suggestion of giving
+                  a name that <i>specifies what is being measured</i>; after all,
+                  if I don't know what a variable <i><b>is</b></i>, how can
+                  I make use of it or understand how the surrounding code uses it?</p>
+                  <p>On the other hand, I can't help notice that all those
+                  variables are <code>int</code>s and that their names contain the
+                  word <i>days</i>.
+                  </p>
+                  <p>What does that make me think? That
+                  <code><b>days</b>SinceCreation</code> is sitting there just
+                  waiting to be subtracted to
+                  <code><b>seconds</b>SinceTheEpoch</code>, and the difference to be assigned
+                  to <code><b>day</b>OfCreation</code>, resulting in a
+                  wonderfully cinematographic temporal paradox that features us
+                  travelling to a very far future to create a new file that has always existed&hellip;
+                  (I hope the joke is not too obscure&hellip; the bold text should help)
+                  </p>
+                  <p>So going back to the suggestion, my question is: why should I
+                  encode the unit of measure in the name of the variable? The age
+                  of a file is just time, whether I express it in days or in seconds.
+                  The <code>fileAge</code> part of the name <code>fileAgeInDays</code>
+                  is semantically relevant, as it tells me what that variable represents
+                  in the piece of code I'm reading. But the <code>InDays</code> part
+                  is just an implementation detail.
+                  </p>
+                  <p>I hear somebody saying <q>once I have decided that I use an <code>int</code>
+                  to represent time, I have to encode in the variable names what is
+                  the unit of measure of that time, otherwise I risk adding apples and
+                  oranges</q>. My answer is that this approach is
+                  flawed since the beginning: if you are worried about an <code>int</code> representing
+                  a time in days being added to an <code>int</code> representing time in years,
+                  that means that <code>int</code> is just not the right type for you,
+                  and that you should use a type that handles the unit of measurement
+                  automatically.
+                  </p>
+                  <p>(To know more about this, I suggest reading
+                  <a href="https://www.fluentcpp.com/2016/12/05/named-constructors/" target="_blank">
+                    the series on strong types by Jonathan Boccara</a>,
+                  which I find excellent.)
+                  </p>
+                  <p>I hear somebody else saying <q>come on, it was just an example!</q>,
+                  and my answer is
+                  </p>
+                  <ul>
+                    <li>this is a book about about writing clean code, so it
+                      should have been damn careful when giving examples</li>
+                    <li>tell me what the cost of writing the above snippet like
+                      this would have been:
+                      <pre><code class="language-java">Time elapsedTime;
+Time timeSinceCreation; // a better name is probably just "age"
+Time timeSinceModification;
+Time fileAge;</code></pre>
+                      <code>Time</code> just screams <q>no worries, I'm the one
+                      handling the units</q>. (No, starting a variable name with <code>time</code>
+                    in this case is not duplicating information already contained in the type, but is disambiguating:
+                    using a standalone <code>sinceCreation</code> we wouldn't know if that is a time
+                    or a number of events, just to say; <code>fileAge</code> encodes the "time-ness"
+                    in the <code>Age</code> part, so we don't need <code>time</code> in its name.)
+                    </li>
+                  </ul>
+                  <p>Then Martin claims that it's hard to tell what the following code is doing
+                  </p>
+                  <blockquote>
+                    <pre><code class="language-java">public List&lt;int[]&gt; getThem() {
+  List&lt;int[]&gt; list1 = new ArrayList&lt;int[]&gt;();
+  for (int[] x : theList)
+  if (x[0] == 4)
+    list1.add(x);
+  return list1;
+}</code></pre>
+                  </blockquote>
+                  <p>
+                  which I can't disagree with, but I feel there are two candidates
+                  for why the code is not clear:
+                  </p>
+                  <ol>
+                    <li>the names of the variables are badly chosen</li>
+                    <li>the code mixes two levels of abstraction and
+                      hard codes stuff that should be named appropriately
+                      and taken as input</li>
+                  </ol>
+                  <p>Uncle Bob obviously picks number 1 and goes full steam on
+                  his crusade, but we disagree even earlier than that, when he
+                  writes <q>There aren't even any fancy classes or polymorphic
+                  methods</q>, which for me just means that somebody is
+                  easily scared by generic code.
+                  </p>
+                  <p>Anyway, he eventually shows us his shiny code
+                  </p>
+                  <blockquote>
+                    <pre><code class="language-java">public List&lt;Cell&gt; getFlaggedCells() {
+  List&lt;Cell&gt; flaggedCells = new ArrayList&lt;Cell&gt;();
+  for (Cell cell : gameBoard)
+    if (cell.isFlagged())
+      flaggedCells.add(cell);
+  return flaggedCells;
+}</code></pre>
+                    With these simple name changes, it's not difficult to understand what's going on. This is
+                    the power of choosing good names.
+                  </blockquote>
+                  <p>
+                  Incidentally, where does <code>gameBoard</code> come from?
+                  It's a global variable, which means
+                  <code>getFlaggedCells()</code> function has side effects: it
+                  will return different output without you changing the inputs
+                  you pass to it (yeah, it doesn't take inputs, which is a symptom
+                  of impurity). A few pages later Uncle Bob will suggest that
+                  code should not have side effect. What a undecided man&hellip;
+                  </p>
+                  <p>I don't know how understandable that code is if you don't
+                  <b>parse</b> it, just as you were the compiler (or the JVM,
+                  or whatever it's needed to run that crap), but I know that
+                  Uncle Bob will write the following code somewhere else (modulo
+                  <i>I-don't-know-Java-sorry</i>)
+                  </p>
+                  <pre><code class="language-java">public Set&lt;Book&gt; getProgrammingBooks() {
+  Set&lt;Book&gt; programmingBooks = new ArraySet&lt;Book&gt;();
+  for (Book book : libraryShelf)
+    if (book.isOnProgramming())
+      programmingBooks.add(book);
+  return programmingBooks;
+}</code></pre>
+                  <p>
+                  And guess what's the difference? None! The two codes are just
+                  doing the same thing: filtering a container according to a
+                  predicate (a.k.a. I've just renamed the variables/types/names
+                  to make the latter snippet from the former).
+                  </p>
+                  <p>So why should we write those two functions, instead
+                  of writing just one generic function that we use in
+                  the context we need? Again, I don't know any Java, but
+                  I guess this pseudo-Java conveys what I mean:
+                  </p>
+                  <pre><code class="language-java">public Container&lt;Item&gt; filter(Container&lt;Item&gt; container, Pred pred) {
+  Container&lt;Item&gt; newCont = new ArrayContainer&lt;Item&gt;();
+  for (Item item : container)
+    if (pred(item))
+      newCont.add(item);
+  return newCont;
+}</code></pre>
+                  <p>Notice that this piece of code above is closer to the initial
+                  version (of which Uncle Bob says that telling what it does it's not easy)
+                  than it is to the questionably refined one:
+                  </p>
+                  <ul>
+                    <li>The original version
+                      <ul>
+                        <li class="bad">used specific types, such as <code>List</code>, <code>ArrayList</code>, and <code>int</code>,</li>
+                        <li class="bad">hard-coded the predicate,</li>
+                        <li class="bad">depended on a global variable,</li>
+                        <li class="good">but at least used names that were not bound to the specific domain <i>of the caller</i>
+                          (even though they uselessly hard-code informations which is already encoded in the type,
+                          e.g. why calling a <code>List</code> <code>theList</code>?);</li>
+                      </ul>
+                    </li>
+                    <li>uncle Bob's final version
+                      <ul>
+                        <li class="bad">kept using specific types, such as <code>List</code>, <code>ArrayList</code>, <code>Cell</code>,</li>
+                        <li class="bad">kept hard-coding the predicate,</li>
+                        <li class="bad">kept depending on a global variable,</li>
+                        <li class="bad">used the caller's domain-specific names for the variables;</li>
+                      </ul>
+                    </li>
+                    <li>my version
+                      <ul>
+                        <li>well, by <code>Container</code> I mean a generic type, but I don't know how to do that in Java,</li>
+                        <li class="good">takes the predicate as an input argument,</li>
+                        <li class="good">takes the input collection as an input argument,</li>
+                        <li class="good">uses generic names that don't commit to any specific domain the caller could choose to use it for.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                  And if the C++ programmer that I am were to kick in,
+                  then I would say that if your language doesn't have
+                  a library function for filtering a container,
+                  then you'd better change the language.
+                  </p>
+                  <p>Here's a C++11 solution, which uses the <a href="https://en.wikipedia.org/wiki/Erase-remove_idiom">erase-remove idiom</a>:
+                  <pre><code class="language-cpp">template&lt;typename Container, typename Predicate&gt;
+Container filter(Container c, Predicate p) {
+    c.erase(std::remove_if(c.begin(), c.end(), p), c.end());
+    return c;
+}</code></pre>
+                  and finally here a C++17,
+                  <pre><code>#include &lt;range/v3/view/filter.hpp&gt;
+using ranges::views::filter;</code></pre>
+                  and here a C++20 solution,
+                  <pre><code>#include &lt;ranges&gt;
+using std::ranges::views::filter;</code></pre>
+                  <q>What's that?! Just an <code>#include</code> and a <code>using</code>?</q>
+                  Yeah, because in both cases the function for filtering
+                  is just there, in the appropriate header and in the
+                  appropriate namespace, and you can easily use it
+                  <pre><code>auto w = filter(v, pred);  // these two
+auto w = v | filter(pred); // are equivalent</code></pre>
+                  (<a href="https://godbolt.org/z/7xTEKqPjW">See full example on Compiler Explorer</a>.)
+                  </p>
+                  <p>
+                  Going back to my claim that Martin's code mixes two levels of abstraction,
+                  now it should be clearer: he prompts us to name every aspect
+                  that is <i><b>inside the body of that function</b></i>
+                  according to the use that the <i><b>caller</b></i> makes of it, which clearly
+                  depends on the domain of the caller: in his example a board game, in my
+                  counter example the old library down the road. In some way,
+                  the specific use-case that the caller makes of this function, which
+                  is at a given level of abstraction,
+                  has leaked into the function, the content of which, says
+                  Martin, should be one abstraction level lower than its call site (exact quote is
+                  <q>Notice that the three steps of the function are one level
+                    of abstraction below the stated name of the function</q>, at the top
+                  of page 36).
+
+
+                  This is clearly in contrast
+                  with page 33, first paragraph, where he (righteously) claims
+                  that mixing too many levels of abstractions in a function is
+                  a bad thing.
+                  </p>
+                  <p>
+                  But the function's implementation screams <q>I'm not so dumb, I can
+                  do much more!</q>, and naming stuff as Martin suggests just makes
+                  us deaf to that call.
+                  </p>
+                  <p>Clearly, another thing that deafens us is designing
+                  the function such that it takes no arguments (another
+                  dogmatic, unjustified, and flat out wrong suggestion that
+                  Martin dispenses in the next chapter, Chapter 3), implying
+                  that it writes or at least reads from some global state.
+                  Because of that, we could erroneously think:
+                  </p>
+                  <ul>
+                    <li>
+                      <q>I can filter "things"; if my function takes no
+                        "things" in input, how can it be a filter?</q>
+                    </li>
+                    <li><q>Filtering is done according to a predicate, but my
+                        function takes no predicate.</q></li>
+                  </ul>
+                  <p>Therefore, blindly following Martin's prescriptions will
+                  indirectly lead us to make a lot of code duplication, because
+                  the names chosen his way will prevent us from seeing common patterns.
+                  This is clearly in contrast with what he writes at page 32, first
+                  paragraph, where he (righteously) refers code duplication as a bad thing.
+                  </p>
+                  <p>Then the crusade goes on in a (slightly) less controversial way:
+                  </p>
+                  <blockquote>
+                    <h5>Avoid Disinformation</h5>
+                    <p>
+                    [&hellip;]
+                    </p>
+                    <p>
+                    A truly awful example of disinformative names would be the
+                    use of lower-case L or uppercase O as variable names,
+                    especially in combination. The problem, of course, is that
+                    they look almost entirely like the constants one and zero,
+                    respectively.
+                    </p>
+                    <pre><code class="language-java">int a = l;
+if ( O == l )
+  l = O1;
+else
+  a = 01;</code></pre>
+                  </blockquote>
+                  <p>
+                  I can't disagree, in general, but I'd say that the example is again
+                  silly: the IDE will show <code>O1</code> and <code>01</code> in different
+                  colors, because the former is a variable name and the latter a numeric
+                  literal. <q>What if my IDE doesn't?</q> Then why are you still using it?
+                  </p>
+                  <p>Oh, I appreciate a footnote related to the use of <code>a</code> and
+                  <code>the</code> prefixes for local variables and function arguments
+                  (<strike>arguments</strike> parameters, Uncle Bob):
+                  </p>
+                  <blockquote>
+                    Uncle Bob used to do this in C++ but has given up the practice because modern IDEs make it unnecessary.
+                  </blockquote>
+                  <p>Going forward, about <i>Make Meaningful Distinctions</i>,
+                  </p>
+                  <blockquote>
+                    Number-series naming <code>(a1, a2, .. aN)</code> is the opposite of intentional naming. Such
+                    names are not disinformative—they are noninformative; they provide no clue to the
+                    author's intention.
+                  </blockquote>
+                  <p>
+                  &hellip; except if I'm coding a mathematical function that traditionally uses
+                  that well known "number-series naming" convention.
+                  </p>
+                  <p>And then:</p>
+                  <blockquote>
+                    <pre><code class="language-java">getActiveAccount();
+getActiveAccounts();
+getActiveAccountInfo();</code></pre>
+                    How are the programmers in this project supposed to know which of these functions to call?
+                  </blockquote>
+                  <p>
+                  <p>Now jump at page 51, Listing 3-7 (Chapter 3),
+                  and you'll find two member functions named <code>includeSetupPages()</code>
+                  and <code>includeSetupPage()</code> respectively. It is true
+                  that the former is public whereas the latter is private, so
+                  a user of that class won't have a chance to be in doubt of
+                  which one they have to call. But the current chapter is
+                  demonizing the coexistence of a singular with its plural
+                  for the sake of it.
+                  </p>
+                  Anyway, while I might agree that <code>getActiveAccountInfo</code> vs
+                  <code>getActiveAccount</code> can (and maybe <b>is</b>)
+                  confusing, why should <code>getActiveAccount</code> vs
+                  <code>getActiveAccounts</code> be confusing at all? It's clear that
+                  the former gives one account and the latter some collection
+                  of accounts. What's the problem with that? I mean, is the following
+                  not clear?
+                  </p>
+                  <pre><code class="language-cpp">for (Item item : items)
+    // do something with this item</code></pre>
+                  <p>Then the crusade goes on and targets single-letter names,
+                  luckily admitting that they can be acceptable in short contexts
+                  (the claim that <q>the length of a name should correspond to
+                    the size of its scope</q> is simply hilarious, though).
+                  </p>
+                  <p>Once more into madness with this code,</p>
+                  <pre><code class="language-java">for (int j=0; j&lt;34; j++) {
+  s += (t[j]*4)/5;
+}</code></pre>
+                  <p>which is claimed to be unclear, versus this,
+                  </p>
+                  <pre><code class="language-java">int realDaysPerIdealDay = 4;
+const int WORK_DAYS_PER_WEEK = 5;
+int sum = 0;
+for (int j=0; j &lt; NUMBER_OF_TASKS; j++) {
+  int realTaskDays = taskEstimate[j] * realDaysPerIdealDay;
+  int realTaskWeeks = (realdays / WORK_DAYS_PER_WEEK);
+  sum += realTaskWeeks;
+}</code></pre>
+                  <p>which, in my opinion, just hides the fact that the we have just
+                  a trivial application of <code>transform</code>/<code>map</code> followed
+                  by a <code>reduce</code>/<code>accumulate</code> (unfortunately not
+                  all languages agree on how these general purpose utilities are called, sigh).
+                  </p>
+                  <p>
+                  Indeed, in JavaScript, you'd write the above as
+                  </p>
+                  <pre><code class="language-javascript">taskEstimate.map(x =&gt; x*4/5).reduce((x, y) =&gt; x + y)</code></pre>
+                  <p>
+                  or even more clearly like
+                  </p>
+                  <pre><code class="language-javascript">_.sum(_.map(taskEstimate, _.multiply(4/5))) // lodash
+_.sum(_.map(_.multiply(4/5), taskEstimate)) // lodash/fp
+</code></pre>
+                  <p>
+                  if you use <a href="https://lodash.com/docs/4.17.15">Lodash</a>/<a href="https://github.com/lodash/lodash/wiki/FP-Guide">lodash/fp</a>.
+                  </p>
+                  <p><q>But it was just an example!</q> Good, thanks. And what do I get from
+                  a book on programming which has silly examples? Philosophy?</p>
+                  <p>As regards using searchable names, I agree, but if you are
+                  in need of searching the codebase for the running index of a
+                  <code>for</code> loop on an array, then either you have no
+                  idea what debugging is, or you're dealing with much bigger
+                  problem with the surrounding code, so finding that index won't
+                  really help you much. After all, if I have a for loop running
+                  on the indices of a vector/array (why am I doing this in
+                  2022, by the way?), then why should I name that index other than
+                  <code>i</code> or <code>j</code>?  It is just a number to
+                  loop on the array/vector, it is an implementation detail.
+                  </p>
+                  <p>Good news is that Martin suggests that we shouldn't use
+                  <code>m_</code> prefixes for member variables anymore. Praise
+                  the lord!</p>
+                  <p>Here's another couple of suggestions which are truly Java-specific:</p>
+                  <ul>
+                    <li>Classes and objects should have noun or noun phrase names</li>
+                    <li>Method Names Methods should have verb or verb phrase names</li>
+                  </ul>
+                  <p>Sure, and what if a class exists for the sole purpose of providing
+                  a method (especially in a language like Java, where everything is a class)?
+                  What do I call it then? <code>ClassForMethod<i>MethodName</i></code>?
+                  The point is that objects and functions are just the same thing,
+                  artificially made different by several (most?) languages; establishing
+                  different naming rules is equivalent to encoding the weakness of the
+                  language in code. Take <code>std::equal_to</code> in C++: it is a class,
+                  but it has a call operator, and we are just meant to use an
+                  object of that class, <code>std::equal_to&lt;&gt;{}</code>,
+                  as it was a function.
+                  </p>
+                  <p>Eventually, there's one point I strongly agree with, in the
+                  <i>Final Words</i> of this chapter (my emphasis):</p>
+                  <blockquote>
+                    The hardest thing about choosing good names is that it
+                    requires good descriptive skills and a <b>shared cultural
+                    background</b>.  This is a <b>teaching issue</b> rather
+                  than a technical, business, or management issue.
+                  </blockquote>
+                  which prompts me to ask a question:
+                  <blockquote>Should I write code as if my grandma
+                  was to read it? Or should you be willing to learn
+                  continuously during your life of programmer, thus
+                  lifting your cultural background up with time?</blockquote>
+                  <p>&hellip; and this was most I had to say about Chapter 2.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="post-entry">
               <h6 class="time-interval text-shadow handwriting">30/12/2021</h6>
               <div class="panel panel--rounded box-shadow text-shadow">
                 <div class="panel__header center-text-horz">
@@ -850,8 +1303,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
   [async-fn]
   (fn [&amp; args]
     (let [result (promise)]
-      (apply async-fn (conj (vec args)
-                            #(deliver result %&amp;)))
+      (apply async-fn (conj (vec args) #(deliver result %&amp;)))
       @result)))</code></pre>
                   <p>
                   and this use case,
@@ -895,8 +1347,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
   (fn [&amp; args]
     (let [result (promise)]
       (apply async-fn (conj (vec args)
-                            (comp (partial deliver result)
-                                  callback-fn)))
+                            (comp (partial deliver result) callback-fn)))
       @result)))</code></pre>
                   <p>
                   which can then be used like this
