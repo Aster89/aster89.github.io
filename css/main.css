@@ -16,7 +16,6 @@
 @import url('modules/cartesian/xyz-positioning.css');
 @import url('modules/cartesian/triangle.css');
 @import url('modules/cartesian/trigonometry.css');
-@import url('modules/alignment.css');
 @import url('modules/variables.css');
 @import url('modules/dark-light-mode.css');
 @import url('modules/base-styles.css');
@@ -43,6 +42,7 @@
 @import url('modules/shadows.css');
 @import url('modules/time.css');
 @import url('modules/copyright.css');
+@import url('modules/text/alignment.css');
 @import url('modules/text/quoting.css');
 @import url('kss-workarounds.css');
 @import url('special-cases.css');
