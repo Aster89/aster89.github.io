@@ -1,5 +1,16 @@
-/* At 280px width elements need to become shorter,
- * maybe using icons instead of text */
+.site-nav label .icon {
+  display: none;
+}
+
+@media (max-width: 350px) {
+  .site-nav label .icon {
+    display: inline-block;
+  }
+  .site-nav label .text {
+    display: none;
+  }
+}
+
 .site-nav {
   display: flex;
   list-style-type: none;
