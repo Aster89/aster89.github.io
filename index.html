@@ -183,6 +183,7 @@
                   </p>
 
                   <p>What was used in the GUI were two things:
+                  </p>
                   <ul>
                     <li>the actual text contained in <code>input</code>
                       in order to&hellip; well, show the text on screen,</li>
@@ -190,8 +191,10 @@
                       which, in practice, just consisted of <code>out.length()</code>.
                     </li>
                   </ul>
+                  <p>
                   And how where these two things made available to the front end? By wrapping them both
                   in a class like this
+                  </p>
                   <pre><code class="language-cpp">struct TextAndViewmodel {
     std::string s;
     int vm;
@@ -199,6 +202,7 @@
         : s{std::move(s)}, vm{vm}
     {}
 };</code></pre>
+                  <p>
                   and that's were a silent bug was waiting for me! Can you spot it?
                   </p>
 
@@ -227,6 +231,7 @@
                   for each of the <code>TextAndViewmodel</code> objects (it was
                   a kind of a last-minute filtering right before sending stuff to
                   the GUI).
+                  </p>
                   <pre><code class="language-cpp">struct TextAndViewmodel {
     std::string s;
     std::string_view sv;
@@ -237,15 +242,16 @@
     // if the client needs what was `vm` in the
     // previous snippet, they can go for `sv.length()`
 };</code></pre>
+                  <p>
                   At that point, indeed, I started noticing some
                   weird things going on in the GUI:
+                  </p>
                   <ul>
                     <li>the text was ok, because <code>input</code> was moved into <code>tv</code>,</li>
                     <li>and for "normally sized" text files everything was fine in all respects,</li>
                     <li>but whenever I tried with a few characters long files, the GUI
                       behaved as the filtering I mentioned above never happened, even if it should.</li>
                   </ul>
-                  </p>
 
                   <p>After spending some time (I really can't unveil how much) debugging and banging my
                   head on the monitor, I understood what was going on: <a
@@ -516,23 +522,22 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   <p>
                   I still remember I was flying back or away from home when I started thinking about this webpage
                   with these thoughts coming in sequence
-                  <i>
-                    <ul>
-                      <li>Oh, I really enjoyed <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i>,</li>
-                      <li>I think I could really leverage that to make a good blog;</li>
-                      <li>I should probably start by doing what I initially planned to do: putting my CV online&hellip;</li>
-                      <li>&hellip; with my working experience and all my skills&hellip;</li>
-                      <li>Yeah, especially all my programming skills!</li>
-                      <li>A diagram with the skills would be nice&hellip;</li>
-                      <li>I should try doing it without any JavaScript!</li>
-                      <li>With CSS I can certainly do it!</li>
-                    </ul>
-                  </i>
                   </p>
+                  <ul>
+                    <li>Oh, I really enjoyed <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i>,</li>
+                    <li>I think I could really leverage that to make a good blog;</li>
+                    <li>I should probably start by doing what I initially planned to do: putting my CV online&hellip;</li>
+                    <li>&hellip; with my working experience and all my skills&hellip;</li>
+                    <li>Yeah, especially all my programming skills!</li>
+                    <li>A diagram with the skills would be nice&hellip;</li>
+                    <li>I should try doing it without any JavaScript!</li>
+                    <li>With CSS I can certainly do it!</li>
+                  </ul>
                   <p>Well, the reality was not that smooth though. As soon as I
                   had put my feet literally back on earth and played around a bit,
                   I realized that there's a fundamental problem with making
                   CSS-only plots:
+                  </p>
                   <ul>
                     <li>ideally, the data, e.g. the <i>x</i> and <i>y</i> coordinates of a piecewise linear plot,
                       should be contained in the HTML markup, they are part of the content of the page, having
@@ -543,8 +548,8 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                     </li>
                     <li>then CSS should take care of "drawing" lines, curves, colors, and what not.</li>
                   </ul>
-                  </p>
                   <p>So how should that ideal HTML look like? Probably something along these lines
+                  </p>
                   <pre><code class="language-html">&lt;div class="plot"&gt;
   &lt;!-- 6 points of the y = x² parabola --&gt;
   &lt;div class="point" style="--x: 0; --y: 0;"&gt;&lt;/div&gt;
@@ -554,14 +559,16 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
   &lt;div class="point" style="--x: 4; --y: 16;"&gt;&lt;/div&gt;
   &lt;div class="point" style="--x: 5; --y: 25;"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+                  <p>
                   where the <i>x</i> and <i>y</i> coordinates are in the <code>style</code> attribute
                   so that CSS can pick it up easily.
                   </p>
-                  <p>But now the point is the following:
-                  <blockquote>How the heck do I draw anything, say a line,
-                    via CSS according to quantities specific to two <i><b>separate</b></i> elements?
+                  <p>But now the point is the following:</p>
+                  <blockquote>
+                    How the heck do I draw anything, say a line, via CSS
+                    according to quantities specific to two
+                    <i><b>separate</b></i> elements?
                   </blockquote>
-                  </p>
                   <p>Well, the answer is simply that <i>I cannot</i>, the reason being that,
                   in order to draw lines or more complex stuff via CSS, one has to leverage things
                   like <code>border</code>s (to draw lines), <code>background-color</code>s (to
@@ -571,6 +578,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   <p>Regardless of how reasonable my self-argument sounded, I couldn't really
                   just think I had the correct answer already, and so I wanted to search a bit
                   online:
+                  </p>
                   <ul>
                     <li>First, searching online for "CSS plot" <i>et similia</i> I
                       generally found stuff containing <code>.js</code> written
@@ -593,21 +601,23 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                     <li>Finally, I found <a href="https://chartscss.org/">Chart.css</a>
                       a <i>CSS data visualization framework</i> that claims
                       <blockquote>
-                      Charts.css is a modern CSS framework. It uses CSS utility classes to style HTML elements as charts.
+                        Charts.css is a modern CSS framework. It uses CSS utility classes to style HTML elements as charts.
                       </blockquote>
                       (By the way, the very chart I was looking for, <a href="https://chartscss.org/charts/radar/">the radar chart, is under development</a>
                       while I'm writing these notes.)
                     </li>
                   </ul>
-                  </p>
                   <p>The last result was kind of illuminating.
                   Indeed, if you look at the documentation page of the maybe simplest example, the <a href="https://chartscss.org/charts/line/">line</a>,
                   you'll see that it states the following:
-                  <blockquote>When you add data, you need to supply not
+                  </p>
+                  <blockquote>
+                    When you add data, you need to supply not
                     only the data <code>--size</code> variable but also the
                     <code>--start</code> variable that indicates the
                     starting point.
                   </blockquote>
+                  <p>
                   Rephrasing it (and you can verify it by playing around with the code),
                   each HTML element that represents a point in the graph must provide
                   data to the CSS not just for that point, but also for the point before it.
@@ -634,12 +644,13 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   I targeted full steam ahead the radar plot I wanted.</p>
                   <p>Here are the few points on which that chart is based (I'm referring to
                   the data content of the graph, and not the meta content, aka the grid):
+                  </p>
                   <ol>
                     <li>a radar diagram looks like a polygon, with as many vertices (and sides)
                       as the number of quantities we want to show, say <i>N</i>, so we need
-                    to provide that <i>N</i> via a CSS property, say
-                    <code>--N</code> that we can encode in the HTML in the root
-                    parent of the chart;</li>
+                      to provide that <i>N</i> via a CSS property, say
+                      <code>--N</code> that we can encode in the HTML in the root
+                      parent of the chart;</li>
                     <li>that polygon is made up of <i>N</i> triangles;</li>
                     <li>all triangles have one vertex in common, the one at the
                       center of the chart (so let's call that vertex <i>the center</i>),
@@ -658,13 +669,14 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                       the half on one side of the appropriate diagonal, and any parallelogram can be thought of as a square
                       subject to anisotropic scaling (that makes it a rectangle)
                       and shear (that makes it "skewed"), so we can make use of the
-                    <code>background-image</code> CSS property and setting it to
-                    something along the lines of
-                    <code>linear-gradient(45deg, black 50%, transparent 50%);</code>
-                    to have a black orthogonal triangle, and the <code>transform</code>
-                    property with its <code>skew</code> and <code>scale</code> values.
+                      <code>background-image</code> CSS property and setting it to
+                      something along the lines of
+                      <code>linear-gradient(45deg, black 50%, transparent 50%);</code>
+                      to have a black orthogonal triangle, and the <code>transform</code>
+                      property with its <code>skew</code> and <code>scale</code> values.
                     </li>
                   </ol>
+                  <p>
                   That's mostly it, but the difficult part is actually writing CSS code
                   such that it is reusable. Doing so goes through making appropriate use
                   of <a href="https://css-tricks.com/a-complete-guide-to-custom-properties/">CSS custom properties</a>.
@@ -676,13 +688,13 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   together. But it's not the easiest of the things&hellip;
                   </p>
                   <p>A few external references:
+                  </p>
                   <ul>
                     <li>the general idea about how to draw triangles came from <a href="https://css.michaelschrauzer.com/demos/css-triangles.html">eCCSplorations</a></li>
                     <li>the idea about including the "previous point" in the HTML, as said, came from <a href="https://chartscss.org/">Chart.css</a></li>
                     <li>for trigonometric computations, the built on <a href="https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97">this gist from stereokai</a></li>
                     <li>all the rest comes from the already mentioned <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i></li>
                   </ul>
-                  </p>
                   <p>
                   However, here is an example of a plot with 12 skills (in hindsight,
                   I should probably put some effort in drawing as many diameters in the
@@ -738,13 +750,13 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   content which is not semantically relevant.
                   </p>
                   <p>A few external references:
+                  </p>
                   <ul>
                     <li>the general idea about how to draw triangles came from <a href="https://css.michaelschrauzer.com/demos/css-triangles.html">eCCSplorations</a></li>
                     <li>the idea about including the "previous point" in the HTML, as said, came from <a href="https://chartscss.org/">Chart.css</a></li>
                     <li>for trigonometric computations, the built on <a href="https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97">this gist from stereokai</a></li>
                     <li>all the rest comes from the already mentioned <i><a href="https://www.manning.com/books/css-in-depth">CSS in Depth</a></i></li>
                   </ul>
-                  </p>
                 </div>
               </div>
             </article>
@@ -808,15 +820,20 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
 
                   <p>
                   At page 165, in the middle of the section named <i>Promises</i>, the authors claim that
+                  </p>
                   <blockquote>
                     An immediately practical application of promises is in easily making callback-based APIs synchronous.
                   </blockquote>
+                  <p>
                   and then propose this asynchronous function,
+                  </p>
                   <pre><code class="language-clojure">(defn call-service
   [arg1 arg2 callback-fn]
   ; ... do stuff
   (future (callback-fn (+ arg1 arg2) (- arg1 arg2))))</code></pre>
+                  <p>
                   this synchronous wrapper,
+                  </p>
                   <pre><code class="language-clojure">(defn sync-fn
   [async-fn]
   (fn [&amp; args]
@@ -824,9 +841,10 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
       (apply async-fn (conj (vec args)
                             #(deliver result %&amp;)))
       @result)))</code></pre>
+                  <p>
                   and this use case,
-                  <pre><code class="language-clojure">((sync-fn call-service) 10 7) ; (17 3)</code></pre>
                   </p>
+                  <pre><code class="language-clojure">((sync-fn call-service) 10 7) ; (17 3)</code></pre>
                   <p>What puzzled me of this solution, is the fact that
                   <code>sync-fn</code> doesn't really preserve
                   <code>call-service</code>'s API: we can't even pass a
@@ -835,6 +853,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   encoded in <code>sync-fn</code> itself, specifically in the
                   function literal (aka lambda) <code>#(deliver result %&amp;)</code>
                   which entangles together two businesses
+                  </p>
                   <ul>
                     <li>executing a pure function on the inputs (the two inputs
                       that <code>call-service</code> passes to
@@ -844,21 +863,21 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                       non-pure <code>deliver</code> utility.
                     </li>
                   </ul>
-                  </p>
                   <p>
                   Indeed, <code>#(deliver result %&amp;)</code> is a variadic function
                   that wraps all its arguments into a sequence, via <code>%&amp;</code>,
                   and then passes that sequence as the second argument to <code>deliver</code>,
                   so we can rewrite it as the composition of those two businesses
+                  </p>
                   <pre><code class="language-clojure">; equivalent to #(deliver result %&amp;)
 (comp (partial deliver result) list)</code></pre>
-                  </p>
                   <p>It is apparent, at this point, that <code>list</code> is just one possible
                   function that we want <code>call-service</code> to use on <code>callback-fn</code>'s
                   arguments, so there's no reason for hard-coding it into <code>sync-fn</code>.
                   </p>
                   <p>
                   In fact, we can make it an input to <code>sync-fn</code>:
+                  </p>
                   <pre><code class="language-clojure">(defn sync-fn
   [async-fn callback-fn]
   (fn [&amp; args]
@@ -867,11 +886,14 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                             (comp (partial deliver result)
                                   callback-fn)))
       @result)))</code></pre>
+                  <p>
                   which can then be used like this
+                  </p>
                   <pre><code class="language-clojure">((sync-fn call-service list)          10 7) ; (17 3)
 ((sync-fn call-service vector)        10 7) ; [17 3]
 ((sync-fn call-service #(apply + %&amp;)) 10 7) ; 20
 ((sync-fn call-service #(apply * %&amp;)) 10 7) ; 51</code></pre>
+                  <p>
                   where we pass, as <code>sync-fn</code>'s second argument, the same lambda
                   we would pass to <code>call-service</code> as a third argument.
                   </p>
@@ -881,17 +903,19 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                   function as the last argument is still hard-coded in <code>sync-fn</code>).
                   For instance, if <code>call-service</code> expected a <code>callback-fn</code>
                   that takes a list of arguments rather than distinct arguments,
+                  </p>
                   <pre><code class="language-clojure">(defn call-service-2
   [arg1 arg2 callback-fn]
   ; ... do stuff
   (future (callback-fn (list (+ arg1 arg2) (- arg1 arg2)))))</code></pre>
+                  <p>
                   then we'd only need to adapt the callback lambdas by making them accept
                   one argument instead of many:
+                  </p>
                   <pre><code class="language-clojure">((sync-fn call-service-2 identity)          10 7) ; (17 3)
 ((sync-fn call-service-2 vec)               10 7) ; [17 3]
 ((sync-fn call-service-2 (partial apply +)) 10 7) ; 20
 ((sync-fn call-service-2 (partial apply *)) 10 7) ; 51</code></pre>
-                  </p>
                 </div>
               </div>
             </article>
