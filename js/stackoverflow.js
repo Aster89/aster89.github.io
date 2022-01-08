@@ -246,7 +246,7 @@ function populateSORadarPlot() {
       if (reputationByTagStr != null) {
         const repByTag = JSON.parse(reputationByTagStr);
         const entries = $('#radar-plot>.radar-plot>.entries').children();
-        const tagNames = _.map(x => $(x).attr('title'), entries);
+        const tagNames = _.map(x => _.trim($(x).css('--tag-name')), entries);
         const maxRep = _.max(_.map(tagName => repByTag[tagName], tagNames));
         const tagNamesShifted = rotate(1, tagNames);
         _.forEach(
