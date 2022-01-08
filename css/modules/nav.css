@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 25rem) {
   .site-nav label .icon {
     display: inline-block;
   }
