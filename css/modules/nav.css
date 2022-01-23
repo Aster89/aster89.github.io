@@ -1,13 +1,17 @@
 .site-nav label .icon {
+  display: inline-block;
+}
+
+.site-nav label .text {
   display: none;
 }
 
-@media (max-width: 25rem) {
+@media (min-width: 25rem) {
   .site-nav label .icon {
-    display: inline-block;
+    display: none;
   }
   .site-nav label .text {
-    display: none;
+    display: inline-block;
   }
 }
 
@@ -20,6 +24,7 @@
 
 .site-nav > li > label {
   font-variant-caps: all-small-caps;
+  font-size: 1.25rem;
   color: var(--fg-color);
   background-color: var(--panel-bg-color-lighter);
 }

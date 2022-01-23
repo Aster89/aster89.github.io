@@ -56,7 +56,6 @@ body {
 
 main {
   margin: 0 1em;
-  font-size: 0.8rem;
 }
 
 .page-title {
@@ -82,11 +81,6 @@ a.my-email:hover {
   transition: transform var(--transition-time);
 }
 
-/* These 2 rulesets below are meant to ease developing for smartphone; when
- * I'll go for responsive design, I'll probably have to throw them away. */
-.main {
-  max-width: 300px;
-}
-.body {
-  max-width: 350px;
+body > .body {
+  max-width: 800px;
 }
