@@ -80,6 +80,14 @@
         <a class="kss-nav__menu-link" href="section-text.html">
           <span class="kss-nav__ref">11</span><span class="kss-nav__name">Text</span>
         </a>
+            <ul class="kss-nav__menu-child">
+              <li class="kss-nav__menu-item">
+                <a class="kss-nav__menu-link" href="section-text.html#kssref-text-list-items">
+                  <span class="kss-nav__ref ">11.1</span
+                  ><span class="kss-nav__name">Good and bad items</span>
+                </a>
+              </li>
+            </ul>
       </li>
       <li class="kss-nav__menu-item">
         <a class="kss-nav__menu-link" href="section-time.html">
@@ -92,23 +100,46 @@
 <main class="kss-main" aria-label="Content">
   <article>
 
-    <div id="kssref-country-flag" class="kss-section kss-section--depth-1 ">
+    <div id="kssref-text" class="kss-section kss-section--depth-1 ">
 
       <div class="kss-style">
         <h1 class="kss-title kss-title--level-1">
-          <a class="kss-title__permalink" href="#kssref-country-flag">
+          <a class="kss-title__permalink" href="#kssref-text">
             <span class="kss-title__ref">
-              5
+              11
               <span class="kss-title__permalink-hash">
-                  #Country Flag
+                  #Text
               </span>
             </span>
-            Country Flag
+            Text
           </a>
         </h1>
 
+
+
+
+      </div>
+
+
+
+    </div>
+    <section id="kssref-text-list-items" class="kss-section kss-section--depth-2 ">
+
+      <div class="kss-style">
+        <h2 class="kss-title kss-title--level-2">
+          <a class="kss-title__permalink" href="#kssref-text-list-items">
+            <span class="kss-title__ref">
+              11.1
+              <span class="kss-title__permalink-hash">
+                  #Text.list-items
+              </span>
+            </span>
+            Good and bad items
+          </a>
+        </h2>
+
           <p class="kss-toolbar">
-              <a href="#kssref-country-flag" data-kss-fullscreen="kssref-country-flag">
+              <a href="#kssref-text-list-items" data-kss-fullscreen="kssref-text-list-items">
                 <span class="kss-toolbar__tooltip">Toggle full screen</span>
                 <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                   <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
@@ -117,7 +148,7 @@
                   <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
                 </svg>
               </a>
-              <a href="item-country-flag.html" target="_blank">
+              <a href="item-text-list-items.html" target="_blank">
                 <span class="kss-toolbar__tooltip">Open in new window</span>
                 <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                   <rect x="0" y="20" width="40" height="44" fill="#fff"/>
@@ -128,7 +159,7 @@
                   <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
                 </svg>
               </a>
-            <a href="#kssref-country-flag" data-kss-guides="true">
+            <a href="#kssref-text-list-items" data-kss-guides="true">
               <span class="kss-toolbar__tooltip">Toggle example guides</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
@@ -149,7 +180,7 @@
                 <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
               </svg>
             </a>
-            <a href="#kssref-country-flag" data-kss-markup="true">
+            <a href="#kssref-text-list-items" data-kss-markup="true">
               <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
@@ -159,13 +190,7 @@
           </p>
 
           <div class="kss-description">
-            <p>A circle of radius 1.5em encosing an SVG representing a flag.</p>
-<p><em><strong>Note:</strong></em> The CSS rule targets <code>svg.country-flag</code> to enforce that the flag
-be an SVG.</p>
-<p><em><strong>Note:</strong></em> For the flag to fully cover the circle,
-<code>preserveAspectRatio=&quot;none&quot;</code> should be set in the <code>&lt;svg&gt;</code> tag.</p>
-<p><em><strong>Note:</strong></em> The flag is actually distorted to fit the square in which the
-circle is inscribed.</p>
+            <p>Class to change the glyph of the items to ✓ or ✗.</p>
 
           </div>
 
@@ -179,11 +204,11 @@ circle is inscribed.</p>
 
 
           <div class="kss-modifier__example">
-            <svg preserveAspectRatio="none" class="country-flag" xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 3 2">
-  <rect width="3" height="2" fill="#009246"/>
-  <rect width="2" height="2" x="1" fill="#fff"/>
-  <rect width="1" height="2" x="2" fill="#ce2b37"/>
-</svg>
+            <ul>
+  <li>hello</li>
+  <li class="good">hello</li>
+  <li class="bad">hello</li>
+</ul>
             <div class="kss-modifier__example-footer"></div>
           </div>
 
@@ -193,18 +218,18 @@ circle is inscribed.</p>
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">preserveAspectRatio</span>=<span class="hljs-string">"none"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"country-flag"</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"1500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"1000"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 3 2"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"3"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#009246"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#ce2b37"</span>/&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span></code></pre>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"good"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bad"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span></code></pre>
           </details>
 
         <div class="kss-source kss-style">
-          Source: <code>css/modules/language.css</code>, line 9
+          Source: <code>css/modules/text/lists.css</code>, line 1
         </div>
 
-    </div>
+    </section>
 </article>
 </main>
 

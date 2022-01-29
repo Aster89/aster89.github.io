@@ -1,0 +1,22 @@
+/*
+Good and bad items
+
+Class to change the glyph of the items to ✓ or ✗.
+
+Markup:
+<ul>
+  <li>hello</li>
+  <li class="good">hello</li>
+  <li class="bad">hello</li>
+</ul>
+
+Styleguide Text.list-items
+*/
+
+.good::marker {
+  content: '\2713   ';
+}
+
+.bad::marker {
+  content: '\2717   ';
+}
