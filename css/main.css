@@ -12,7 +12,7 @@
 @import url('modules/loader-wheel.css');
 @import url('modules/cartesian/cartesian.css');
 @import url('modules/cartesian/polar-canvas.css');
-@import url('modules/cartesian/polar-positioning.css');
+@import url('modules/positioning/polar.css');
 @import url('modules/cartesian/xyz-positioning.css');
 @import url('modules/cartesian/triangle.css');
 @import url('modules/cartesian/trigonometry.css');
