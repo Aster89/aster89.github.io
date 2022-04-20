@@ -25,7 +25,6 @@
 @import url('modules/swipeable-container.css');
 @import url('modules/custom-flex.css');
 @import url('modules/colors.css');
-@import url('modules/fonts.css');
 @import url('modules/keys.css');
 @import url('modules/wip.css');
 @import url('modules/input/input.css');
@@ -45,6 +44,7 @@
 @import url('modules/copyright.css');
 @import url('modules/text/alignment.css');
 @import url('modules/text/lists.css');
+@import url('modules/text/fonts.css');
 @import url('modules/text/quoting.css');
 @import url('kss-workarounds.css');
 @import url('special-cases.css');

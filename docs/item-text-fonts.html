@@ -97,23 +97,23 @@
 <main class="kss-main" aria-label="Content">
   <article>
 
-    <div id="kssref-text-list-items" class="kss-section kss-section--depth-2 is-fullscreen">
+    <div id="kssref-text-fonts" class="kss-section kss-section--depth-2 is-fullscreen">
 
       <div class="kss-style">
         <h2 class="kss-title kss-title--level-2">
-          <a class="kss-title__permalink" href="#kssref-text-list-items">
+          <a class="kss-title__permalink" href="#kssref-text-fonts">
             <span class="kss-title__ref">
-              13.2
+              13.1
               <span class="kss-title__permalink-hash">
-                  #Text.list-items
+                  #Text.fonts
               </span>
             </span>
-            Good and bad items
+            Gallery of font sizes
           </a>
         </h2>
 
           <p class="kss-toolbar">
-            <a href="#kssref-text-list-items" data-kss-guides="true">
+            <a href="#kssref-text-fonts" data-kss-guides="true">
               <span class="kss-toolbar__tooltip">Toggle example guides</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
@@ -134,7 +134,7 @@
                 <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
               </svg>
             </a>
-            <a href="#kssref-text-list-items" data-kss-markup="true">
+            <a href="#kssref-text-fonts" data-kss-markup="true">
               <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
@@ -144,7 +144,22 @@
           </p>
 
           <div class="kss-description">
-            <p>Class to change the glyph of the items to ✓ or ✗.</p>
+            <p><strong>NOTE</strong>: There's something wrong with KSS which renders the
+non-<code>.handwriting</code> <code>&lt;h1&gt;</code> (purposedly rendered in red) with the wrong
+<code>fond-size</code>. Indeed, if I put the same markup in the actual page, it works
+well, but here it seems like some spurious user agent stylesheet overrides the
+rule <code>font-size: 2em;</code> that is set via the <code>h1</code> selector with something else:</p>
+<pre class="hljs"><code class="language-css"><span class="hljs-selector-pseudo">:-webkit-any(article</span>, <span class="hljs-selector-tag">aside</span>, <span class="hljs-selector-tag">nav</span>, <span class="hljs-selector-tag">section</span>) <span class="hljs-selector-pseudo">:-webkit-any(article</span>, <span class="hljs-selector-tag">aside</span>, <span class="hljs-selector-tag">nav</span>, <span class="hljs-selector-tag">section</span>) <span class="hljs-selector-tag">h1</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.17em</span>;
+    <span class="hljs-attribute">margin-block-start</span>: <span class="hljs-number">1em</span>;
+    <span class="hljs-attribute">margin-block-end</span>: <span class="hljs-number">1em</span>;
+}
+<span class="hljs-selector-pseudo">:-webkit-any(article</span>, <span class="hljs-selector-tag">aside</span>, <span class="hljs-selector-tag">nav</span>, <span class="hljs-selector-tag">section</span>) <span class="hljs-selector-tag">h1</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.5em</span>;
+    <span class="hljs-attribute">margin-block-start</span>: <span class="hljs-number">0.83em</span>;
+    <span class="hljs-attribute">margin-block-end</span>: <span class="hljs-number">0.83em</span>;
+}
+</code></pre>
 
           </div>
 
@@ -158,11 +173,20 @@
 
 
           <div class="kss-modifier__example">
-            <ul>
-  <li>hello</li>
-  <li class="good">hello</li>
-  <li class="bad">hello</li>
-</ul>
+            <style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+  #kss-font-size-bug {
+    color: red;
+  }
+</style>
+<!-- REMOVE THE ID BELOW, WHICH IS JUST FOR THE PURPOSE OF THE COMMENT IN THE NOTE -->
+<h1 id="kss-font-size-bug">This is h1</h1><h1 class="handwriting">This handwritten is h1</h1>
+<h2>This is h2</h2><h2 class="handwriting">This handwritten is h2</h2>
+<h3>This is h3</h3><h3 class="handwriting">This handwritten is h3</h3>
+<h4>This is h4</h4><h4 class="handwriting">This handwritten is h4</h4>
+<h5>This is h5</h5><h5 class="handwriting">This handwritten is h5</h5>
+<h6>This is h6</h6><h6 class="handwriting">This handwritten is h6</h6>
+<div>This is div</div><div class="handwriting">This handwritten is div</div>
             <div class="kss-modifier__example-footer"></div>
           </div>
 
@@ -172,15 +196,24 @@
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"good"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bad"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span></code></pre>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-keyword">@import</span> url(<span class="hljs-string">'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap'</span>);
+  <span class="hljs-selector-id">#kss-font-size-bug</span> {
+    <span class="hljs-attribute">color</span>: red;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- REMOVE THE ID BELOW, WHICH IS JUST FOR THE PURPOSE OF THE COMMENT IN THE NOTE --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"kss-font-size-bug"</span>&gt;</span>This is h1<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h1<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>This is h2<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h2<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>This is h3<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h3<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>This is h4<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h4<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>This is h5<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h5</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h5<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h6</span>&gt;</span>This is h6<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h6</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is h6<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>This is div<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"handwriting"</span>&gt;</span>This handwritten is div<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
           </details>
 
         <div class="kss-source kss-style">
-          Source: <code>css/modules/text/lists.css</code>, line 1
+          Source: <code>css/modules/text/fonts.css</code>, line 1
         </div>
 
     </div>

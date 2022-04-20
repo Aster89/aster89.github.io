@@ -1,3 +1,43 @@
+/*
+Gallery of font sizes
+
+ **NOTE**: There's something wrong with KSS which renders the
+non-`.handwriting` `<h1>` (purposedly rendered in red) with the wrong
+`fond-size`. Indeed, if I put the same markup in the actual page, it works
+well, but here it seems like some spurious user agent stylesheet overrides the
+rule `font-size: 2em;` that is set via the `h1` selector with something else:
+```css
+:-webkit-any(article, aside, nav, section) :-webkit-any(article, aside, nav, section) h1 {
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+:-webkit-any(article, aside, nav, section) h1 {
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+}
+```
+
+Markup:
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+  #kss-font-size-bug {
+    color: red;
+  }
+</style>
+<!-- REMOVE THE ID BELOW, WHICH IS JUST FOR THE PURPOSE OF THE COMMENT IN THE NOTE -->
+<h1 id="kss-font-size-bug">This is h1</h1><h1 class="handwriting">This handwritten is h1</h1>
+<h2>This is h2</h2><h2 class="handwriting">This handwritten is h2</h2>
+<h3>This is h3</h3><h3 class="handwriting">This handwritten is h3</h3>
+<h4>This is h4</h4><h4 class="handwriting">This handwritten is h4</h4>
+<h5>This is h5</h5><h5 class="handwriting">This handwritten is h5</h5>
+<h6>This is h6</h6><h6 class="handwriting">This handwritten is h6</h6>
+<div>This is div</div><div class="handwriting">This handwritten is div</div>
+
+Styleguide Text.fonts
+*/
+
 body {
   font-family: 'Lato', sans-serif;
 }
