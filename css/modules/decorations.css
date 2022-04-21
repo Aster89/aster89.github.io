@@ -1,0 +1,45 @@
+/*
+Nice bullet or underline
+
+For viewport width ≤ `25rem`, it is a bullet of `1em` diameter, otherwise it as an underline of `0.5em` thickness. (Resize browser window to see the change.)
+
+**Note**: some margins are hard-coded.
+
+Inputs:
+
+  - `--theme-color`: filling color
+  - `--down-right-shadow`: shadow color
+
+
+
+Markup:
+<style>
+.underline-underbullet::after {
+  display: block;
+  content: "";
+}
+</style>
+<div class="underline-underbullet">
+</div>
+
+Styleguide Decorations.underline-underbullet
+*/
+
+.underline-underbullet {
+  margin-bottom: 0.4em;
+}
+
+.underline-underbullet::after {
+  height: 0.5em;
+  margin-top: 0.2em;
+  background-color: var(--theme-color);
+  box-shadow: var(--down-right-shadow);
+}
+
+@media (max-width: 50rem/* maybe increase */) {
+  .underline-underbullet::after {
+    height: 1em;
+    width: 1em;
+    border-radius: 100%;
+  }
+}

@@ -13,6 +13,7 @@
 @import url('modules/cartesian/cartesian.css');
 @import url('modules/cartesian/polar-canvas.css');
 @import url('modules/positioning/polar.css');
+@import url('modules/positioning/pseudo.css');
 @import url('modules/cartesian/xyz-positioning.css');
 @import url('modules/cartesian/triangle.css');
 @import url('modules/cartesian/trigonometry.css');
@@ -40,7 +41,7 @@
 @import url('modules/nav.css');
 @import url('modules/panels.css');
 @import url('modules/shadows.css');
-@import url('modules/widgets.css');
+@import url('modules/decorations.css');
 @import url('modules/copyright.css');
 @import url('modules/text/alignment.css');
 @import url('modules/text/lists.css');

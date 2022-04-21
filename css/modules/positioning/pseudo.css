@@ -1,0 +1,32 @@
+/*
+`::after` centered below element's only child
+
+Markup:
+<style>
+.__after-only-child-center-below > *::after {
+  width: 1em;
+  height: 1em;
+  background-color: black;
+}
+</style>
+<div class="__after-only-child-center-below">
+  <div>
+    Lorem ipsum dolor sit amet
+  </div>
+</div>
+
+**Note**: The reason why a nested element is needed is that I want to be able to expand the `::after` element to the whole length of its generating element. But this is not possible unless I use ` width: -webkit-fill-available;`, which I don't want. Therefore, my solution is to wrap the actual element in a _ad-hoc_ parent which the actual element determines the width of. The `::after` element can then be styled with `width: border-box;` to make it extend to the width of the parent of its generating element, i.e. the width of its generating element.
+
+Styleguide Positioning.__after-only-child-center-below
+*/
+
+.__after-only-child-center-below {
+  width: fit-content;
+}
+
+.__after-only-child-center-below > *:only-child::after {
+  display: block;
+  content: "";
+  margin-right: auto;
+  margin-left: auto;
+}
