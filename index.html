@@ -152,6 +152,179 @@
           <section class="tab-page" id="posts-tab">
             <article class="post-entry">
               <div class="fancy-underline centered-container">
+                <h6 class="text-shadow handwriting">24/04/2022</h6>
+              </div>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <img class="panel-icon" src="img/c++-logo.png" alt="">
+                  <h2>Big-O complexity is not all you need</h2>
+                </div>
+                <div class="text-shadow">
+                  <p>This article is about the time I discovered, the hard way, that
+                  there's much more than big-O complexity in performance analysis:
+                  even if two algorithms have the same big-O complexity, the difference
+                  in how they perform can be tremendous, because of the literally <b>huge</b>
+                  multiplicative constant that can exist between them, as a consequence of
+                  hardware optimizations.
+                  </p>
+                  <h4>A simple problem &mdash; string equality</h4>
+                  <p>One of the simplest expressions that sooner or later all
+                  programmers write is
+                  </p>
+                  <pre><code>str == "some string"</code></pre>
+                  <p>and sometimes we don't even care much about the time
+                  complexity of such a comparison.
+                  </p>
+                  <p>For instance, if this comparison is done in the context of
+                  command line parsing to recognize whether the user has
+                  selected an option, so whatever the complexity of that comparison is,
+                  we'll pay for it only once, or at least a small known number of times.
+                  </p>
+                  <h4>String equality &mdash; many times</h4>
+                  <p>However there are times when this comparison is run for all elements
+                  of a possibly long collection of strings</p>
+                  <pre><code class="language-cpp">auto validStrings = strings | filter(not_fn(equals("&lt;invalid&gt;"s)));</code></pre>
+                  <p>(See example on <a href="https://godbolt.org/z/nW43vWY5P">Compiler Explorer</a>.)</p>
+                  <p>If <code>strings</code> contains <i>N</i> strings, we'll
+                  pay the cost of string comparison <i>N</i> times, so we do
+                  want to know how much that cost is. And if we make those comparisons
+                  inside an algorithm which is not linear in the number of strings like
+                  <code>filter</code>, but, say, quadratic, then knowing the
+                  cost of the individual comparisons is even more
+                  important.</p>
+                  <p>So, how much is the time complexity of string comparison?</p>
+                  <p><q>Well</q>, I told myself, <q>the best case scenario is when the strings
+                  have different length, in which case the algorithm can return in constant time</q>.</p>
+                  <p>And then <q>if their length is equal, then all characters have to be compared
+                  one by one for as long as it takes to find a character that is different between the
+                  two strings</q></p>
+
+                  <h4>Rushed conclusions</h4>
+                  <p>In summary, my conclusion was that</p>
+                  <ul>
+                    <li>
+                      <code>"hello"</code> and <code>"hello world"</code> are
+                      compared in constant time because their lengths are
+                      different. (This is the best case scenario.)
+                    </li>
+                    <li>
+                      <code>"hello"</code> and <code>"hello"</code> are
+                      compared in linear time, and since they <i>are</i> equal,
+                      it takes 6 comparisons to conclude that they are indeed
+                      equal, because 1 comparison is to check their lengths are equal
+                      and 5 is the number of characters that we need to compare.
+                      (This is the worst case scenario.)
+                    </li>
+                    <li><code>"hello"</code> and <code>"help!"</code> are also compared
+                      in linear time, but it takes just 5 comparisons to conclude so,
+                      because we can bale out as soon as the second <code>'l'</code> in
+                      <code>"hello"</code> compares different from the <code>'p'</code>
+                      in <code>"help!"</code>. (This is an average scenario.)
+                    </li>
+                  </ul>
+                  <h4>A more complex problem &mdash; whitespace-trimmed string equality</h4>
+                  <p>Fast forward a few months, and I had to consider that, in
+                  the dummy example described above, the invalid strings could
+                  contain some leading and trailing whitespace, e.g. an
+                  invalid string could be <code>"␣␣␣&lt;invalid&gt;␣␣"</code>,
+                  where I've used the <code>␣</code> symbol to mean a
+                  whitespace.</p>
+                  <p>Forgetful of my conclusions above, with confidence I changed the code to
+                  something like this</p>
+                  <pre><code class="language-cpp">auto validStrings = strings | filter(compose(not_fn(equals("&lt;invalid&gt;"s)), trim(isSpace)));</code></pre>
+                  <p>(See example on <a href="https://godbolt.org/z/Mj8d1c7j3">Compiler Explorer</a>.)</p>
+                  <p>where <code class="language-cpp">compose(f, g)</code> is a
+                  function that first runs <code>trim(isSpace)</code> on its
+                  input to remove any leading and trailing whitespace, and then
+                  runs <code>not_fn(equals("&lt;invalid&gt;"))</code> on the
+                  result.
+                  </p>
+                  <p>It's neat, isn't it?</p>
+                  <p>And what about the complexity? <q>Well</q>, I thought, <q>the trimming
+                    is a linear operation too, just like checking strings for
+                    equality, as all it does is comparing the leading characters one by
+                    one with the space character, increasing a counter at the same time; when
+                    the first non-space is met, the counter is basically the offset
+                    from which the string needs to be compared with <code>"&lt;invalid&gt;"</code>
+                  </q> (the same holds, modulo a slightly different wording, for trailing whitespace).
+                  </p>
+
+                  <h4>The whitespace-trimmed equality comparison is much slower!</h4>
+                  <p>It turned out that the code above performed poorly with respect to the original one,
+                  and I initially had no idea why, because based on my analysis both functions passed
+                  to <code>filter</code> should run in linear time with the length of the string they are
+                  passed.
+                  </p>
+
+                  <h4>Here's why</h4>
+                  <p>Stepping through the code with the debugger is what
+                  eventually helped me figure out what my mistake was:
+                  </p>
+                  <ul>
+                    <li>
+                      when comparing <code>"␣␣␣hello␣␣"</code> with itself via
+                      <code class="language-cpp">std::equal_to&lt;&gt;{}</code>,
+                      a.k.a. the plain <code class="language-cpp">==</code>
+                      operator, the function
+                      <a href="https://en.cppreference.com/w/c/string/byte/memcmp"><code class="language-cpp">__builtin_memcmp</code></a>
+                      is called once to compare the two strings, and the function
+                      <a href="https://en.cppreference.com/w/c/string/byte/memchr"><code class="language-cpp">__builtin_memchr</code></a>
+                      is never called.
+                    </li>
+                    <li>
+                      when comparing <code>"␣␣␣hello␣␣"</code> with itself via
+                      <code class="language-cpp">equal ^on^ trim(isSpace)</code>,
+                      a.k.a. the plain <code class="language-cpp">==</code>
+                      operator called on the whitespace-trimmed strings, the function
+                      <a href="https://en.cppreference.com/w/c/string/byte/memchr"><code class="language-cpp">__builtin_memchr</code></a>
+                      is called 7 times! Once for each space that is trimmed,
+                      plus once for the <code class="language-cpp">'h'</code>
+                      and once for <code class="language-cpp">'o'</code>(i.e.
+                      the first and last non-space characters); only after all
+                      these calls, does the compiler run a string comparison
+                      between what's left, the two <code>"hello"</code>
+                      substrings, with pretty much the same efficiency as the previous point.
+                    </li>
+                  </ul>
+                  <p>So it is evident that the trimming part of the algorithm is what really costs, for the reason that it requires
+                  the processor to truly process the trimmed characters one at a time.</p>
+
+                  <p>Fundamentally, what's
+                  wrong in the conclusion I had initially drawn is that I
+                  didn't consider at all that in the non-best case scenario,
+                  e.g. when comparing two equally long strings for equality,
+                  the comparisons between corresponding characters need not be
+                  run in any specific order; actually, they can be run at the
+                  same time. If the hardware is capable of comparing those 5
+                  characters at the same time, it'll do, thus dividing the cost
+                  of the comparison roughly by 5.
+                  </p>
+
+                  <p>On the contrary, trimming is an operation inherently
+                  directional, because you want to find <i>the first
+                  character</i> which is not equal to the characters you're
+                  discarding, so you must walk the characters from the first onward,
+                  and ask for each single one of them <q>should I discard it?</q>.</p>
+
+                  <h4>Conclusions</h4>
+                  <p>I've learned that Big-O complexity is maybe where one has to start
+                  to assess whether an algorithm is good and how much, but it is certainly
+                  not where one should stop.</p>
+                  <p>As regards the fact that a processor can make, fundamentally, string
+                  equality in (what to me looks like) constant time, I don't know much about it,
+                  probably because I lack an academic background about this stuff (I'm
+                  an aerospace engineer).
+                  </p>
+                  <p>For this reason, I decided to ask a question on
+                  <a href="https://cs.stackexchange.com/questions/150755/complexity-of-string-comparison-vs-whitespace-trimmed-string-comparison">cs.stackexchange</a>;
+                  at the time I'm writing this post it's only been commented, not answered, but the comments mention
+                  a CPU implementation detail called <a href="https://en.wikipedia.org/wiki/Superscalar_processor">"superscalarity"</a>.
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="post-entry">
+              <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting">06/12/2021</h6>
               </div>
               <div class="panel panel--rounded box-shadow text-shadow">
@@ -1737,7 +1910,6 @@ _.sum(_.map(_.multiply(4/5), taskEstimate)) // lodash/fp
         <li>How this site was designed</li>
         <li>boost::hana::on in JS</li>
         <li>Bird meme</li>
-        <li>Bitten by SSO</li>
         <li>Reference collapsing with `const` and it's relation to the East-`const` convention</li>
         <li>How to isolate `using`s when declaring a function object in header file</li>
         <li>WinZoZ</li>
