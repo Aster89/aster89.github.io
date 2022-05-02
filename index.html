@@ -150,7 +150,7 @@
       <main id="main">
         <div class="main centered-container">
           <section class="tab-page" id="posts-tab">
-            <article class="post-entry">
+            <article class="post-entry" id="trimmed-string-equality--and--big-o-complexity">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">24/04/2022</h6>
               </div>
@@ -323,7 +323,7 @@
                 </div>
               </div>
             </article>
-            <article class="post-entry">
+            <article class="post-entry" id="bitten-by-sso">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">06/12/2021</h6>
               </div>
@@ -378,7 +378,7 @@
                     </li>
                   </ul>
                   <p>
-                  And how where these two things made available to the front end? By wrapping them both
+                  And how were these two things made available to the front end? By wrapping them both
                   in a class like this
                   </p>
                   <pre><code class="language-cpp">struct TextAndViewmodel {
@@ -497,7 +497,7 @@ int main()
                 </div>
               </div>
             </article>
-            <article class="post-entry">
+            <article class="post-entry" id="emcpp-item26">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">20/11/2021</h6>
               </div>
@@ -644,7 +644,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
             </article>
           </section>
           <section class="tab-page" id="projects-tab">
-            <article class="post-entry">
+            <article class="post-entry" id="css-radar-diagram">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">4/1/2022</h6>
               </div>
@@ -896,7 +896,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                 </div>
               </div>
             </article>
-            <article class="post-entry">
+            <article class="post-entry" id="this-blog-sketch">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">21/11/2021</h6>
               </div>
@@ -942,7 +942,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
                 </div>
               </div>
             </article>
-            <article class="post-entry">
+            <article class="post-entry" id="winzoz">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">01/09/2021</h6>
               </div>
@@ -999,7 +999,7 @@ Ovl ovl2{ovl}; // this triggers the compilation error</code></pre>
             </article>
           </section>
           <section class="tab-page" id="suggested-books-tab">
-            <article class="post-entry">
+            <article class="post-entry" id="not-so-clean-code">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">06/01/2022</h6>
               </div>
@@ -1456,7 +1456,7 @@ _.sum(_.map(_.multiply(4/5), taskEstimate)) // lodash/fp
               </div>
             </article>
 
-            <article class="post-entry">
+            <article class="post-entry" id="oreilly-clojure-programming">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">30/12/2021</h6>
               </div>
@@ -1919,6 +1919,19 @@ _.sum(_.map(_.multiply(4/5), taskEstimate)) // lodash/fp
         <li>importance of lazyness `const leftIndices = [...Array(leftStartsAndLengths.length).keys()].map(x => x + leftSnippet.start);`</li>
         <li>getNth</li>
         <li>unzip via drawings</li>
+        <li>
+template <std::size_t N>
+auto toSimulinkObjectEdit(comparisons::NodeEdit<N> const& nodeEdit) {
+    SimulinkObjectEdit<N> edit{};
+    for (auto side : comparisons::sidesof(nodeEdit)) {
+        if (auto&& maybe = side(nodeEdit)) {
+            side(edit) = toSimulinkObject(*maybe);
+        }
+    }
+    return edit;
+}
+am I wrong or the body could be almost return unpack(transform2(nodeEdit, toSimulinkObject), make_array);?
+        </li>
         <script class="image-like" id="asciicast-UrSLE5YyCBIld7tpxtSoYgjcw" src="https://asciinema.org/a/UrSLE5YyCBIld7tpxtSoYgjcw.js" async></script>
         </ul>
         https://www.webmasterpoint.org/programmazione/html5/guida-html5/struttura-sito-header-nav-section-article-aside-footer-nuovo-doctype.html

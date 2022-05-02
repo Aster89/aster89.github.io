@@ -1,4 +1,4 @@
-const _C = document.querySelector('.swipeable-container').firstElementChild;
+const _C = document.querySelector('.swipeable-container').firstElementChild; // use jQuery
 const N = _C.children.length;
 
 let i = 0;

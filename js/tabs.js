@@ -22,21 +22,35 @@
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
 $(document).ready(function() {
-  // change visible tab and selected radio button on hash change
+
+  const tabNames = $('.tab-page').map((y, x) => x.getAttribute('id')).toArray();
+
   $(window).on('hashchange', function() {
-    $('.tab-page').hide();
-    $('.tab-page' + location.hash + '-tab').show();
-    $('nav input[value=' + location.hash.substr(1) + ']').prop('checked', true);
+
+    const [selectedTab, scrollTarget] = _.split('.', location.hash.substr(1));
+    const selectedTabId = selectedTab + '-tab';
+
+    if (selectedTabId != $('.tab-page:visible').attr('id')) {
+      $('.tab-page:visible').hide();
+      $('.tab-page' + '#' + selectedTabId).show();
+      $('nav input[value=' + selectedTab + ']').prop('checked', true);
+    }
+    if (scrollTarget) {
+      const elem = $('#' + scrollTarget)[0];
+      if (elem) {
+        elem.scrollIntoView(); // TODO: must scroll a bit down to avoid being covered by the top bar
+      }
+    }
   });
 
-  // change hash on radio button selection
   $('nav > .site-nav input').click(function() {
     location.hash = $(this).val().toString();
   });
 
-  // start-up
   if (location.hash.length == 0) {
     location.hash = $('nav input[checked]').val().toString();
   }
+
   $(window).trigger('hashchange');
+
 });

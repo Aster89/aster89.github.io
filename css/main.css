@@ -49,6 +49,10 @@
 @import url('kss-workarounds.css');
 @import url('special-cases.css');
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--fg-color);
