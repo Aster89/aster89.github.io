@@ -60,6 +60,10 @@ Styleguide Panel.panel.header
   margin: 0;
 }
 
+.panel__header a {
+  color: inherit;
+}
+
 .panel__header--two-children > :first-child::after {
   /* thin line between the two children */
   display: block;

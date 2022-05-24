@@ -21,30 +21,52 @@
 //
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
-$(document).ready(function() {
 
-  const tabNames = $('.tab-page').map((y, x) => x.getAttribute('id')).toArray();
+$(document).ready(() => {
 
-  $(window).on('hashchange', function() {
+  const isTab = id => $('#' + id).filter('.tab-page').length != 0;
 
-    const [selectedTab, scrollTarget] = _.split('.', location.hash.substr(1));
-    const selectedTabId = selectedTab + '-tab';
+  const decodeHash = hash => {
 
-    if (selectedTabId != $('.tab-page:visible').attr('id')) {
+    let selectedTab, selectedElem;
+
+    const maybeTabId = hash + '-tab';
+
+    if (isTab(maybeTabId)) {
+      selectedTab = hash;
+    } else {
+      selectedElem = hash;
+      selectedTab = _.join('', _.dropLast(4, $('#' + selectedElem).parents('.tab-page').attr('id')));
+      if (!selectedTab || selectedTab.length == 0) {
+        location.hash = '';
+        return;
+      }
+    }
+    return [selectedTab, selectedElem];
+
+  }
+
+  $(window).on('hashchange', () => {
+
+    const [selectedTab, selectedElem] = decodeHash(location.hash.substr(1));
+
+    if ($('.tab-page:visible').length != 1 || selectedTab + '-tab' != $('.tab-page:visible').attr('id')) {
       $('.tab-page:visible').hide();
-      $('.tab-page' + '#' + selectedTabId).show();
+      $('.tab-page' + '#' + selectedTab + '-tab').show();
       $('nav input[value=' + selectedTab + ']').prop('checked', true);
     }
-    if (scrollTarget) {
-      const elem = $('#' + scrollTarget)[0];
+    if (selectedElem) {
+      const elem = $('#' + selectedElem)[0];
       if (elem) {
         elem.scrollIntoView(); // TODO: must scroll a bit down to avoid being covered by the top bar
+      } else {
+        location.hash = '#' + selectedTab;
       }
     }
   });
 
-  $('nav > .site-nav input').click(function() {
-    location.hash = $(this).val().toString();
+  $('nav > .site-nav input').click((event) => {
+    location.hash = $(event.currentTarget).val().toString();
   });
 
   if (location.hash.length == 0) {
