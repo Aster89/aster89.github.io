@@ -22,7 +22,7 @@
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
 
-$(document).ready(() => {
+const setupTabs = () => {
 
   const isTab = id => $('#' + id).filter('.tab-page').length != 0;
 
@@ -50,11 +50,13 @@ $(document).ready(() => {
 
     const [selectedTab, selectedElem] = decodeHash(location.hash.substr(1));
 
-    if ($('.tab-page:visible').length != 1 || selectedTab + '-tab' != $('.tab-page:visible').attr('id')) {
+    if ($('.tab-page:visible').length == 0 || selectedTab + '-tab' != $('.tab-page:visible').attr('id')) {
       $('.tab-page:visible').hide();
       $('.tab-page' + '#' + selectedTab + '-tab').show();
       $('nav input[value=' + selectedTab + ']').prop('checked', true);
     }
+    console.assert($('.tab-page:visible').length == 1, "Something's wrong");
+
     if (selectedElem) {
       const elem = $('#' + selectedElem)[0];
       if (elem) {
@@ -65,14 +67,11 @@ $(document).ready(() => {
     }
   });
 
-  $('nav > .site-nav input').click((event) => {
+  $('nav input').click((event) => {
     location.hash = $(event.currentTarget).val().toString();
   });
 
   if (location.hash.length == 0) {
     location.hash = $('nav input[checked]').val().toString();
   }
-
-  $(window).trigger('hashchange');
-
-});
+};
