@@ -49,53 +49,64 @@ const makeDecodeHash = (isTab, getParentTab) =>
   };
 
 // HTML actions (not pure)
+const jq = s => $(s);
+const getElemById = id => document.getElementById(id);
 const getHash = () => location.hash;
-const setHash = h => { location.hash = h; };
-const isTab = str => $('#' + str).filter('.tab-page').length != 0;
-const getParentTab = elem => dropDashTab($('#' + elem).parents('.tab-page').attr('id'));
+const setHash = h => { location.hash = h; /* XXX: didn't know that the leading # in h is optional */ };
+const isTab = str => jq('#' + str).filter('.tab-page').length != 0;
+const getId = e => e.attr('id');
+const getParentTab = elem => dropDashTab(getId(jq('#' + elem).parents('.tab-page')));
 const decodeHash = makeDecodeHash(isTab, getParentTab);
+const getVisibleTabs = () => jq('.tab-page:visible');
+const hide = e => e.hide();
+const show = e => e.show();
+const scrollIntoView = e => e.scrollIntoView();
+const check = cb => cb.prop('checked', true)
 
 const setupTabs = () => {
 
-  $(window).on('hashchange', () => {
+  jq(window).on('hashchange', () => {
 
     const maybeHash = decodeHash(getHash().substr(1));
 
     if (!maybeHash) {
-      const n = $('.tab-page:visible').length;
+      const visibleTabs = getVisibleTabs();
+      const n = visibleTabs.length;
       console.assert(n == 1, "Unexpectedly, " + n + " instead of 1 tab is visible.");
-      setHash(dropDashTab('#' + $('.tab-page:visible').attr('id')));
+      setHash(dropDashTab(getId(visibleTabs)));
       return;
     }
 
     const [selectedTab, selectedElem] = maybeHash;
 
-    const visibleTabs = $('.tab-page:visible');
+    const visibleTabs = getVisibleTabs();
+    let n = visibleTabs.length;
+    console.assert(n <= 1, n + " visible tabs; it should be 0 or 1 tab.");
 
-    if (visibleTabs.length == 0 || selectedTab + '-tab' != visibleTabs.attr('id')) {
-      visibleTabs.hide();
-      $('.tab-page' + '#' + selectedTab + '-tab').show();
-      $('nav input[value=' + selectedTab + ']').prop('checked', true);
+    if (visibleTabs.length == 0 || selectedTab + '-tab' != getId(visibleTabs)) {
+      hide(visibleTabs);
+      show(jq('.tab-page' + '#' + selectedTab + '-tab'));
+      check(jq('nav input[value=' + selectedTab + ']'));
     }
 
-    const n = $('.tab-page:visible').length;
+    n = getVisibleTabs().length;
     console.assert(n == 1, "Unexpectedly, " + n + " instead of 1 tab is visible.");
 
     if (selectedElem) {
-      const elem = $('#' + selectedElem)[0];
+      const elem = getElemById(selectedElem);
       if (elem) {
-        elem.scrollIntoView(); // TODO: must scroll a bit down to avoid being covered by the top bar
+        scrollIntoView(elem); // TODO: must scroll a bit down to avoid being covered by the top bar
       } else {
-        setHash('#' + selectedTab);
+        setHash(selectedTab);
       }
     }
   });
 
-  $('nav input').click((event) => {
-    setHash($(event.currentTarget).val().toString());
+  jq('nav input').click((event) => {
+    setHash(jq(event.currentTarget).val().toString());
   });
 
   if (getHash().length == 0) {
-    setHash($('nav input[checked]').val().toString());
+    setHash(jq('nav input[checked]').val().toString());
   }
 };
