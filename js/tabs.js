@@ -53,19 +53,18 @@ const getHash = () => location.hash;
 const setHash = h => { location.hash = h; };
 const isTab = str => $('#' + str).filter('.tab-page').length != 0;
 const getParentTab = elem => dropDashTab($('#' + elem).parents('.tab-page').attr('id'));
+const decodeHash = makeDecodeHash(isTab, getParentTab);
 
 const setupTabs = () => {
 
-  const decodeHash = makeDecodeHash(isTab, getParentTab);
-
   $(window).on('hashchange', () => {
 
-    const maybeHash = decodeHash(location.hash.substr(1));
+    const maybeHash = decodeHash(getHash().substr(1));
 
     if (!maybeHash) {
       const n = $('.tab-page:visible').length;
       console.assert(n == 1, "Unexpectedly, " + n + " instead of 1 tab is visible.");
-      location.hash = dropDashTab('#' + $('.tab-page:visible').attr('id'));
+      setHash(dropDashTab('#' + $('.tab-page:visible').attr('id')));
       return;
     }
 
@@ -87,16 +86,16 @@ const setupTabs = () => {
       if (elem) {
         elem.scrollIntoView(); // TODO: must scroll a bit down to avoid being covered by the top bar
       } else {
-        location.hash = '#' + selectedTab;
+        setHash('#' + selectedTab);
       }
     }
   });
 
   $('nav input').click((event) => {
-    location.hash = $(event.currentTarget).val().toString();
+    setHash($(event.currentTarget).val().toString());
   });
 
-  if (location.hash.length == 0) {
-    location.hash = $('nav input[checked]').val().toString();
+  if (getHash().length == 0) {
+    setHash($('nav input[checked]').val().toString());
   }
 };
