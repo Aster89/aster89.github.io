@@ -49,7 +49,7 @@ const makeDecodeHash = (isTab, getParentTab) =>
   };
 
 // HTML actions (not pure)
-const jq = s => $(s);
+const jq = s => $(s); // not sure if it's needed anymore
 const getElemById = id => document.getElementById(id);
 const getHash = () => location.hash;
 const setHash = h => { location.hash = h; /* XXX: didn't know that the leading # in h is optional */ };
@@ -62,10 +62,16 @@ const hide = e => e.hide();
 const show = e => e.show();
 const scrollIntoView = e => e.scrollIntoView();
 const check = cb => cb.prop('checked', true)
+const setHashChangeCallback = f => jq(window).on('hashchange', f);
+const setClickCallback = f => jq('nav input').click(f);
+const getDefaultHash = () => jq('nav input[checked]').val().toString();
+const getTabPage = name => jq('.tab-page' + '#' + name + '-tab');
+const getTabInput = name => jq('nav input[value=' + name + ']');
+const tabInputCallback = eventObj => { setHash(jq(eventObj.currentTarget).val().toString()); };
 
 const setupTabs = () => {
 
-  jq(window).on('hashchange', () => {
+  setHashChangeCallback(() => {
 
     const maybeHash = decodeHash(getHash().substr(1));
 
@@ -85,8 +91,8 @@ const setupTabs = () => {
 
     if (visibleTabs.length == 0 || selectedTab + '-tab' != getId(visibleTabs)) {
       hide(visibleTabs);
-      show(jq('.tab-page' + '#' + selectedTab + '-tab'));
-      check(jq('nav input[value=' + selectedTab + ']'));
+      show(getTabPage(selectedTab));
+      check(getTabInput(selectedTab));
     }
 
     n = getVisibleTabs().length;
@@ -102,11 +108,9 @@ const setupTabs = () => {
     }
   });
 
-  jq('nav input').click((event) => {
-    setHash(jq(event.currentTarget).val().toString());
-  });
+  setClickCallback(tabInputCallback);
 
   if (getHash().length == 0) {
-    setHash(jq('nav input[checked]').val().toString());
+    setHash(getDefaultHash());
   }
 };
