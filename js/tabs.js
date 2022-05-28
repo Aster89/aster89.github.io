@@ -22,40 +22,63 @@
 // [1]: https://stackoverflow.com/a/1014958/5825294
 // [2]: https://dev.w3.org/csswg/selectors4/#relational
 
+// Helper functions (pure)
+const isString = s => typeof s === 'string' || s instanceof String;
+const dropDashTab = str => isString(str) ? str.replace(/-tab$/, '') : str;
+
+// HTML actions (not pure)
+const getHash = () => location.hash;
+const setHash = h => { location.hash = h; };
+const isTab = str => $('#' + str).filter('.tab-page').length != 0;
+const getParentTab = elem => dropDashTab($('#' + elem).parents('.tab-page').attr('id'));
+
 const setupTabs = () => {
 
-  const isTab = id => $('#' + id).filter('.tab-page').length != 0;
+  const decodeHash = str => {
 
-  const decodeHash = hash => {
+    let selectedElem;
+    let selectedTab;
 
-    let selectedTab, selectedElem;
-
-    const maybeTabId = hash + '-tab';
+    const maybeTabId = str + '-tab';
 
     if (isTab(maybeTabId)) {
-      selectedTab = hash;
+      selectedTab = str;
     } else {
-      selectedElem = hash;
-      selectedTab = _.join('', _.dropLast(4, $('#' + selectedElem).parents('.tab-page').attr('id')));
+      selectedElem = str;
+      if (!selectedElem || selectedElem.length == 0) {
+        return undefined;
+      }
+      selectedTab = getParentTab(selectedElem);
       if (!selectedTab || selectedTab.length == 0) {
-        location.hash = '';
-        return;
+        return undefined;
       }
     }
     return [selectedTab, selectedElem];
-
   }
 
   $(window).on('hashchange', () => {
 
-    const [selectedTab, selectedElem] = decodeHash(location.hash.substr(1));
+    const maybeHash = decodeHash(location.hash.substr(1));
 
-    if ($('.tab-page:visible').length == 0 || selectedTab + '-tab' != $('.tab-page:visible').attr('id')) {
-      $('.tab-page:visible').hide();
+    if (!maybeHash) {
+      const n = $('.tab-page:visible').length;
+      console.assert(n == 1, "Unexpectedly, " + n + " instead of 1 tab is visible.");
+      location.hash = dropDashTab('#' + $('.tab-page:visible').attr('id'));
+      return;
+    }
+
+    const [selectedTab, selectedElem] = maybeHash;
+
+    const visibleTabs = $('.tab-page:visible');
+
+    if (visibleTabs.length == 0 || selectedTab + '-tab' != visibleTabs.attr('id')) {
+      visibleTabs.hide();
       $('.tab-page' + '#' + selectedTab + '-tab').show();
       $('nav input[value=' + selectedTab + ']').prop('checked', true);
     }
-    console.assert($('.tab-page:visible').length == 1, "Something's wrong");
+
+    const n = $('.tab-page:visible').length;
+    console.assert(n == 1, "Unexpectedly, " + n + " instead of 1 tab is visible.");
 
     if (selectedElem) {
       const elem = $('#' + selectedElem)[0];
