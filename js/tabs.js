@@ -25,16 +25,8 @@
 // Helper functions (pure)
 const isString = s => typeof s === 'string' || s instanceof String;
 const dropDashTab = str => isString(str) ? str.replace(/-tab$/, '') : str;
-
-// HTML actions (not pure)
-const getHash = () => location.hash;
-const setHash = h => { location.hash = h; };
-const isTab = str => $('#' + str).filter('.tab-page').length != 0;
-const getParentTab = elem => dropDashTab($('#' + elem).parents('.tab-page').attr('id'));
-
-const setupTabs = () => {
-
-  const decodeHash = str => {
+const makeDecodeHash = (isTab, getParentTab) =>
+  str => {
 
     let selectedElem;
     let selectedTab;
@@ -54,7 +46,17 @@ const setupTabs = () => {
       }
     }
     return [selectedTab, selectedElem];
-  }
+  };
+
+// HTML actions (not pure)
+const getHash = () => location.hash;
+const setHash = h => { location.hash = h; };
+const isTab = str => $('#' + str).filter('.tab-page').length != 0;
+const getParentTab = elem => dropDashTab($('#' + elem).parents('.tab-page').attr('id'));
+
+const setupTabs = () => {
+
+  const decodeHash = makeDecodeHash(isTab, getParentTab);
 
   $(window).on('hashchange', () => {
 
