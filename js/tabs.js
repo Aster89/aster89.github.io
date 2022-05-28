@@ -48,30 +48,29 @@ const makeDecodeHash = (isTab, getParentTab) =>
     return [selectedTab, selectedElem];
   };
 
-// HTML actions (not pure)
-const jq = s => $(s); // not sure if it's needed anymore
-const getElemById = id => document.getElementById(id);
-const getHash = () => location.hash;
-const setHash = h => { location.hash = h; /* XXX: didn't know that the leading # in h is optional */ };
-const isTab = str => jq('#' + str).filter('.tab-page').length != 0;
-const getId = e => e.attr('id');
-const getParentTab = elem => dropDashTab(getId(jq('#' + elem).parents('.tab-page')));
-const decodeHash = makeDecodeHash(isTab, getParentTab);
-const getVisibleTabs = () => jq('.tab-page:visible');
-const hide = e => e.hide();
-const show = e => e.show();
-const scrollIntoView = e => e.scrollIntoView();
-const check = cb => cb.prop('checked', true)
-const setHashChangeCallback = f => jq(window).on('hashchange', f);
-const setClickCallback = f => jq('nav input').click(f);
-const getDefaultHash = () => jq('nav input[checked]').val().toString();
-const getTabPage = name => jq('.tab-page' + '#' + name + '-tab');
-const getTabInput = name => jq('nav input[value=' + name + ']');
-const tabInputCallback = eventObj => { setHash(jq(eventObj.currentTarget).val().toString()); };
-
-const setupTabs = () => {
+function setupTabs({
+  actionOnElem,
+  check,
+  getDefaultHash,
+  getElemById,
+  getHash,
+  getId,
+  getParentTab,
+  getTabInput,
+  getTabPage,
+  getVisibleTabs,
+  hide,
+  isTab,
+  setClickCallback,
+  setHash,
+  setHashChangeCallback,
+  show,
+  tabInputCallback
+}) {
 
   setHashChangeCallback(() => {
+
+    const decodeHash = makeDecodeHash(isTab, getParentTab);
 
     const maybeHash = decodeHash(getHash().substr(1));
 
@@ -87,7 +86,7 @@ const setupTabs = () => {
 
     const visibleTabs = getVisibleTabs();
     let n = visibleTabs.length;
-    console.assert(n <= 1, n + " visible tabs; it should be 0 or 1 tab.");
+    console.assert(n <= 1, "Unexpectedly, " + n + " visible tabs; it should be 0 or 1 tab.");
 
     if (visibleTabs.length == 0 || selectedTab + '-tab' != getId(visibleTabs)) {
       hide(visibleTabs);
@@ -101,7 +100,7 @@ const setupTabs = () => {
     if (selectedElem) {
       const elem = getElemById(selectedElem);
       if (elem) {
-        scrollIntoView(elem); // TODO: must scroll a bit down to avoid being covered by the top bar
+        actionOnElem(elem);
       } else {
         setHash(selectedTab);
       }
