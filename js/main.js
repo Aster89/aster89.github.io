@@ -13,13 +13,13 @@ $(document).ready(() => {
     getVisibleTabs: () => $('.tab-page:visible'),
     isTab: str => $('#' + str).filter('.tab-page').length != 0,
     //  - write
-    actionOnElem: e => e.scrollIntoView(), // TODO: must scroll a bit down to avoid being covered by the top bar
-    check: cb => cb.prop('checked', true),
-    hide: e => e.hide(),
-    show: e => e.show(),
-    setClickCallback: f => $('nav input').click(f),
+    actionOnElem: e => { e.scrollIntoView(); }, // TODO: must scroll a bit down to avoid being covered by the top bar
+    check: cb => { cb.prop('checked', true); },
+    hide: e => { e.hide(); },
+    show: e => { e.show(); },
+    setClickCallback: f => { $('nav input').click(f); },
     setHash: h => { location.hash = h; },
-    setHashChangeCallback: f => $(window).on('hashchange', f),
+    setHashChangeCallback: f => { $(window).on('hashchange', f); },
     tabInputCallback: eventObj => { location.hash = $(eventObj.currentTarget).val().toString(); }
   });
   $(window).trigger('hashchange');

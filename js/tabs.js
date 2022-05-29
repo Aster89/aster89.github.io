@@ -24,7 +24,7 @@
 
 // Helper functions (pure)
 const isString = s => typeof s === 'string' || s instanceof String;
-const dropDashTab = str => isString(str) ? str.replace(/-tab$/, '') : str;
+const dropDashTab = str => isString(str) ? str.replace(/-tab$/, '') : undefined;
 const makeDecodeHash = (isTab, getParentTab) =>
   str => {
 

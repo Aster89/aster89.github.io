@@ -1,3 +1,107 @@
+/*
+Tab-based nav
+
+A list of radio buttons is used to select and show one of several tabs.
+
+Manually entering the hash pointing to one of the elements selects and shows
+the tab where that element belongs and performs an action on that element.
+
+This is fundamentally a JavaScript module. The only CSS directive is to
+make all tabs initially not visible.
+
+To set up the tab based navigation, structure the markup as per the example below,
+and then make the following call:
+```javascript
+  setupTabs({
+    // Actions (impure functions, as they read from/write to the global state represented by the HTML):
+    //  - read
+    getDefaultHash: () => /* string */,
+    getElemById: id => /* obj */,
+    getHash: () => /* string */,
+    getId: e => /* string */,
+    getParentTab: elem => /* object */,
+    getTabPage: name => /* object */,
+    getTabInput: name => /* object */,
+    getVisibleTabs: () => /* objects */,
+    isTab: str => /* bool */,
+    //  - write
+    actionOnElem: e => { /* action */ },
+    check: cb => { /* action */ },
+    hide: e => { /* action */ },
+    show: e => { /* action */ },
+    setClickCallback: f => { /* action */ },
+    setHash: h => { /* action */ },
+    setHashChangeCallback: f => { /* action */ },
+    tabInputCallback: eventObj => { /* action */ }
+  });
+```
+
+
+**Note**: The example below exercises the logic of the module,
+but shows it differently:
+  - tabs are "shown" by boxing them and coloring their contents green
+  - tabs are "hidden" by removing the box and coloring their contents red
+  - if an element is selected, it's background is lightgreen
+
+
+
+Markup:
+<label for="name">URL:</label>
+<input type="text"
+       value="sch://some/url/#"
+       minlength="0" maxlength="8" size="10"
+       readonly>
+<input type="text"
+       id="hash"
+       name="name"
+       placeholder="hash (without the leading #)">
+<nav>
+  <ul>
+    <li>
+      <input type="radio" name="nav-tabs" id="tab1-radio" value="tab1">
+      <label for="tab1-radio">show only tab 1</label>
+    </li>
+    <li>
+      <input type="radio" name="nav-tabs" id="tab2-radio" value="tab2" checked>
+      <label for="tab2-radio">show only tab 2 (this is the default)</label>
+    </li>
+    <li>
+      <input type="radio" name="nav-tabs" id="tab3-radio" value="tab3">
+      <label for="tab3-radio">show only tab 3</label>
+    </li>
+  </ul>
+</nav>
+<div>
+  <div class="tab-page" id="tab1-tab">
+    tab 1
+    <ul>
+      <li id="elem11">elem 1.1</li>
+      <li id="elem12">elem 1.2</li>
+      <li id="elem13">elem 1.3</li>
+    </ul>
+  </div>
+  <div class="tab-page" id="tab2-tab">
+    tab 2
+    <ul>
+      <li id="elem21">elem 2.1</li>
+      <li id="elem22">elem 2.2</li>
+      <li id="elem23">elem 2.3</li>
+    </ul>
+  </div>
+  <div class="tab-page" id="tab3-tab">
+    tab 3
+    <ul>
+      <li id="elem31">elem 3.1</li>
+      <li id="elem32">elem 3.2</li>
+      <li id="elem33">elem 3.3</li>
+    </ul>
+  </div>
+</div>
+
+
+Styleguide Navigation.tabs
+*/
+
 .tab-page {
   display: none;
 }

@@ -8,6 +8,8 @@
       "../css/main.css"
     ],
     "js": [
-      "../js/swipeable-container.js"
+      "../js/swipeable-container.js",
+      "../js/tabs.js",
+      "../js/kss/tabs.js"
     ]
 }
