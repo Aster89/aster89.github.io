@@ -9,6 +9,7 @@
  *
  */
 
+@import url('modules/figures.css');
 @import url('modules/loader-wheel.css');
 @import url('modules/cartesian/cartesian.css');
 @import url('modules/cartesian/polar-canvas.css');
