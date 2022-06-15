@@ -151,6 +151,736 @@
       <main id="main">
         <div class="main centered-container">
           <section class="tab-page" id="posts-tab">
+            <article class="post-entry" id="strategy-pattern-lie">
+              <div class="__after-only-child-center-below centered-container">
+                <h6 class="text-shadow handwriting underline-underbullet">18/06/2022</h6>
+              </div>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <h2><a href="#strategy-pattern-lie">Strategy pattern lie</a></h2>
+                </div>
+                <div class="text-shadow">
+                  <figure class="side-figure side-figure--right">
+                    <img src="https://www.newsanyway.com/wp-content/uploads/2020/04/Canva-Old-Man-Walking-on-Crutches.jpg" alt=""/>
+                    <figcaption>A programming language that lacks lambdas, with
+                      two of its design patterns (one of them them probably
+                      being the strategy pattern).</figcaption>
+                  </figure>
+                  <p>I'm slowly but inexorably growing the idea that <b>design patterns
+                    are, fundamentally, established workarounds to languages' weaknesses</b>.
+                  </p>
+                  <p>(If you are particularly sensitive, scroll to the bottom of this post, and see
+                    how much the strategy pattern can be shrinked in C++.)</p>
+                  <p>Indeed,
+                  <a href="https://duckduckgo.com/?q=%22design+patterns%22+%2B+weakness+%2B+language&ia=web">if I search the web
+                  for <i>"design patterns" + weakness + language</i></a>, I get a lot of results, the first one of
+                  which is <a href="https://stackoverflow.com/questions/1579162/are-design-patterns-really-language-weaknesses">a question
+                  on StackOverflow</a>, and that question links to <a href="https://blog.plover.com/prog/design-patterns.html">a blog</a>,
+                  which I picked the following quote from:
+                  </p>
+                  <blockquote>
+                    <h4>
+                      Progress in programming languages
+                    </h4>
+                    <p>Had the "Design Patterns" movement been popular in 1960,
+                    its goal would have been to train programmers to recognize
+                    situations in which the "subroutine" pattern was
+                    applicable, and to implement it habitually when necessary.
+                    [&hellip;], it would have been vastly
+                    inferior to what really happened, which was that the
+                    "subroutine" pattern was codified and embedded into
+                    subsequent languages.</p>
+
+                    <p>[&hellip;]. The problem with the "Design Patterns"
+                    movement is [&hellip;] programmers are trained to identify
+                    and apply the patterns when possible. Instead, the patterns
+                    should be used as signposts to the failures of the
+                    programming language. [&hellip;].</p>
+
+                    <p>[&hellip;]. The correct place to implement a common
+                    solution to a recurring design problem is in the
+                    programming language, if that is possible.</p>
+
+                    <p>The stance of the "Design Patterns" movement seems to be
+                    that it is somehow inevitable that programmers will need to
+                    implement Visitors, Abstract Factories, Decorators, and
+                    Façades. But these are no more inevitable than the need to
+                    implement Subroutine Calls or Object-Oriented Classes in
+                    the source language. These patterns should be seen as
+                    defects or missing features in Java and C++. The best
+                    response to identification of these patterns is to ask what
+                    defects in those languages cause the patterns to be
+                    necessary, and how the languages might provide better
+                    support for solving these kinds of problems.</p>
+
+                    <p>[&hellip;].</p>
+
+                    <p>[&hellip;]. Helping hapless C++ and Java programmers is
+                    admirable, but it shouldn't be the end goal. Instead of
+                    seeing the use of design patterns as valuable in itself, it
+                    should be widely recognized that each design pattern is an
+                    expression of the failure of the source language.</p>
+
+                    <p>If the Design Patterns movement had been popular in the
+                    1980's, we wouldn't even have C++ or Java; [&hellip;]. But
+                    the way to provide as much help as possible was not to
+                    train people to habitually implement Object-Oriented
+                    Classes when necessary; it was to develop languages like
+                    C++ and Java that had this pattern built in, so that
+                    programmers could concentrate on using OOP style instead of
+                    on implementing it.</p>
+                  </blockquote>
+                  <p>I read those words and, even if I don't know the author
+                  personally, I can't help but agreeing with him, and be
+                  astonished when I realize that so many programmers disagree, instead.
+                  </p>
+                  <figure class="side-figure side-figure--left">
+                    <img src="https://picfiles.alphacoders.com/730/73032.jpg" alt="Army of Darkness poster"/>
+                    <figcaption>A <i>programmer</i> (aka <i>"user"</i>) with two very powerful <i>programming
+                        languages</i> (aka <i>"tools"</i>), and the crowd
+                      behind him all use mediocre programming languages,
+                      so they don't stand a chance.</figcaption>
+                  </figure>
+                  <p>The reason for my astonishment is that those words, in my opinion,
+                  state something true by definition.
+                  Definition of what? Of what the programmer and the
+                  programming language are: the user and his/her tool,
+                  respectively. Why should they be happy with doing something
+                  over and over, when the alternative is that the language
+                  does that for them?</p>
+                  <p>Nonetheless, many programmers (hugely experienced as well as
+                  newbies) strongly disagree with the above view, so praises of
+                  design patterns are sung in every corner of the internet.
+                  </p>
+                  <p>Maybe the only way to convince them of the equation
+                  <i>design patterns = weaknesses of a language</i> is to
+                  review each single design pattern, and then cook an example
+                  written in a programming language that doesn't need that pattern
+                  because it's built into the language, or library provides a nice
+                  API for it.
+                  </p>
+                  <p>To do so, I need a reference book, and I chose it to be the famous book
+                  <i><a href="https://learning.oreilly.com/library/view/head-first-design/0596007124/cover.html">"Head First - Design Patterns"</a></i>
+                  (the one with the blond girl on the cover and many many
+                  drawings inside that look like coming from the comics), which is one
+                  of the most highly considered books on design patterns, maybe one
+                  step below its more earnest counterpart
+                  <i><a href="https://books.google.co.uk/books/about/Design_Patterns.html?id=6oHuKQe3TjQC&redir_esc=y">"Design Patterns - Elements of Reusable Object-Oriented Software"</a></i>
+                  (at least based on what I've heard in my &hellip; ehm
+                  &hellip; 3 years in software development). The reason I chose the former
+                  is dual:
+                  </p>
+                  <ul class="list-beside-float">
+                    <li>I don't have the latter;</li>
+                    <li>the former is written in a language (Java) other than my main language (C++),
+                      so I'm in a better position to show that changing the language
+                      can make a big difference on whether you need a pattern or not.</li>
+                  </ul>
+                  <p>Among all those patters, I'll start from the easy one, The Strategy Pattern.</p>
+                  <h3>Review of the "Strategy Pattern"</h3>
+                  <p>What is it, and how is it defined?</p>
+                  <p>Let's go first to the definition (page 24), which, in all
+                  honesty, seems pretty uncontroversial:</p>
+                  <blockquote><b>The Strategy Pattern</b> defines a family of
+                  algorithms, encapsulates each one, and makes them
+                  interchangeable.  Strategy lets the algorithm vary
+                  independently from clients that use it.
+                  </blockquote>
+                  <p>The good thing about it is that it does not refer to
+                  objects or to the object-oriented paradigm at all,
+                  let alone inheritance and class hierarchies.</p>
+                  <p>Nonetheless, there's room for questions already! For instance,</p>
+                  <ul>
+                    <li>What does it mean for an algorithm to be encapsulated?
+                      An algorithm is just a sequence of instructions, and it surely
+                      has a beginning and an end, so one can tell where it is. Why do
+                      I need to encapsulate it? Who is requiring such a thing?
+                      An most importantly: how do I actually encapsulate an
+                      algorithm?
+                    </li>
+                    <li>If two or more algorithms reach the same goal (read
+                      <i>"same types of inputs and same type of output"</i>)
+                      via different means (read <i>the implementation
+                        differs</i>), aren't they interchangeable already?  I
+                      can give that very input to each of them, and I'll get
+                      the same result every time. That's the definition of
+                      interchangeability, no?
+                    </li>
+                  </ul>
+                  <p>And it's upon the answers to those questions, that my
+                  point is based, so let's go back to the beginning of the chapter,
+                  and find them.</p>
+                  <figure class="side-figure side-figure--right">
+                    <img src="https://media.giphy.com/media/3oEduZqr2b3f7AG6aI/giphy.gif" alt=""/>
+                    <figcaption>A colleague throwing OOP at you.</figcaption>
+                  </figure>
+                  <p>At page 2, the
+                  authors throw the acronym OO at you within the
+                  first five lines, before even stating what the problem they want to solve is,
+                  so if I had any hope you could find a solution without
+                  resorting to OOP, I've already lost it. They've already converted you.
+                  I really hope not. Not totally. My point here is: <b>how can you be
+                    so confident you'll find the best solution to a problem if you confine
+                    your search territory before even analyzing the problem?</b>
+                  Can't you see that <b><i>maybe</i> there might be something
+                  useful out of the OOP world?</b>
+                  </p>
+                  <p>But the book is stuck into the religion of OOP, so after a
+                  few centimeters down from there, they throw at you
+                  inheritance, in the form of a UML diagram. At this point, in
+                  an attempt to resist to
+                  this dogmatic approach they use, I add another question
+                  to the ones above:</p>
+                  <ul>
+                    <li>Why do we need inheritance? And do we need it at all?</li>
+                  </ul>
+                  <p>And the <strike>answer to this</strike> intention is probably clear by the time Joe adds
+                  the <code>fly()</code> method to the <code>Duck</code> base class:
+                  inheritance is used to share a common behavior between all the classes
+                  that inherit from a common base class.
+                  </p>
+                  <pre><code class="language-java">public abstract class Duck {
+  public Duck() {}
+  public void fly() {
+    /* common way of flying */
+  }
+}</code></pre>
+                  <p>The shortcoming of these approach is soon found, because
+                  Joe had not anticipated that maybe not <i>all</i> classes
+                  inheriting from <code>Duck</code> should be able to
+                  <code>fly()</code>.
+                  </p>
+<pre><code class="language-java">// some ducks are ok with the parent's fly()
+public class MallardDuck extends Duck { /* other stuff */ }
+// but several might not!
+public class RubberDuck extends Duck { /* override fly() to do nothing */ }
+public class DecoyDuck extends Duck { /* override fly() to do nothing */ }</code></pre>
+                  <p>
+                  And here is another question coming up:
+                  </p>
+                  <ul>
+                    <li>Why should I make a class derive from another class, if
+                      the former is not happy with one of the methods of the
+                      latter?
+                    </li>
+                  </ul>
+                  <p>Joe answers this question, but rather than giving up
+                  on inheritance, he does so by moving the <code>fly()</code> method
+                  out of the <code>Duck</code> base class into an <code>interface</code>, and
+                  making only some of <code>Duck</code>'s derived classes
+                  implement the <code>Flyable</code> interface.</p>
+                  <pre><code class="language-java">public abstract class Duck {
+  public Duck() {}
+}
+public interface Flyable {
+  public void fly() {
+    /* fly in some way */
+  }
+}
+public class RubberDuck extends Duck { /* no fly() whatsoever */ }
+public class MallardDuck extends Duck implements Flyable {
+  /* implement fly() */
+}</code></pre>
+                  <p>This turns out to be a silly choice too, because all
+                  Joe's done, with that <code>interface</code>, is sharing <b><i>the need for</i></b>
+                  a <code>fly()</code> behavior across the classes that can actually fly,
+                  and not <b><i>the</i></b> <code>fly()</code> behavior, so he has
+                  to implement that behavior in each and every class that needs it.
+                  In other words, the code reuse attempted via inheritance from a base class is
+                  thrown away by the attempt of using a common
+                  <code>interface</code>. And I've written <code>interface</code> in
+                  mono-space, because it is a keyword in Java, where it has a very
+                  specific meaning, and that's precisely and admittedly the reason why the attempt
+                  fails: <q>Java interfaces have no implementation code, so no code reuse</q>.
+                  </p>
+                  <p>So let's recap what's wrong with each of the two approaches:</p>
+                  <ol>
+                    <li>With a <code>Duck</code> base class providing the <code>fly()</code>
+                      behavior and all other classes inheriting from it
+                      <ul>
+                        <li class="good">we have the benefit of sharing that behavior across all
+                          derived classes,
+                        </li>
+                        <li class="bad">and the drawback that we need to manually implement <code>fly()</code>
+                          in each and every class that wants to diverge from the common behavior
+                        </li>
+                      </ul>
+                    </li>
+                    <li>With a <code>Flyable</code> interface that requires all implementers
+                      to implement <code>fly()</code>
+                      <ul>
+                        <li class="good">We have the benefit that not all <code>Duck</code>'s
+                          derived classes have a <code>fly()</code> method, but each of them
+                          can independently decide to implement <code>Flyable</code> only if
+                          they want to,
+                        </li>
+                        <li class="bad">and the drawback that we must repeat the
+                          code of <code>fly()</code> for all the classes that want it,
+                          <b><i>even if they want the same flavour of <code>fly()</code>ing</i></b>,
+                          because, as mentioned, Java interfaces have no implementation code.
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p>Do you see anything? I hope that you've noticed how the
+                  two approaches are complementary to each other, as they have
+                  opposite advantages and opposite drawbacks. Therefore you
+                  might agree that a couple of additional questions come up naturally:
+                  </p> <ul>
+                    <li>Can't I just have multiple <b>base classes</b>, instead of multiple
+                      interfaces? E.g. <code>FlyableLikeBird</code>,
+                      <code>FlyableLikeRocket</code>, <code>FlyableNoWay</code>, and so on,
+                      each with its default implementation of <code>fly()</code>, and every other class
+                      derive from the flavour they want? Doing so, I could take the
+                      first approach without the drawback.
+                    </li>
+                    <li>What if my language allows the implementation of methods in an interface?
+                      If that's allowed, then I'd be removing the drawback from the second approach,
+                      making it winning.
+                    </li>
+                  </ul>
+                  <p>
+                  It turns out that these two questions are actually the same
+                  question looked at from two different angles, because
+                  if interfaces were allowed to have implementations, they'd be
+                  base classes, and so we'd be just trying to inherit from
+                  multiple base classes, and point is that multiple inheritance
+                  is not allowed in Java.
+                  </p>
+                  <p>On the other hand, both these things (inheriting from multiple base classes
+                  and implementing interface methods) are a thing in C++, which makes me
+                  hope that, at this point, the doubt about the real value
+                  of the Strategy Pattern should be crawling in your mind. At least, you might be thinking,
+                  the path from the problem to the solution is shorter in C++ than in Java,
+                  for the simple reason that C++ has a feature that Java lacks. By simple extension,
+                  you might agree that the added value of the strategy pattern depends on the
+                  language you are using.
+                  </p>
+                  <p>Now let's jump to the proposed solution at page 22, which makes, at least in part,
+                  use of composition instead of inheritance:</p>
+                  <ul>
+                    <li>create an <code>interface</code> for each of the behavior that you want to vary at will
+                    across the objects deriving from <code>Duck</code>, e.g. <code>FlyBehavior</code>
+                    and <code>QuackBehavior</code>;
+                    </li>
+                    <li>every time you need a new flavour of a behavior create a class implementing
+                    the appropriate <code>interface</code>, e.g. <code>FlyWithWings</code> would implement
+                    <code>FlyBehavior</code> thus providing one flavour of <code>fly()</code>ing;
+                    </li>
+                    <li>add two one member for each of the behaviors into the <code>Duck</code>
+                      base class, e.g. <code>Duck</code> would have members <code>FlyBehavior flyBehavior</code>
+                      and <code>QuackBehavior quackBehavior</code>.
+                    </li>
+                    <li>Whenever you need a new type of duck, create a class inheriting
+                      from <code>Duck</code> and assigning appropriate values to <code>flyBehavior</code>
+                      and <code>quackBehavior</code>, those values being objects of class
+                      one of the implementers of the appropriate method, e.g. <code>RubberDuck</code>
+                      would inherit from <code>Duck</code> and assign <code>flyBehavior</code>
+                      the value of <code>new FlyNoWay()</code>, and something else to the other method.
+                    </li>
+                  </ul>
+                  <div class="some-grid">
+                  <pre><code class="language-java">public abstract class Duck {
+  public Duck() {}
+  // methods that derived classes can inject
+  FlyBehavior flyBehavior;
+  QuackBehavior quackBehavior;
+  public void doFly() {
+    flyBehavior.fly();
+  }
+  public void doQuack() {
+    quackBehavior.quack();
+  }
+  // methods that every derived must implement
+  public abstract void display();
+  // methods that none must implement
+  public void swim() {
+    /* impl common to all ducks */
+  }
+}</code></pre>
+<pre><code class="language-java">public interface FlyBehavior {
+  public void fly();
+}
+public interface QuackBehavior {
+  public void quack();
+}
+
+public class FlyWithWings implements FlyBehavior {
+  public void fly() { /* impl */ }
+}
+public class FlyNoWay implements FlyBehavior {
+  public void fly() { /* impl */ }
+}</code></pre>
+<pre><code class="language-java">public class MallardDuck extends Duck {
+  public MallardDuck() {
+    flyBehavior = new FlyWithWings();
+    quackBehavior = new Quack();
+  }
+  public void display() {
+    /* impl */
+  }
+}</code></pre>
+                  </div>
+
+                  <h3>Trying to slim down the pattern</h3>
+
+                  <p>But now look carefully at what <code>Duck</code> is: it is fundamentally
+                  a collection of methods, or behaviors, of which
+                  </p>
+                  <ul>
+                    <li>
+                      two, <code>doFly()</code> and <code>doQuack()</code>, are
+                      expected to be injected by the derived classes via
+                      assignment of the members <code>flyBehavior</code> and
+                      <code>quackBehavior</code> respectively;
+                    </li>
+                    <li>
+                      another one, <code>display()</code>, is expected to be implemented by every one of
+                      the derived classes;
+                    </li>
+                    <li>and the last one, <code>swim()</code>, is expected to be the same across
+                      all derived classes.
+                    </li>
+                  </ul>
+                  <p>It should be fairly clear that <code>display()</code> is not fundamentally
+                    different from <code>doFly()</code> and <code>doQuack()</code>: the fact
+                    that it is implemented differently across each derived class, and that
+                    instead several different classes might inject the same concrete behavior into
+                    <code>doFly()</code>, is purely incidental. Therefore, <code>display()</code> too
+                    can be factored out as the other two, and each derived <code>Duck</code>
+                    will inject its concrete implementation of it.
+                  </p>
+                  <p>On the other hand, <code>swim()</code>, since it's meant to be common
+                  to all <code>Duck</code>s, is not exactly like the other three behaviors,
+                  but also not that different: we can also implement it as a call to a member,
+                  just being careful to initialize it in <code>Duck</code>'s constructor,
+                  and making it <code>private</code> or <code>final</code>, so that it will
+                  stay the same across all <code>Duck</code>s no matter what.
+                  </p>
+
+                  <p>Now, in view of the above, we can rewrite the <code>Duck</code> class like this:
+                  </p>
+                  <pre><code class="language-java">public abstract class Duck {
+  final SwimBehavior swimBehavior;
+  public Duck() { swimBehavior = SwimNormally(); }
+  // methods that derived classes can/must inject
+  DisplayBehavior displayBehavior;
+  FlyBehavior flyBehavior;
+  QuackBehavior quackBehavior;
+  public void doDisplay() {
+    displayBehavior.display();
+  }
+  public void doFly() {
+    flyBehavior.fly();
+  }
+  public void doQuack() {
+    quackBehavior.quack();
+  }
+  public void doSwim() {
+    swimBehavior.swim();
+  }
+}</code></pre>
+<pre><code class="language-java">public class MallardDuck extends Duck {
+  public MallardDuck() {
+    flyBehavior = new FlyWithWings();
+    quackBehavior = new Quack();
+    displayBehavior = new MallardDuckDisplay();
+  }
+}</code></pre>
+<pre><code class="language-java">public class MallardDuck extends Duck {
+  public RubberDuck() {
+    flyBehavior = new FlyNoWay();
+    quackBehavior = new Squeak();
+    displayBehavior = new RubberDuckDisplay();
+  }
+}</code></pre>
+                  <p>But now what's left of <code>Duck</code>? Just a shell, a container,
+                  a box, in which 3 methods can be injected from outside and 1 is fixed.</p>
+                  <p>And what's left of the derived classes, such as <code>MallardDuck</code>
+                  or <code>RubberDuck</code>? They only take care of selecting a flavour for
+                  each of the behaviors, so why having those classes at all? We could just
+                  as well provide <code>Duck</code> with methods to set its behaviors (maybe
+                  the constructor, maybe actual setters), and then spawn objects of class
+                  <code>Duck</code>, which are all interchangeable because have the same
+                  class, and yet are different because we've injected different behaviors
+                  in them. You'd then have call sites like this (assuming the behaviors
+                  are set via <code>Duck</code>'s constructor, appropriately rewritten):
+                  </p>
+<pre><code class="language-java">Duck mallard = new Duck(MallardDuckDisplay(), FlyWithWings(), Quack());</code></pre>
+                  <p>See? No need for inheritance, so we have an answer to one of the questions.</p>
+                  <p>In fact, we can also answer another question, the <i>"why
+                    do I need (in Java) to encapsulate the algorithms and how
+                    do I do it?"</i> The answer is that the algorithms
+                    (functions, e.g. <code>.fly()</code>) are encapsulated by wrapping them in a classes
+                    (e.g. <code>FlyBehavior</code>), and
+                    the advantage of doing so is that we can assign, change, swap, delete,
+                    …, the algorithms by assigning, changing, swapping,
+                    deleting, … objects of that class (e.g.
+                    <code>flyBehavior</code>) at run time.
+                  </p>
+                  <p>So the classes wrapping/encapsulating the algorithm, only serve
+                  the purpose of dealing with the algorithms as they were objects.</p>
+                  <p>But the story is not over in Java: now that algorithms are wrapped
+                  in objects, we can't call them anymore, i.e. we can't just do the following</p>
+<pre><code class="language-java">Duck duck = new MallardDuck();
+duck.fly();         // Duck has no fly() method!
+                    // Yeah, it does have a flyBehavior,
+duck.flyBehavior(); // but we can't call it either!</code></pre>
+                  <p>Instead, we have to go via a chain</p>
+<pre><code class="language-java">duck.flyBehavior.fly();</code></pre>
+                  <p>which is precisely the reason why we've put <code>doFly()</code> in place:</p>
+<pre><code class="language-java">duck.doFly(); // equivalent to the above</code></pre>
+                  <p>So it should be clear that the four members <code>displayBehavior</code>,
+                  <code>flyBehavior</code>, <code>quackBehavior</code>, and <code>swimBehavior</code>
+                  precisely mirror the four member functions <code>doDisplay()</code>,
+                  <code>doFly()</code>, <code>doQuack()</code>, and <code>doSwim()</code>, and
+                  that the latter only exist to ease the syntax you need to call the methods
+                  wrapped in the former.
+                  </p>
+
+                  <h3>Turning point: pick another language</h3>
+
+                  <p>This is the point that, in my opinion, should motivate one to look
+                  for another language.
+                  </p>
+                  <p>For instance, in C++, you have operator overloading, and one operator that you
+                  can overload is <code>operator()</code>, which enables you to make
+                  the syntax <code>duck.flyBehavior()</code> valid in C++, by simply
+                  renaming <code>FlyBehavior</code>'s <code>fly</code> method
+                  <code>operator()</code> (at this point it makes sense to change
+                  the name of the object of <code>FlyBehavior</code> class from
+                  <code>flyBehavior</code> to <code>fly</code>, so the syntax actually looks
+                  like <code>duck.fly()</code>):
+                  </p>
+                  <a href="https://godbolt.org/z/xxqr6jfTW" target="_blank">
+                    <pre><code class="language-cpp">struct FlyBehavior {
+  virtual void operator()() const = 0;
+};
+struct FlyWithWings : public FlyBehavior {
+  virtual void operator()() const {
+    /* impl */
+  }
+};
+
+struct Duck {
+    FlyBehavior const& fly;
+    /* … */
+};
+
+int main() {
+    auto rubberDuck = Duck{FlyNoWay{}};
+    auto mallardDuck = Duck{FlyWithWings{}};
+    rubberDuck.fly();
+    mallardDuck.fly();
+}</code></pre>
+                  </a>
+                  <p>The example above, however, is still not as flexible as the one presented in Java:
+                  for the syntax <code>duck.fly()</code> to be possible, I couldn't make the
+                  member <code>fly</code> a pointer (i.e., to be
+                  modern, by wrapping it into a <code>std::unique_ptr</code>), otherwise the syntax
+                  would be as ugly as <code>rubberDuck.fly-&gt;operator()()</code>, but at the same
+                  time I couldn't make it a value member (i.e. <code>FlyBehavior fly;</code>) because
+                  <code>FlyBehavior</code> is an abstract class, as it's got a pure virtual
+                  member function (i.e. one marked <code>virtual</code> and ending with <code>= 0;</code>),
+                  so an object of that class can't be instantiated; I had to make it <code>const&amp;</code>
+                  (a non-<code>const</code> reference would not be possible either, because it wouldn't
+                  allow passing temporaries to <code>Duck</code>'s constructor, as in <code>Duck{FlyNoWay{}}</code>).
+                  </p>
+
+                  <p>To me, this is a symptom that we are still victim of the language; or, better,
+                  we are victim of our bad choice of what features we use to model a certain thing.
+                  Indeed, even though we gave up on inheritance in favour of composition on the "duck side"
+                  of the things, we are still using inheritance on the "behavior" side of it.</p>
+
+                  <p>So let's try to get rid of inheritance here too. Again, the inheritance was brought in
+                  as a tool to share a common behavior between all the classes that inherit from a common
+                  class. But behaviors are just functions, and, in the context of the strategy pattern,
+                  behaviors have nothing to do with what the (member or not)
+                  functions actually do internally with their implementations, but with how they can be called,
+                  which is determined solely by they signatures.</p>
+
+                  <p>This, incidentally, answers another question: yes, for two or more algorithms to
+                  be interchangeable, they just need to be callable in the same way, i.e. they have
+                  to share the signature. And this has nothing to do with inheritance. Sure, if we
+                  confine ourselves to Java, maybe the only way for two functions to share the same
+                  call syntax is that they are member functions of classes implementing a common
+                  <code>interface</code> (is that the case?), but what if we change language?</p>
+
+                  <p>Indeed, if all we have to do is plugging one of several functions, which all share
+                  the same signature, in a slot of our <code>Duck</code> class, then C++ does offer
+                  a tool, <code>std::function</code>, which need not be <code>const</code>
+                  (fundamentally a <code>std::function</code> can have a "disengaged" state, unlike
+                  a member of an abstract base class, which has to point to a concrete class and, as such,
+                  can't be other than a pointer/reference). Since it's not <code>const</code> its
+                  target can be changed at run time, giving the same flexibility as the Java
+                  solution, but with a much slimmer code.
+                  </p>
+
+                  <p>A bonus advantage of using <code>std::function</code> to store behaviors
+                  is that we can throw at it also any lambda, making it easy to assign
+                  behavior at run time, with no need for any behavior class at all.</p>
+
+                  <p>Below is a working example</p>
+                  <a href="https://godbolt.org/z/4E8rY5TKM" target="_blank">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+
+constexpr auto flyWithWings = []{
+    std::cout &lt;&lt; "flyWithWings" &lt;&lt; std::endl;
+};
+
+constexpr auto flyNoWay = []{
+    std::cout &lt;&lt; "flyNoWay" &lt;&lt; std::endl;
+};
+
+constexpr auto swimBehavior = []{
+    std::cout &lt;&lt; "we all swim the same" &lt;&lt; std::endl;
+};
+
+struct Duck {
+    std::function&lt;void()&gt; fly;
+    std::function&lt;void()&gt; quack;
+    std::function&lt;void()&gt; const swim; // const, to make it the same across all ducks
+};
+
+int main() {
+    auto rubberDuck = Duck{
+        flyNoWay,
+        []{ std::cout &lt;&lt; "squeak" &lt;&lt; std::endl; },
+        swimBehavior
+    };
+    auto mallardDuck = Duck{
+        flyWithWings,
+        []{ std::cout &lt;&lt; "quack" &lt;&lt; std::endl; },
+        swimBehavior
+    };
+
+    rubberDuck.fly();
+    mallardDuck.fly();
+    // cut off their limbs (cf. Dead Space)
+    mallardDuck.fly = []{ std::cout &lt;&lt; "they cut my wings!" &lt;&lt; std::endl; };
+    mallardDuck.fly();
+    //mallardDuck.swim = []{}; can't change it, ok.
+}</code></pre>
+                  </a>
+                  <p>A note about the use of <code>std::function</code>: I'm not advocating
+                  it, in general, because I'm convinced (by questions, answers, other blog's
+                  posts, and stuff that I've read) that it has important drawbacks (only performance-wise?).
+                  However, at least in C++, if you want a member (or even a non-member) variable
+                  to be able to store one lambda now, and a different lambda later, you do
+                  need type erasure, because the lambdas have all different types (even
+                  if you write the same lambda expression twice, you get two different types,
+                  a.k.a. <code class="language-cpp">static_assert(std::is_same_v&lt;decltype([]{}), decltype([]{})&gt;)</code> fails!),
+                  and <a href="https://stackoverflow.com/questions/14936539/how-stdfunction-works">type erasure is a technique that <code>std::function</code> makes use of</a>,
+                  and it's also the reason (one of several?) why it's not to be used with levity.
+                  Now whether you go wild and simply use <code>void*</code> or let other abstractions
+                  like <code>std::function</code> take care of type erasure, type erasure is there.
+                  </p>
+
+                  <h3>Conclusions</h3>
+
+                  <p>What I wanted to show with the above review, analysis, and alternative solution,
+                  is the following:</p>
+                  <ul>
+                    <li>The so-called "Strategy Pattern" is often implemented
+                      using <b>inheritance</b> (in the broad sense of <b>implementing an
+                        interface or extending a class</b>);</li>
+                    <ul>
+                      <li>the tool of <b>inheritance</b> (properly said in Java) is used <b>to share common behavior</b> between
+                        different <b><i>classes</i></b>: different ducks are objects instantiated for
+                        different <b><i>classes</i></b>, and they all have slots to plug in behaviors;</li>
+                      <li>the tool of implementing an interface is used to force different <b><i>classes</i></b>
+                        to provide an implementation of one specific behavior;</li>
+                      <li>In some way, inheritance (via <code>implements</code> or <code>extends</code>) is used to distribute
+                        different functions (e.g. the <code>.fly()</code> and <code>.quack()</code> member functions)
+                        or different objects (e.g. the <code>flyBehavior</code> and <code>quackBehavior</code> members)
+                        across distinct classes (<code>Duck</code>'s derived classes and behavior's implementers respectively).</li>
+                    </ul>
+                    <li>Another approach is the one I propose, where we abandon inheritance, and only rely
+                    on composition and the language tools (whether those use internally inheritance, it's not
+                    our concern, because that stuff would be hidden under a useful abstraction that
+                    we need not reimplement from scratch). With this approach</li>
+                    <ul>
+                      <li>different ducks are just different <b><i>objects</i></b> instantiated
+                        from a common class, and they have slots to plug behavior;</li>
+                      <li>the tool of <code>std::function</code> is used to force different function <b><i>objects</i></b>
+                        to be callable the same way.</li>
+                      <li>In some way, composition and <code>std::function</code> are used to distribute
+                      different functions across different <b><i>objects</i></b>.</li>
+                    </ul>
+                  </ul>
+                  <p>And inheritance hierarchies are notoriously a hard thing to get right. Why not
+                  abandoning it entirely in favour of language features that give us already baked
+                  abstractions?</p>
+
+                  <p>Most importantly, and this is truly the conclusion, if you go back to the
+                  previous snippet of code, and hopefully agree that the whole
+                  "Strategy Pattern" is contained in these 5 lines,</p>
+                    <pre><code class="language-cpp">struct Duck {
+    std::function&lt;void()&gt; fly;
+    std::function&lt;void()&gt; quack;
+    std::function&lt;void()&gt; const swim;
+};</code></pre>
+                  <p>would you say it deserved an extravagant name and a whole chapter of even just one book?</p>
+                  <h3>Bonus</h3>
+                  <p>The solution looks pretty much the same in the purely
+                  functional programming language Haskell, where the strategy
+                  pattern is enabled by the presence of <a href="http://blog.ezyang.com/2010/05/design-patterns-in-haskel/"><q>first class functions
+                      and lambdas</q></a> (words of <a href="http://ezyang.com/">a research engineer at Facebook</a>)
+                  </p>
+                    <pre><code class="language-haskell">data Duck = Duck {
+  fly :: IO (),
+  quack :: IO (),
+  display :: IO ()
+}</code></pre>
+                  <p>Without going too much into detail,
+                  </p>
+                  <ul>
+                    <li><code>IO ()</code> has fundamentally the same role as <code>void()</code>;</li>
+                    <li>Haskell's datatype are immutable, so you can't truly <i>change</i> the
+                    behaviors stored in <code>mallard</code>;</li>
+                    <li>but you can indeed create a new <code>mallard'</code> from <code>mallard</code>
+                      picking only some of the latter's behaviors and setting new values; that's done
+                      via pattern matching, but to limit the ability to pattern match, for instance to
+                      prevent one from creating a <code>mallard'</code> with a <code>display</code>
+                      other than <code>mallard</code>'s, you can put <code>Duck</code> in a module,
+                      and expose only the interface that you want to expose:
+                      <a href="https://onlinegdb.com/w3cWJ6ssE" target="_blank">
+                        <pre><code class="language-haskell">-- Duck.hs
+module Duck (makeDuck, fly, quack, display, setFly, setQuack) where
+
+data Duck = Duck {
+  fly :: IO (),
+  quack :: IO (),
+  display :: IO ()
+}
+
+-- Duck, the ctor is not expeorted, otherwise client code could
+-- pattern match on a Duck internals; instead, we expose a make
+-- function equivalent to it
+makeDuck :: IO () -&gt; IO () -&gt; IO () -&gt; Duck
+makeDuck = Duck
+
+setFly f' (Duck f q d) = Duck f' q d
+setQuack f' (Duck f q d) = Duck f' q d
+-- but not setDisplay
+
+-- usage in another_file.hs
+import Duck
+mallard = makeDuck (print "(normal flying)") (print "quack") (print "I'm a mallard duck")
+
+fly mallard      -- prints "(normal flying)"
+quack mallard    -- prints "quack"
+display mallard  -- prints "I'm a mallard duck"
+
+mallard' = setFly (print "they cut my limbs!") mallard
+fly mallard'     -- prints "they cut my limbs!"</code></pre>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
             <article class="post-entry" id="trimmed-string-equality--and--big-o-complexity">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">24/04/2022</h6>

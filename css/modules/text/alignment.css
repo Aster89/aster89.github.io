@@ -5,3 +5,7 @@
 .center-text-horz {
   text-align: center;
 }
+
+.list-beside-float {
+  display: flow-root;
+}
