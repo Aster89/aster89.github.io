@@ -1,3 +1,70 @@
 code.hljs {
   text-shadow: initial;
 }
+
+/*
+Compiler Explorer icon in code examples linked to it
+
+Adds a Compiler Explorer icon in the top right of these code snippets
+from which I link to Compiler Explorer.
+
+Markup:
+<script src="../highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<a href="https://godbolt.org/" target="_blank">
+  <pre><code class="language-cpp">struct A {
+  int x;
+  int f();
+};</code></pre>
+</a>
+
+Styleguide External.godbolt-logo-in-code-examples
+*/
+
+
+a[href^="https://godbolt.org/"] {
+  text-decoration: none;
+}
+
+a[href^="https://godbolt.org/"]:hover {
+  text-decoration: none;
+}
+
+a[href^="https://godbolt.org/"] > pre > code {
+  display: block;
+  position: relative;
+}
+
+a[href^="https://godbolt.org/"] > pre > code::after {
+  content: url("../../img/godbolt-ar21.svg");
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+a[href^="https://onlinegdb.com/"] {
+  text-decoration: none;
+}
+
+a[href^="https://onlinegdb.com/"]:hover {
+  text-decoration: none;
+}
+
+a[href^="https://onlinegdb.com/"] > pre > code {
+  display: block;
+  position: relative;
+}
+
+
+a[href^="https://onlinegdb.com/"] > pre > code {
+  display: block;
+  position: relative;
+}
+
+a[href^="https://onlinegdb.com/"] > pre > code::after {
+  padding: 0.5em;
+  content: url("../../img/onlinegdb.ico");
+  position: absolute;
+  top: 0;
+  right: 0;
+}

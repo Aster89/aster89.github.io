@@ -3,12 +3,17 @@ figcaption {
 }
 
 .side-figure {
-  float: right;
   width: 25%;
 }
 
 .side-figure--left {
   float: left;
+  margin-left: 0;
+}
+
+.side-figure--right {
+  float: right;
+  margin-right: 0;
 }
 
 #army-of-darkness > img {
