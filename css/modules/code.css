@@ -22,49 +22,36 @@ Styleguide External.godbolt-logo-in-code-examples
 */
 
 
-a[href^="https://godbolt.org/"] {
-  text-decoration: none;
-}
-
-a[href^="https://godbolt.org/"]:hover {
-  text-decoration: none;
-}
-
-a[href^="https://godbolt.org/"] > pre > code {
-  display: block;
-  position: relative;
-}
-
-a[href^="https://godbolt.org/"] > pre > code::after {
-  content: url("../../img/godbolt-ar21.svg");
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
+a[href^="https://godbolt.org/"],
 a[href^="https://onlinegdb.com/"] {
   text-decoration: none;
 }
 
-a[href^="https://onlinegdb.com/"]:hover {
-  text-decoration: none;
-}
-
+a[href^="https://godbolt.org/"] > pre > code,
 a[href^="https://onlinegdb.com/"] > pre > code {
   display: block;
   position: relative;
 }
 
+a[href^="https://godbolt.org/"] > pre > code::after,
+a[href^="https://onlinegdb.com/"] > pre > code::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity var(--transition-time);
+}
 
-a[href^="https://onlinegdb.com/"] > pre > code {
-  display: block;
-  position: relative;
+a[href^="https://godbolt.org/"] > pre > code:hover::after,
+a[href^="https://onlinegdb.com/"] > pre > code:hover::after {
+  opacity: 100%;
+}
+
+a[href^="https://godbolt.org/"] > pre > code::after {
+  content: url("../../img/godbolt-ar21.svg");
 }
 
 a[href^="https://onlinegdb.com/"] > pre > code::after {
   padding: 0.5em;
   content: url("../../img/onlinegdb.ico");
-  position: absolute;
-  top: 0;
-  right: 0;
 }
