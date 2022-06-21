@@ -914,8 +914,9 @@ fly mallard'     -- prints "they cut my limbs!"</code></pre>
                   <h4>String equality &mdash; many times</h4>
                   <p>However there are times when this comparison is run for all elements
                   of a possibly long collection of strings</p>
-                  <pre><code class="language-cpp">auto validStrings = strings | filter(not_fn(equals("&lt;invalid&gt;"s)));</code></pre>
-                  <p>(See example on <a href="https://godbolt.org/z/nW43vWY5P">Compiler Explorer</a>.)</p>
+                  <a href="https://godbolt.org/z/nW43vWY5P">
+                    <pre><code class="language-cpp">auto validStrings = strings | filter(not_fn(equals("&lt;invalid&gt;"s)));</code></pre>
+                  </a>
                   <p>If <code>strings</code> contains <i>N</i> strings, we'll
                   pay the cost of string comparison <i>N</i> times, so we do
                   want to know how much that cost is. And if we make those comparisons
@@ -962,14 +963,23 @@ fly mallard'     -- prints "they cut my limbs!"</code></pre>
                   whitespace.</p>
                   <p>Forgetful of my conclusions above, with confidence I changed the code to
                   something like this</p>
-                  <pre><code class="language-cpp">auto validStrings = strings | filter(compose(not_fn(equals("&lt;invalid&gt;"s)), trim(isSpace)));</code></pre>
-                  <p>(See example on <a href="https://godbolt.org/z/Mj8d1c7j3">Compiler Explorer</a>.)</p>
+                  <a href="https://godbolt.org/z/Mj8d1c7j3">
+                    <pre><code class="language-cpp">auto validStrings = strings | filter(compose(not_fn(equals("&lt;invalid&gt;"s)), trim(isSpace)));</code></pre>
+                  </a>
                   <p>where <code class="language-cpp">compose(f, g)</code> is a
                   function that first runs <code>trim(isSpace)</code> on its
                   input to remove any leading and trailing whitespace, and then
                   runs <code>not_fn(equals("&lt;invalid&gt;"))</code> on the
                   result.
                   </p>
+                  <p>In fact, the above code is still more complex than it needs;
+                  indeed I forgot that <code>ranges::views::filter</code> accepts
+                  a second argument that projects each element of the range
+                  before passing it to the filtering predicate, so the above
+                  can be streamlined into this:</p>
+                  <a href="https://godbolt.org/z/dsqTKnE8r">
+                    <pre><code class="language-cpp">auto validStrings = strings | filter(not_fn(equals("&lt;invalid&gt;"s)), trim(isSpace));</code></pre>
+                  </a>
                   <p>It's neat, isn't it?</p>
                   <p>And what about the complexity? <q>Well</q>, I thought, <q>the trimming
                     is a linear operation too, just like checking strings for
@@ -1990,9 +2000,10 @@ using std::ranges::views::filter;</code></pre>
                   Yeah, because in both cases the function for filtering
                   is just there, in the appropriate header and in the
                   appropriate namespace, and you can easily use it
-                  <pre><code>auto w = filter(v, pred);  // these two
+                  <a href="https://godbolt.org/z/7xTEKqPjW">
+                    <pre><code>auto w = filter(v, pred);  // these two
 auto w = v | filter(pred); // are equivalent</code></pre>
-                  (<a href="https://godbolt.org/z/7xTEKqPjW">See full example on Compiler Explorer</a>.)
+                  </a>
                   </p>
                   <p>
                   Going back to my claim that Martin's code mixes two levels of abstraction,
