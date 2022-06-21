@@ -20,7 +20,7 @@ Styleguide Panel.panel
 }
 
 .panel > * {
-  padding: 1em;
+  padding: 1em 2em;
 }
 
 .panel--rounded {
