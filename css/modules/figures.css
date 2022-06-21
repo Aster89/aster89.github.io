@@ -9,11 +9,13 @@ figcaption {
 .side-figure--left {
   float: left;
   margin-left: 0;
+  margin-right: 2em;
 }
 
 .side-figure--right {
   float: right;
   margin-right: 0;
+  margin-left: 2em;
 }
 
 #army-of-darkness > img {
