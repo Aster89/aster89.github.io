@@ -151,6 +151,1171 @@
       <main id="main">
         <div class="main centered-container">
           <section class="tab-page" id="posts-tab">
+            <article class="post-entry" id="c++-headers-and-libraries">
+              <div class="__after-only-child-center-below centered-container">
+                <h6 class="text-shadow handwriting underline-underbullet">15/10/2022</h6>
+              </div>
+              <div class="panel panel--rounded box-shadow text-shadow">
+                <div class="panel__header center-text-horz">
+                  <img class="panel-icon" src="img/c++-logo.png" alt="">
+                  <h2><a href="#c++-headers-and-libraries">Libraries in C++ &mdash; Header-only, static, dynamic, and lazily loaded</a></h2>
+                </div>
+                <div class="text-shadow">
+                  <p>Just how many times have you cried because of a linker error?</p>
+
+                  <p>I have. And so many times!</p>
+
+                  <p>In hindsight, it is a pretty simple topic, but if you're so used
+                  to just write code, and let the build system take care of compiling
+                  and linking, then you'll probably hit linker errors infrequently
+                  enough that you'll be tolerant of the frustration of those moments,
+                  as long as some trial and error with build configuration files
+                  will get you out of trouble.
+                  </p>
+
+                  <p>But sometimes you can't just hold the frustration anymore, and
+                  you command yourself to dedicate some time to go to the bottom of this
+                  topic; or, if not to the bottom, at least as low as it takes
+                  for you to be happy with it, and no more frustrated by the
+                  linking failures.
+                  </p>
+
+                  <p>So here's how I came to write this post: I started by creating
+                  a directory with an evocative name, moved into it,
+                  and started to play with C++ files in an attempt to
+                  reproduce the frustrating workflow to better understand it.
+                  When I started to erroneously delete the wrong file,
+                  to forget what edit I made to file such and such, and
+                  to feel more frustrated because didn't want to spend time
+                  creating a <code>Makefile</code> to deal with this crap
+                  on my behalf (after all, the <code>Makefile</code> would
+                  be the guy shielding me away from exactly the topic I
+                  was trying to understand, so probably using one would have
+                  killed the purpose of the exercise), I decided
+                  that writing a post to help myself track the progress of
+                  my understanding was maybe a good idea.
+                  </p>
+
+                  <p>Eventually, this post turned out to be a personally
+                  reworded collage of all the info I've found on the web that
+                  helped me build a firmer understanding of the compilation
+                  process, as well as of the various types of libraries that
+                  exist. These two aspects are tightly bounded together,
+                  in the sense that libraries (yours or third party's) are
+                  exactly the expression of the fact that a program can
+                  be written in separate and independently developed, tested,
+                  and sometimes built pieces.
+                  </p>
+
+                  <p>(Little but important note: I'm on Linux, both at work and
+                  in my personal time, so I will not even try giving Windows
+                  examples; but most of this post should be useful anyway.)</p>
+
+                  <h3 id="gcc-steps"><a href="#gcc-steps">The steps from source code to executable</a></h3>
+
+                  <p>First of all, it is important to have an understanding of what
+                  "compiling" a source codes into an executable really means. I've
+                  quoted the word "compiling" because proper compilation is just
+                  one of the steps that a compiler executes to go from source
+                  code to executable program.
+                  <a href="https://stackoverflow.com/a/9244030/5825294">This short but very good answer on StackOverflow</a>
+                  outlines the phases that GCC goes through in the process.
+                  If you have a single <code>mysource.cpp</code> file, when you
+                  execute
+                  </p>
+
+                  <pre><code class="language-bash">g++ mysource.cpp -o mysource</code></pre>
+
+                  <p>GCC in reality does the following (I'm barely rewording from the linked answer).
+                  </p>
+
+                  <ol>
+                    <li id="c-preprocessor">It preprocesses the source code, by
+                      stripping comments and expanding macros and
+                      <code>#include</code>s; you can obtain this intermediate
+                      product yourself by passing the <code>-E</code> to
+                      <code>g++</code>:
+                      <pre><code class="language-bash">g++ -E mysource.cpp -o mysource.ii</code></pre>
+                    </li>
+                    <li>It compiles that preprocessed source code to assembly, which you can
+                      do yourself by means of the <code>-S</code> option:
+                      <pre><code class="language-bash">g++ -S mysource.ii -o mysource.s</code></pre>
+                    </li>
+                    <li>It compiles the assembly into an object binary file, which you can do by means of
+                      the <code>-c</code> option:
+                      <pre><code class="language-bash">g++ -c mysource.s -o mysource.o</code></pre>
+                    </li>
+                    <li id="linker">Finally, it links the object
+                      into the executable; you can do this by passing no options:
+                      <pre><code class="language-bash">g++ mysource.o -o mysource</code></pre>
+                      (you can list other object files too, if needed).
+                    </li>
+                  </ol>
+                  <p>For the sake of accuracy, the flags <code>-E</code>,
+                  <code>-S</code>, <code>-c</code> and none tell <code>g++</code>
+                  at which step to <i>stop</i> the process, whereas where to begin
+                  from is dictated simply the file you throw at it (not because of the extension
+                  but because of what's inside it). To give a couple of examples,
+                  </p>
+
+                  <pre><code class="language-bash">g++ -S mysource.cpp -o mysource.s</code></pre>
+
+                  <p>performs steps 1 and 2, whereas
+                  </p>
+
+                  <pre><code class="language-bash">g++ mysource.ii -o mysource</code></pre>
+
+                  <p>executes steps 2, 3, and 4.
+                  </p>
+
+                  <h3 id="include-is-copy-and-paste"><a href="#include-is-copy-and-paste"><code>#include</code> is copy-and-paste</a></h3>
+
+                  <p>As you might have guessed from its description,
+                  step 1 is what takes care of, among other things,
+                  <code>#include</code> directives; and you might also
+                  wonder how simple this preprocessing might be,
+                  considering that it happens so early in the process.
+                  </p>
+
+                  <p>And it is indeed a very simple thing:
+                  </p>
+                  <p style="text-align: center;" id="headers-are-copied-and-pasted">
+                  <b>
+                    <code>#include</code>ing a <i>file</i> is equivalent to
+                    copying-and-pasting it into the includer.
+                  </b>
+                  </p>
+                  <p>(If you know it already, you can <a href="#gcc-steps">skip the current section</a>.)
+                  </p>
+                  <p>
+                  And I'm intentionally saying <i>file</i> instead of
+                  <i>header</i>: <i>whatever</i> you <code>#include</code> is
+                  just copy-and-pasted.
+                  There's truly nothing other than copy-and-paste when you
+                  <code>#include</code> something.
+                  </p>
+                  <p>Indeed, so little is special about <code>#include</code>, that
+                  if you write a header without having that simple idea in mind, you can easily run in errors
+                  which become obvious, once you are aware that there's just a copy-and-paste going on.
+                  </p>
+                  <p>Here's three flawed headers, each defining a different class,
+                  one of which is included by the other two, which are in turn included
+                  in the <code>main</code> program:
+                  </p>
+                  <pre><code class="language-cpp">// Foo.hpp
+#include "Bar.hpp" // because every
+struct Foo {       // Foo needs a Bar,
+  Bar b;           // doesn't it?
+};</code></pre>
+                  <pre><code class="language-cpp">// Bar.hpp
+struct Bar {
+  // whatever
+};</code></pre>
+                  <pre><code class="language-cpp">// Baz.hpp
+#include "Bar.hpp" // Even Baz needs a Bar!
+struct Baz {
+  Bar b;
+};</code></pre>
+                  <a href="https://godbolt.org/z/Pq8jK6zTf" target="_blank">
+                    <pre><code class="language-cpp">// main.cpp
+#include "Baz.hpp"
+#include "Foo.hpp"
+int main() {
+  // not even trying to make
+  // any use of the headers
+}</code></pre>
+                  </a>
+                  <p>If you click on the last snippet, you'll see that the program
+                  can't be compiled because it results in a redefinition of <code>Bar</code>,
+                  the reason being that both <code>Foo.hpp</code> and <code>Baz.hpp</code>
+                  are <code>#include</code>ing, i.e. copying-and-pasting, <code>Bar.hpp</code>.
+                  </p>
+                  <p>In other words, it's just like we tried to compile this source file alone:</p>
+                  <pre><code class="language-cpp">// main.cpp
+struct Bar {
+  // whatever
+};
+struct Baz {
+  Bar b;
+};
+struct Bar { // oops, I did it again
+  // whatever
+};
+struct Foo {
+  Bar b;
+};
+int main() {
+  // not even trying to make
+  // any use of the headers
+}</code></pre>
+                  <p>The source above, in fact, is the known as a <i>translation unit</i>,
+                  which is the thing that the compiler compiles (or attempts to,
+                  in this case) and which is roughly "the source file, conventionally named
+                  with extension <code>.cpp</code>/<code>.cxx</code>/<code>.c</code>/whatever, that you feed
+                  to the compiler, in which all <code>#include</code>s have been copied-and-pasted
+                  (and all other <code>#</code>-directives have been "resolved", e.g. macro substituted, and so on)"
+                  </p>
+
+                  <p><a href="#gcc-steps">In light of the steps we've seen earlier</a>,
+                  another, more direct way of verifying that <code>#include</code>
+                  means copy-and-paste, is to examine the output of the following
+                  command
+                  </p>
+
+                  <pre><code class="language-bash">g++ -E main.cpp -o main.ii</code></pre>
+
+                  <p>which is successful and produces the following (it's not
+                  a C++ file, but a file of type <code>initng</code> which contains
+                  a mix of C++ syntax and something else, as you can see; more info
+                  <a href="https://stackoverflow.com/questions/73763861/is-a-translation-unit-valid-c-and-is-a-translation-unit-for-gcc-the-output" target="_blank">here</a>):
+                  </p>
+
+                  <pre><code class="language-cpp"># 0 "main.cpp"
+# 0 "&lt;built-in&gt;"
+# 0 "&lt;command-line&gt;"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 0 "&lt;command-line&gt;" 2
+# 1 "main.cpp"
+# 1 "Bar.hpp" 1
+struct Bar {
+
+};
+# 2 "main.cpp" 2
+# 1 "Foo.hpp" 1
+# 1 "Bar.hpp" 1
+struct Bar {
+
+};
+# 2 "Foo.hpp" 2
+struct Foo {
+  Bar b;
+};
+# 3 "main.cpp" 2
+int main() {
+}</code></pre>
+
+                  <p>where you can clearly see the duplicate definition of
+                  <code>Bar</code>.
+                  </p>
+
+                  <p>But then why doesn't this problem occur when we include standard headers?
+                  </p>
+                  <p>The answer is simple: the standard headers use a device know as
+                  <a href="https://en.wikipedia.org/wiki/Include_guard" target="_blank"><code>#include</code> guards</a>
+                  to prevent multiple inclusions of the same header in the same translation unit,
+                  and you should do so in every single one of your headers.
+                  </p>
+                  <p>To see how an include guard looks like, open any system header, such as
+                  <code>iostream</code>, that on my system is located at <code>/usr/include/c++/12.2.0/iostream</code>
+                  at the time of writing, and you'll see it has this structure:</p>
+                  <pre><code class="language-cpp">// comments only
+#ifndef _GLIBCXX_IOSTREAM
+#define _GLIBCXX_IOSTREAM 1
+
+// the content of the header
+
+#endif /* _GLIBCXX_IOSTREAM */
+// EOF</code></pre>
+                  <p>And this is what gets copied-and-pasted in the source includer file,
+                  resulting in the translation unit that the compiler tries to compile.
+                  </p>
+                  <p>When the compiler reaches the above snippet of code while compiling
+                  a translation unit, it will verify that the macro <code>_GLIBCXX_IOSTREAM</code>
+                  is <b><i>not</i></b> defined (because it's <code>#ifndef</code>, not <code>#ifdef</code>)
+                  before actually pasting <code>// the content of the header</code>; it will also, at
+                  that point, <code>#define</code> the macro that was not defined yet (the value <code>1</code> is
+                  irrelevant), so that, should this snippet of code happen to occur again in this same
+                  translation unit, <code>#ifndef _GLIBCXX_IOSTREAM</code> will not fire and the
+                  <code>// the content of the header</code> will not be copied-and-pasted again.
+                  </p>
+                  <p>Another simpler way of enforcing an
+                  <code>#include</code> guard, even though not standard, but
+                  practically permitted by all major compilers, is to put
+                  <a href="https://en.cppreference.com/w/cpp/preprocessor/impl#.23pragma_once" target="_blank"><code>#pragma once</code></a>
+                  at the top of your header, and nothing else. What's the difference? Practically speaking,
+                  none. Anyway, you can find more info
+                  <a href="https://stackoverflow.com/questions/787533/is-pragma-once-a-safe-include-guard" target="_blank">here</a>
+                  and at the previous link.
+                  </p>
+
+
+                  <h3 id="header-only-libraries"><a href="#header-only-libraries">Header-only libraries</a></h3>
+
+                  <p>Knowing that <a href="#headers-are-copied-and-pasted"><code>#include</code>d headers are simply copied-and-pasted</a>,
+                  you can easily imagine you can provide all the functionality you want to a
+                  client of yours by providing them with one or more header files (and by
+                  "header" I mean a proper one, with the <code>#include</code> guard)
+                  defining all functions and classes they need.
+                  <a href="https://stackoverflow.com/a/12673877/5825294" target="_blank">That's not necessarily
+                    a good idea</a>,
+                  but <a href="https://stackoverflow.com/a/12671412/5825294" target="_blank">sometimes it's the only option</a>,
+                  for instance <a href="https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file" target="_blank">when you are defining templates</a>
+                  (<a href="https://stackoverflow.com/a/495056/5825294" target="_blank">unless you already know all possible usages of your template</a>).
+                  </p>
+                  <p>Using such a library is as easy as adding the <code>#include</code> you need
+                  into your source code,</p>
+                  <pre><code class="language-cpp">// HeaderOnly.hpp
+#pragma once
+#include &lt;iostream&gt;
+void foo(int i) {
+    std::cout &lt;&lt; "Header-only library speaking, "
+              &lt;&lt; i
+              &lt;&lt; std::endl;
+}</code></pre>
+                  <pre><code class="language-cpp">// main.cpp
+#include "HeaderOnly.hpp"
+int main() {
+  foo(101);
+}</code></pre>
+                  <p>and <b><i>it becomes part of your program as soon as during
+                  <a href="#c-preprocessor">step 1, the preprocessing stage</a></i></b>, as
+                  demonstrated by the following few commands
+                  </p>
+
+                  <pre><code class="language-bash">$ g++ -E main.cpp -o main.ii # preprocess main.cpp
+$ rm HeaderOnly.hpp          # delete header to show it's not needed anymore
+$ g++ main.ii -o main        # compile &amp; link
+$ ./main                     # execute
+Header-only library speaking, 101
+</code></pre>
+
+                  <p><a href="http://boostorg.github.io/hana/" target="_blank">Boost.Hana</a>
+                  is a beautiful example of a header-only library,
+                  designed to facilitate C++ meta-programming and suited for
+                  computations on both types and values.
+                  </p>
+
+                  <h3 id="static-libraries"><a href="#static-libraries">Static libraries</a></h3>
+
+                  <p>One of the drawbacks of header-only libraries is that they
+                  <code>#include</code> all the headers their implementation needs;
+                  which translates to what is known as <i>code bloat</i>: your translation
+                  unit ends up being huge because of all the direct and indirect
+                  <code>#include</code>s. Indeed, in the example above, you can well see
+                  that the code inside <code>&lt;iostream&gt;</code> gets pasted into
+                  <code>main.cpp</code>, even though <code>main.cpp</code> doesn't
+                  need to know anything about <code>&lt;iostream&gt;</code>; all it
+                  needs to know is how to call <code>foo</code>, i.e. it needs to
+                  know its signature.
+                  </p>
+                  <p>
+                  <a href="https://stackoverflow.com/questions/2174657/when-are-header-only-libraries-acceptable">Whether you should fear this problem and how
+                    much</a> is another matter that this post does not address
+                  at all, and it is influenced, among other things, by how smart the
+                  compiler is.
+                  </p>
+
+                  <p>Anyway, what is the solution? There's basically no solution if you provide
+                  templates that will be instantiated with types you don't know of, and
+                  that's why templates are often accused of causing code bloat (see also
+                  §9.1.1 from <i><a href="http://www.tmplbook.com/">C++ Templates - The Complete Guide - 2nd edition</a></i> for more
+                  details), but for the simple case of non-template entities, such
+                  as the <code>foo</code> function above,
+                  the solution is simple enough.
+                  Indeed, all <code>main.cpp</code> needs to know about <code>foo</code>
+                  in order to be able to call it, is that it takes <code>void</code>
+                  and returns <code>void</code>, i.e. that its type is <code>void(void)</code>,
+                  or more simply <code>void()</code>. And all we need to do to make it aware
+                  of this fact, is writing in it a declaration of <code>foo</code>,
+                  i.e. <code>void foo();</code>.
+                  As you might have guessed, we don't do that manually, but by
+                  including an header which contains that declaration.
+                  </p>
+                  <p>So here's our solution in code:</p>
+                  <ul>
+                    <li>
+                      <code>MyLib.hpp</code> declares <code>foo</code>,
+                      <pre><code class="language-cpp">// MyLib.hpp
+#pragma once
+void foo();</code></pre>
+                    </li>
+                    <li>
+                      <code>MyLib.cpp</code> defines it,
+                      <pre><code class="language-cpp">// MyLib.cpp
+#include "MyLib.hpp"
+void foo() {
+    std::cout &lt;&lt; "Hello" &lt;&lt; std::endl;
+}</code></pre>
+                    </li>
+                    <li>
+                      and <code>main.cpp</code> <code>#include</code>s the header and uses <code>foo</code>.
+                      <a href="https://godbolt.org/z/z8q68rxz7" target="_blank">
+                        <pre><code class="language-cpp">// main.cpp
+#include "MyLib.hpp"
+int main() {
+  foo();
+}</code></pre>
+                      </a>
+                    </li>
+                  </ul>
+
+                  <p>If you're wondering why <code>MyLib.cpp</code>
+                  <code>#include</code>s its own header <code>MyLib.hpp</code>
+                  the answer is that
+                  there is such a myriad of scenarios where doing so is necessary
+                  (e.g. <code>MyLib.hpp</code> defines an <code>inline</code>
+                  variable to be used in client code as well as in the
+                  implementation of some other exposed function), that
+                  not doing it in a rare scenario like the one above
+                  (more likely to happen in toy examples than in real code)
+                  is just not worth the risk of forgetting it when it's needed.
+                  You can read more about it
+                  <a href="https://stackoverflow.com/questions/73248689/is-there-any-reason-i-should-include-a-header-in-the-associated-cpp-file-if-the" target="_blank">in this question I asked on
+                    StackOverflow</a> and in the
+                  associated answers.
+                  </p>
+
+                  <p id="the-building-process">The above example can be built like this
+                  </p>
+                  <pre><code class="language-bash">g++ -c main.cpp -o main.o   # compile main.cpp
+g++ -c MyLib.cpp -o MyLib.o # compile MyLib.cpp
+g++ main.o MyLib.o -o main  # link</code></pre>
+
+                  <p>where the first two commands can be executed in any order,
+                  because the translation units can be compiled independently,
+                  thanks to the fact that the only thing that <code>main.cpp</code>
+                  needs to know about <code>MyLib.cpp</code>, i.e. the declaration
+                  of <code>foo</code>, has indeed been "pasted" into <code>main.cpp</code>
+                  as well, via the inclusion of <code>MyLib.hpp</code>.</p>
+
+                  <p>You can even use the program <code>nm</code> on both <code>*.o</code>
+                  to list the symbols (not the executable code) they contain,
+                  in order to observe how they relate:
+                  </p>
+                  <pre><code class="language-bash">$ nm main.o
+0000000000000000 T main
+                 U _Z3foov</code></pre>
+                  <pre><code class="language-bash">$ nm MyLib.o
+                 U __cxa_atexit
+                 U __dso_handle
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000084 t _GLOBAL__sub_I__Z3foov
+0000000000000000 T _Z3foov
+0000000000000032 t _Z41__static_initialization_and_destruction_0ii
+                 U _ZNSolsEPFRSoS_E
+                 U _ZNSt8ios_base4InitC1Ev
+                 U _ZNSt8ios_base4InitD1Ev
+                 U _ZSt4cout
+                 U _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+0000000000000000 b _ZStL8__ioinit
+                 U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc</code></pre>
+
+                  <p><code>_Z3foov</code> is a so-called <i>mangled name</i> (which will become important
+                  <a href="#mangled-name-2" id="mangled-name-1">later on</a>),
+                  in which the compiler
+                  encodes the signature of the specific overload of <code>foo</code> in use, and the line
+                  <code>U _Z3foov</code> in <code>main.o</code> is the <i>undefined
+                  reference to <code>`foo()'</code></i> (that <code>U</code> stands for "undefined"); the <code>0000000000000000 T _Z3foov</code>
+                  line in <code>MyLib.o</code> indicates that that file contains the definition
+                  of the same <code>foo</code> that <code>main.o</code> references.
+                  </p>
+
+                  <p>Another way to visualize this bond between the two files
+                  that does not need an external program like <code>nm</code>
+                  is to look at their assembly code. Let's obtain that code first
+                  </p>
+
+                  <pre><code class="language-bash">g++ -S main.cpp -o main.s
+g++ -S MyLib.cpp -o MyLib.s</code></pre>
+
+                  <p>and look for <code>_Z3foov</code> in the two files
+                  <code>main.s</code> and <code>MyLib.s</code>.
+                  </p>
+
+                  <pre><code class="language-x86asm">.file	"main.cpp"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	call	_Z3foov@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (GNU) 12.2.0"
+	.section	.note.GNU-stack,"",@progbits</code></pre>
+
+                  <pre><code class="language-x86asm">	.file	"static.cpp"
+	.text
+	.local	_ZStL8__ioinit
+	.comm	_ZStL8__ioinit,1,1
+	.section	.rodata
+	.align 8
+.LC0:
+	.string	"Hello world, static library speaking"
+	.text
+	.globl	_Z3foov
+	.type	_Z3foov, @function
+_Z3foov:
+.LFB1761:
+# more stuff</code></pre>
+
+                  <p><a href="#the-building-process">Going back to the building process</a>,
+                  once again, it can be executed in one step,
+                  but I think it's instructive to see what happens if you try linking
+                  without telling the linker where <code>MyLib.o</code> is. What you get
+                  is an error from the linker, <code>ld</code>, complaining about
+                  an <b><i>undefined reference</i></b> to <code>foo()</code>:</p>
+
+                  <pre><code class="language-bash">$ g++ main.o -o main # forgot MyLib.o
+/usr/bin/ld: main.o: in function `main':
+main.cpp:(.text+0x5): undefined reference to `foo()'
+collect2: error: ld returned 1 exit status</code></pre>
+
+                  <p>And maybe it's even important to know how this error differs
+                  from the one you get if you forget to <code>#include "MyLib.hpp"</code>
+                  in <code>main.cpp</code>, which complains about
+                  <code>foo</code> being <b><i>not declared</i></b>. This is an
+                  error that happens at compile-time, rather than link time,
+                  because <code>main.cpp</code> doesn't even know <code>foo</code>'s
+                  signature.</p>
+
+                  <pre><code class="language-bash">$ g++ -c main.cpp -o main.o
+main.cpp: In function ‘int main()’:
+main.cpp:3:5: error: ‘foo’ was not declared in this scope
+    3 |     foo();
+      |     ^~~</code></pre>
+
+                  <p>(More precisely, the error above happens during
+                  the compilation to assembly, i.e. you get the same
+                  error if you run the command <code>$ g++ -S main.cpp -o main.s</code>.)</p>
+
+                  <p>At this point one question that might arise is:
+                  where did the code in <code>MyLib.cpp</code> end up
+                  being? You can verify, by getting rid of the <code>*.o</code>
+                  files, that <code>main</code> works well in isolation:
+                  </p>
+
+                  <pre><code class="language-bash">$ rm MyLib.o main.o
+$ ./main
+Hello</code></pre>
+
+                  <p>Therefore,
+                  you can also be sure that all the code it needs, including
+                  the one originally in <code>MyLib.cpp</code> and compiled
+                  in <code>MyLib.o</code>, is indeed
+                  embedded into the binary named <code>main</code>.
+                  In other words, <b><i>the code of a static library
+                  becomes part of the executable file
+                  <a href="#linker">at link time</a></i></b>.
+                  </p>
+
+                  <p>To be accurate, by the name <i>static libraries</i> is used for those files conventionally
+                  named <code>something.a</code>, which are not one single <code>*.o</code> file, but an archive
+                  containing one or more of those.
+                  </p>
+
+                  <p>For instance the following command creates a properly known static library containing one
+                  object file only
+                  </p>
+
+                  <pre><code class="language-bash">ar rcs libMyLib.a MyLib.o</code></pre>
+
+                  <p>which you can link like this</p>
+
+                  <pre><code class="language-bash">g++ main.o libMyLib.a -o main</code></pre>
+
+                  <p>The reason why I chose the name <code>libMyLib.a</code> instead of
+                  <code>MyLib.a</code> is that this is customary for static libraries,
+                  so much that there's another syntax for linking them which assumes the
+                  <code>lib</code> prefix in the filename:
+                  </p>
+
+                  <pre><code class="language-bash">g++ main.o -lMyLib -L. -o main</code></pre>
+
+                  <p>where <code>-l</code><i><code>name</code></i> tells the linker to look for
+                  a file named <i><code>libname.a</code></i> and <code>-L</code><i><code>dir</code></i>
+                  tells it to look for that file in the directory <i><code>dir</code></i>. Indeed,
+                  if we had named the archive <code>MyLib.a</code>, the command above would error
+                  with a fairly understandable wording:
+                  </p>
+
+                  <pre><code class="language-bash">/usr/bin/ld: cannot find -lMyLib: No such file or directory
+/usr/bin/ld: note to link with ./MyLib.a use -l:MyLib.a or rename it to libMyLib.a
+collect2: error: ld returned 1 exit status</code></pre>
+
+                  <h3 id="dynamic-libraries"><a href="#dynamic-libraries">Dynamic libraries</a></h3>
+
+                  <p>So we've verified that when linking a <a href="#static-libraries">static library</a>
+                  against a client code, the library's and client's code end up in the same produced executable.
+                  Therefore, if the static library changes, i.e. if its author changes <code>MyLib.cpp</code>,
+                  recompiles it into <code>MyLib.o</code> and gives the latter to you, you still have
+                  to re-link your <code>main.o</code> against the new <code>MyLib.o</code>, otherwise you'll
+                  be still using the old one.
+                  </p>
+
+                  <p>Is there a way that the library writer can compile the library such that they're
+                  free to change the implementation of the library without forcing us to re-link?
+                  Yes there is.
+                  </p>
+
+                  <p>Let's make just one little change to the workflow
+                  described above. The source and header files stay the same,
+                  but we compile the library with a different command:
+                  </p>
+
+                  <pre><code class="language-bash">g++ -fPIC -shared MyLib.cpp -o libMyLib.so</code></pre>
+
+                  <p>Then we link using the same command as before:</p>
+
+                  <pre><code class="language-bash">$ g++ main.o libMyLib.so -o main</code></pre>
+
+                  <p>If we try to run the executable straight away as we did earlier, though,
+                  we get an error,</p>
+
+                  <pre><code class="language-bash">$ ./main
+./main: error while loading shared libraries: libMyLib.so: cannot open shared object file: No such file or directory</code></pre>
+
+                  <p>This error tells us two things:</p>
+                  <ul>
+                    <li>"<code>error while loading shared libraries</code>"
+                      tells us that linking doesn't embed the library
+                      executable code into the <code>main</code>
+                      executable;</li>
+
+                    <li>"<code>No such file or directory</code>" tells us that the runtime system
+                      that attempted to start the program couldn't find the library, so
+                      we need a way to instruct it about where to look
+                      for it.
+                    </li>
+                  </ul>
+
+                  <p>The solution here is easy: we can pass the missing
+                  information via the <code>LD_LIBRARY_PATH</code> macro,
+                  </p>
+
+                  <pre><code class="language-bash">$ LD_LIBRARY_PATH='.' ./main # . is the current dir, where the library is
+Hello</code></pre>
+
+                  <p>Now it should be clear that if we delete <code>MyLib.so</code>
+                  and run <code>main</code>, we get the same error as before,</p>
+
+                  <pre><code class="language-bash">$ rm MyLib.so
+$ LD_LIBRARY_PATH='.' ./main
+./main: error while loading shared libraries: libMyLib.so: cannot open shared object file: No such file or directory</code></pre>
+
+                  <p>but a more interesting observation is that we can
+                  <i>change</i> <code>MyLib.cpp</code> (but leaving its interface
+                  intact, i.e. we <i>don't</i> change <code>MyLib.hpp</code>),
+                  recompile the library, and executing <code>main</code> will
+                  reflect those changes, without any need to re-link:
+                  </p>
+
+                  <pre><code class="language-bash">
+$ sed -i 's/Hello/Bye/' MyLib.cpp            # change Hello to Bye (you can do it any other way)
+$ g++ -fPIC -shared MyLib.cpp -o libMyLib.so # recompile only the library
+$ LD_LIBRARY_PATH='.' ./main
+Bye</code></pre>
+
+                  <p>Therefore, an author of a dynamic library
+                  can do all the changes they like to the implementation of the
+                  library (but not to the interface they promised), share the
+                  binaries with the client, and the client will just have to
+                  overwrite the old shared objects with the new ones, and the
+                  executable will pick them up. In other words, <i><b>the code
+                    of a dynamic library becomes part of your program at
+                    <strike>runtime</strike> startup time.</b></i>
+                  And this means the <code>*.so</code> file must be there when
+                  you run <code>main</code>, even if <code>main</code> doesn't
+                  make use of it (try removing the call to <code>foo()</code> from
+                  inside <code>main.cpp</code>, recompile and relink it against
+                  <code>libMyLib.so</code>, then delete <code>libMyLib.so</code>,
+                  run <code>LD_LIBRARY_PATH='.' ./main</code> and you'll get same error as above).
+                  </p>
+
+                  <p>Why have I specifically written <i>"startup time"</i>
+                  rather than <i>"runtime"</i>? Because the runtime system
+                  loads the library even before the actual program starts
+                  executing. How can we verify this? Simple: put a print
+                  statement in <code>main.cpp</code> before the call to
+                  <code>foo</code>, like this
+                  </p>
+                  <pre><code class="language-cpp">// main.cpp
+#include "MyLib.hpp"
+int main() {
+  std::cout &lt;&lt; "before" &lt;&lt; std::endl;
+  foo();
+}</code></pre>
+                  <p>and then</p>
+
+                  <pre><code class="language-bash">$ g++ -c main.cpp -o main.o
+$ g++ main.o libMyLib.so -o main
+$ rm libMyLib.so
+$ LD_LIBRARY_PATH='.' ./main
+./main: error while loading shared libraries: libMyLib.so: cannot open shared object file: No such file or directory
+</code></pre>
+                  <p>As you can see, no trace of the text <i>before</i>: the executable
+                  hasn't even started.</p>
+
+                  <p>This also means, though, that once the executable has started,
+                  you can indeed delete the <code>.so</code> file, and the
+                  running process will not be impacted, which you can verify by
+                  repeating the above process, but changing this
+                  </p>
+
+                  <pre><code class="language-cpp">  std::cout &lt;&lt; "before" &lt;&lt; std::endl;</code></pre>
+
+                  <p>to this</p>
+
+                  <pre><code class="language-cpp">  int dummy;
+  std::in &lt;&lt; dummy;</code></pre>
+
+                  <p>re-compiling, re-linking, starting the program, deleting
+                  <code>libMyLib.so</code> while the executable is waiting for
+                  your input, and then entering the input.  The program will do
+                  just fine.
+                  </p>
+
+                  <p>At this point, if you cannot guess already what the
+                  next section is about, I think you probably will if I ask you
+                  two questions:
+                  </p>
+
+                  <ul>
+                    <li>How much does loading a library cost?</li>
+                    <li>How many libraries are we realistically loading in a non-toy application?</li>
+                  </ul>
+
+                  <p>Clearly, the answers vary wildly across the use cases, but
+                  the point is that loading a library does have a cost, and for
+                  big programs, especially those with multiple functionalities
+                  that are not all necessarily needed at the same time (or not
+                  at all if the user chooses not to use them in a session of
+                  the program), there can be many of those costs; as many that
+                  they can add up at the expense of the startup time of the
+                  program and, consequently, of the user experience.
+                  </p>
+
+                  <p>You might now be wondering whether a way exists to load a
+                  dynamic library only when it is needed. This is the question
+                  that leads us to the final section of this post…</p>
+
+                  <h3 id="dynamic-libraries-lazy-load"><a href="#dynamic-libraries-lazy-load">Lazily loaded dynamic libraries</a></h3>
+
+                  <p>If the library is not loaded by the runtime system as soon
+                  as we start the program, then who takes of care of loading it?
+                  There's no other answer than "the program" itself. After all,
+                  that's what we want: the program logic to decide when and
+                  if to load the library. And the API to do so is part of the
+                  GNU C library.</p>
+
+                  <p>Before showing the code, I think it is important to stress
+                  a few points:</p>
+
+                  <ul>
+                    <li>we already have a dynamic library in place, and from
+                      the perspective of the clients of the library, that's not
+                      gonna change;
+                    </li>
+                    <li>the library implementer can change the implementation of it
+                      (i.g. the <code>MyLib.cpp</code> file), but as long as
+                      they keep the interface (i.e. the <code>MyLib.hpp</code>)
+                      unchanged, for the clients it's just like the library
+                      doesn't change;
+                    </li>
+                    <li>the lazy or eager policy in loading the library is
+                      a decision made on the client side, which the implementer
+                      of the library knows nothing about.
+                    </li>
+                  </ul>
+
+                  <p>That being said, it should be clear that we will now only
+                  play the role of the library clients, with the aim of loading
+                  the library lazily, during run time, rather than eagerly,
+                  during launch time.  For this reason, we'll only have to
+                  review two things:
+                  </p>
+                  <ol>
+                    <li>
+                      the actual code of our application, <code>main.cpp</code>,
+                      to make it actually handle the loading of the library,
+                    </li>
+                    <li>
+                      and the command to build our application (which is fairly
+                      straightforward, if not unsatisfying).
+                    </li>
+                  </ol>
+
+                  <p>As regards the first point, <code>main.cpp</code> is
+                  now a bit more complicated, because it needs to deal with the
+                  possibility of failure when loading the library and/or
+                  reading the symbol(s) we are looking for, but the comments
+                  should make most of it understandable.
+                  </p>
+
+                  <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;dlfcn.h&gt;
+
+#include "MyLib.hpp"
+
+int main() {
+
+    // try opening the library
+    void * lib = dlopen("./libMyLib.so", RTLD_LAZY);
+
+    // verify opening was fine, or error out
+    if (!lib) {
+        std::cerr &lt;&lt; "Error (when opening the library \"./libMyLib.so\"): " &lt;&lt; dlerror() &lt;&lt; std::endl;
+        return 1; // if we return here, echo $? in the shell will print 1
+    }
+
+    // so far so good
+    dlerror(); // reset the error status
+
+    // try loading the symbol `foo`
+    void * fooPtr = dlsym(lib, "foo");
+    auto error = dlerror();
+
+    // verify loading symbol was fine, or error out
+    if (error) {
+        std::cerr &lt;&lt; "Error (when loading the symbol `foo`): " &lt;&lt; error &lt;&lt; std::endl;
+        return 2; // if we return here, echo $? in the shell will print 2
+    }
+
+    // so far so good
+    dlerror(); // reset the error status
+
+    // cast foo to the function type we know and call it
+    using Foo = decltype(foo);
+    ((Foo*)fooPtr)();
+}</code></pre>
+
+                  <p>As regards the second point, the solution is simple: we just
+                  don't link against the library, because we are delegating the
+                  task of "establishing a connection" with the library to our
+                  program itself.
+                  </p>
+
+                  <p>However, surprisingly enough (at least for those of us who
+                  are new to this topic) &hellip;
+                  </p>
+
+                  <pre><code class="language-bash">$ g++ main.cpp -o main                       # compile and link main
+$ g++ -fPIC -shared MyLib.cpp -o libMyLib.so # compile the library
+$ ./main                                     # run
+Error (when loading the symbol `foo`): ./libMyLib.so: undefined symbol: foo
+$ echo $?                                    # print last return status
+2</code></pre>
+
+                  <p>&hellip; the runtime doesn't seem to find the symbol <code>foo</code>,
+                  even though the library loading succeeds (indeed, we exited with
+                  <code>return 2</code>, not <code>return 1</code>).
+                  </p>
+
+                  <p>Without dedicating enough time to think about why that was happening,
+                  I rushed at <a href="https://stackoverflow.com/questions/73595909/dlopen-succeeds-or-at-least-seems-to-but-then-dlsym-fails-to-retrieve-a-symbol">asking on StackOverflow</a>
+                  to discover something which is obvious in hindsight:
+                  since in C++ functions can be overloaded, the name of function
+                  alone is not enough, in general, to unequivocally address
+                  what could be one of many overloads.
+                  To know what function to call, the linker has to know the
+                  function signature too, so the compiler has to provide it in
+                  the object file, and it does so by presenting each overload
+                  of <code>foo</code> with a differently mangled name (the thing
+                  I mentioned <a href="#mangled-name-1" id="mangled-name-2">earlier</a>), where
+                  the mangling encodes the signature. In short, if we change
+                  </p>
+
+                  <pre><code class="language-cpp">    void * fooPtr = dlsym(lib, "foo");</code></pre>
+
+                  <p>to</p>
+
+                  <pre><code class="language-cpp">    void * fooPtr = dlsym(lib, "_Z3foov");</code></pre>
+
+                  <p>the problem is solved.</p>
+
+                  <p>This solution, however, is non-portable, as noted in
+                  <a href="https://stackoverflow.com/questions/73595909/dlopen-succeeds-or-at-least-seems-to-but-then-dlsym-fails-to-retrieve-a-symbol#comment129976515_73596011">a comment</a>
+                  to the linked question. In the case that the library provides
+                  a single overload of <code>foo</code>, then an alternative solution
+                  (from the perspective of the library writer) is to declare <code>foo</code>
+                  like this
+                  </p>
+
+                  <pre><code class="language-cpp">extern "C" void foo();</code></pre>
+
+                  <p>so its name will not be mangled in the shared object file
+                  (in C there's no function overloading, hence no reason to
+                  mangle names), and we can pass just <code>"foo"</code> to
+                  <code>dlsym</code>.
+                  </p>
+
+                  <p>If, instead, the library provides more overloads,
+                  then <code>extern "C"</code> is not a viable solution, and
+                  one has to deal with mangled names. I'm not sure a portable
+                  solution exists, but
+                  <a href="https://stackoverflow.com/questions/24088464/dynamic-loading-without-extern-c">here</a>'s
+                  a relevant question with some possible solution outlined (the
+                  lengthy comments to the question are very informative, so I
+                  suggest to have a read of those too). Incidentally, I'm not
+                  sure how much the necessity of inspecting a library for mangled
+                  names has to do, if anything at all, with the question of
+                  whether the application should still include a header
+                  from the library (there's an hint of this aspect of the matter
+                  in the comments
+                  <a href="https://stackoverflow.com/a/74023934/5825294" target="_blank">here</a>).
+                  </p>
+
+                  <p>Leaving aside the topic of shared libraries providing overloaded
+                  functions, and staying in the realm of what is possible with <code>extern "C"</code>
+                  (or, alternatively, writing non-portable code by hard coding mangled names
+                  in the client code),
+                  it should be clear that with such a mechanism (I mean, <code>dlopen</code>+<code>dlsym</code>,
+                  not only can we load a library lazily, i.e. only when its needed,
+                  but we can also take into account the scenario where the library
+                  is missing, and provide a fallback alternative to it.
+                  </p>
+                  <p>Below I've included one such example. It it is made up of
+                  </p>
+                  <ul>
+                    <li>a <code>main.cpp</code> that tries to load a library
+                      <code>libMyLib.so</code> and, if that is not available,
+                      falls back on a default library;
+                    </li>
+                    <li>a default library <code>DefaultLib.cpp</code>/<code>DefaultLib.hpp</code>;</li>
+                    <li>a <code>libMyLib</code> library, <code>MyLib.cpp</code>/<code>MyLib.hpp</code>.</li>
+                  </ul>
+                  <p>
+                  It can be compiled and used like this:
+                  </p>
+
+                  <pre><code class="language-bash">$ g++ -c main.cpp -o main.o                  # compile main
+$ g++ -c DefaultLib.cpp -o DefaultLib.o      # compile default library
+$ g++ DefaultLib.o main.o -o main            # link
+$ ./main                                     # run (libMyLib.so is not available)
+Slow, old, rotten version
+$ g++ -fPIC -shared MyLib.cpp -o libMyLib.so # compile shared library
+$ ./main                                     # run (libMyLib.so is available)
+Fast version (you've I paid big money for it)</code></pre>
+
+                  <p>Here you can see that <code>main</code> can be run
+                  with or without the shared library being available,
+                  and its logic will act accordingly. (By the way, we
+                  don't need to prepend <code>LD_LIBRARY_PATH='.'</code>
+                  because we load the library from where we know it is,
+                  see <code>"./libMyLib.so"</code> in the code below.)
+                  </p>
+
+                  <p>Below are the source codes.</p>
+
+                  <pre><code class="language-cpp">// DefaultLib.hpp
+#pragma once
+namespace old {
+void foo();
+}</code></pre>
+                  <pre><code class="language-cpp">// DefaultLib.cpp
+#include "DefaultLib.hpp"
+#include &lt;iostream&gt;
+namespace old {
+void foo() {
+    std::cout &lt;&lt; "Slow, old, rotten version" &lt;&lt; std::endl;
+}
+}</code></pre>
+                  <pre><code class="language-cpp">// MyLib.hpp
+#pragma once
+extern "C" void foo();</code></pre>
+                  <pre><code class="language-cpp">// MyLib.cpp
+#include "MyLib.hpp"
+#include &lt;iostream&gt;
+void foo() {
+    std::cout &lt;&lt; "Fast version (you've I paid big money for it)" &lt;&lt; std::endl;
+}</code></pre>
+                  <a href="https://godbolt.org/z/5Mbv6x53e" target="_blank">
+                    <pre><code class="language-cpp">// main.cpp
+#include "DefaultLib.hpp"
+#include "MyLib.hpp"
+#include &lt;dlfcn.h&gt;
+#include &lt;iostream&gt;
+
+int main() {
+
+    // try opening the library
+    void * lib = dlopen("./libMyLib.so", RTLD_LAZY);
+
+    // verify opening was fine, or use default version
+    if (!lib) {
+        old::foo();
+        return 0;
+    }
+
+    // so far so good
+    dlerror(); // reset the error status
+
+    // try loading the symbol `foo`
+    void * fooPtr = dlsym(lib, "foo");
+    auto error = dlerror();
+
+    // verify loading symbol was fine, or use default version
+    if (error) {
+        old::foo();
+        return 0;
+    }
+
+    // so far so good
+    dlerror(); // reset the error status
+
+    // retrieve type of foo, as we expect it based on the header
+    using Foo = decltype(foo);
+
+    // and cast fooPtr to a pointer to that type before using it
+    ((Foo*)fooPtr)();
+}</code></pre>
+                  </a>
+
+                  <p>Click on the last one to see the complete example
+                  on Compiler Explorer; comment the <code>add_library(…)</code>
+                  line in the <code>CMakeLists.txt</code> file to hide the library, thus
+                  triggering the use of the default one; also, consider that I
+                  had to change <code>"./libMyLib.so"</code> to
+                  <code>"build/libMyLib.so"</code> because that's where CE puts
+                  the shared object; I didn't know,
+                  <a href="https://stackoverflow.com/questions/74000607/can-i-compile-and-dlopen-a-dynamic-library-in-compiler-explorer">I just asked</a>.
+                  </p>
+
+                  <h3 id="debugging-libraries"><a href="#debugging-libraries">Yeah, but how do I debug library code? &mdash; Demo</a></h3>
+
+                  <p>As far as header-only libraries are concerned, debugging
+                  is just as you would expect: you have the library code,
+                  you include it into yours, you compile the way you like, e.g.
+                  enabling debugging flags, and you step into the library code
+                  just as it was your own code. Easy-peasy.
+                  </p>
+
+                  <p>As regards the other types of libraries we've reviewed, i.e.
+                  static and dynamic libraries, those normally come in compiled
+                  form (shared object, library archives, &hellip; whatever),
+                  is simply no C++ source code you can step through, &hellip; unless
+                  you do have the source code from which the library was compiled.
+                  So we can say that the possible scenarii are the following:
+                  </p>
+
+                  <ol>
+                    <li>The library is not open source. In this case you just
+                      don't and can't legally have the source code, so you just
+                      can't step through it with a debugger. Is is a problem? No,
+                      as most likely you paid for the library, so you can report
+                      a bug and expect that the vendor will debug and fix the bug.
+                    </li>
+                    <li>The library is open source and you installed it from
+                      pre-compiled binaries. In this case you can't step trough
+                      the code because, just as in case 1, you don't have it.
+                    </li>
+                    <li>
+                      The library is open source and you have built it from
+                      source on your system. In this case you do have the
+                      source code you want to step through, with one caveat:
+                      most likely the library was built with full
+                      optimizations on, in order to target performance, so
+                      you'll probably see a lot of jumps when debugging, and
+                      you'll not be able to set breakpoints on every single
+                      executable line of code, because many have been optimized
+                      always. If that's the case, you might want to
+                      (temporarily) recompile the library with debug flags on
+                      (e.g. <code>-g -O0</code> with GCC) before debugging.
+                    </li>
+                  </ol>
+
+                  <p>A tricky bit about debugging a non-header-only library,
+                  though, is that the debug symbols have to be loaded during
+                  the debug session. Depending on what debug adapter you use,
+                  this could happen automatically or not, and the behavior
+                  of the same debug adapter can likely depending on how you
+                  configure it.
+                  </p>
+
+                  <p>In the following screen cast I'll show how I step through
+                  the last example with the debugger; initially I'll use the
+                  <a href="https://github.com/microsoft/vscode-cpptools"><code>vscode-cpptools</code></a>
+                  adapter with setting
+                  <a href="https://code.visualstudio.com/docs/cpp/launch-json-reference#_symbolloadinfo"><code>"symbolLoadInfo": { "loadAll": false, "exceptionList": ""}</code></a>,
+                  which fundamentally means "do not load debug symbols from
+                  libraries, and make no exception", so you'll see that I
+                  need to manually load the symbols from the library to enable
+                  a breakpoint in that library code. Then I'll show you the
+                  same workflow with
+                  <a href="https://github.com/vadimcn/vscode-lldb">CodeLLDB</a>,
+                  which, for some reason I don't know, ignores the setting I
+                  mentioned earlier (maybe it uses another syntax and ignores
+                  this one because it doesn't understand it?) and loads the
+                  symbols as soon as <code>dlopen</code> returns.
+                  </p>
+
+                  <a href="https://asciinema.org/a/YYqV5bKpLiH64hGdHRfM2N08I" target="_blank"><img src="https://asciinema.org/a/YYqV5bKpLiH64hGdHRfM2N08I.svg" /></a>
+
+                  <h3 id="libraries-summary">Conclusions and summary</h3>
+
+                  <p>Creating all the examples above and playing with each of them
+                  helped me have a better understanding of what <i>compiling</i> and
+                  <i>linking</i> actually are, how different parts of a program
+                  know about each other, and what the difference is between static
+                  and dynamic libraries.
+                  </p>
+
+                  <p>Here are the main points.</p>
+                  <ul>
+                    <li><code>#include &lt;foo&gt;</code> just means
+                      "copy-and-paste the file <code>foo</code> right here".
+                    </li>
+                    <li>A header-only library is a library which is made up
+                      entirely of&hellip; headers, which you <code>#include</code>
+                      in your files, and that becomes part of your program as
+                      soon as the preprocessing stage of the building process
+                      happens.
+                    </li>
+                    <li>A static library is an already compiled piece of code
+                      (often in the form of an object file, <code>someObj.o</code>,
+                      or of an archive, <code>someLib.a</code>) which you
+                      link against your compiled program; the result is
+                      one executable that contains everything it needs.
+                    </li>
+                    <li>A dynamic library is, too, an already compiled piece
+                    of code, but at link time it doesn't become part of the
+                    generated executable; the latter, in fact, only has references
+                    to the entities it needs from the library, and those references
+                    are resolved when your program is launched.
+                    </li>
+                    <li>A dynamic library, alternatively, can be loaded at
+                    run time by the program itself, via <code>dlopen</code>
+                    and <code>dlsym</code>, removing entirely the necessity of liking
+                    your program against it.</li>
+                  </ul>
+
+                  <h3 id="library-sources">Referenced sources</h3>
+
+
+                  <p>Below are most of the sources (some of which already linked off the text above) I found invaluable in helping me understanding the topic
+                  I've been writing about today.
+                  </p>
+
+                  <ul>
+                    <li><a href="https://stackoverflow.com/questions/24088464/dynamic-loading-without-extern-c">Dynamic Loading Without <code>extern "C"</code></a></li>
+                    <li><a href="https://stackoverflow.com/questions/73248689/is-there-any-reason-i-should-include-a-header-in-the-associated-cpp-file-if-the">Is there any reason I should include a header in the associated cpp file if the former only provides declarations the latter defines?</a></li>
+                    <li><a href="https://stackoverflow.com/questions/73595909/dlopen-succeeds-or-at-least-seems-to-but-then-dlsym-fails-to-retrieve-a-symbol"><code>dlopen</code> succeeds (or at least seems to) but then <code>dlsym</code> fails to retrieve a symbol from a shared library</a></li>
+                    <li><a href="https://stackoverflow.com/questions/56747328/loading-shared-library-dynamically-using-dlopen">Loading shared library dynamically using <code>dlopen</code></a></li>
+                    <li><a href="https://stackoverflow.com/questions/9688200/difference-between-shared-objects-so-static-libraries-a-and-dlls-so">Difference between shared objects (<code>.so</code>), static libraries (<code>.a</code>), and DLL's (<code>.so</code>)?</a></li>
+                    <li><a href="https://stackoverflow.com/questions/10358745/how-to-use-libraries">How to use Libraries</a></li>
+                    <li><a href="https://stackoverflow.com/questions/6177498/whats-the-difference-between-object-file-and-static-libraryarchive-file">What's the difference between object file and static library(archive file)?</a></li>
+                    <li><a href="https://stackoverflow.com/questions/2174657/when-are-header-only-libraries-acceptable">When are header-only libraries acceptable?</a></li>
+                    <li><a href="https://stackoverflow.com/questions/36560508/how-dynamic-linking-works-its-usage-and-how-and-why-you-would-make-a-dylib">How dynamic linking works, its usage and how and why you would make a <code>dylib</code></a></li>
+                    <li><a href="https://stackoverflow.com/questions/480764/linux-error-while-loading-shared-libraries-cannot-open-shared-object-file-no-s">Linux error while loading shared libraries: cannot open shared object file: No such file or directory</a></li>
+                    <li><a href="https://stackoverflow.com/questions/34732/how-do-i-list-the-symbols-in-a-so-file">How do I list the symbols in a <code>.so</code> file</a></li>
+                    <li><a href="https://stackoverflow.com/questions/311882/what-do-statically-linked-and-dynamically-linked-mean">What do 'statically linked' and 'dynamically linked' mean?</a></li>
+                    <li><a href="https://stackoverflow.com/questions/3374767/gcc-linkage-option-l-alternative-ways-how-to-specify-the-path-to-the-dynamic-l" target="_blank"><code>gcc</code> Linkage option <code>-L</code>: Alternative ways how to specify the path to the dynamic library</a></li>
+                    <li><a href="https://stackoverflow.com/questions/7214764/static-vs-dynamic-libraries" target="_blank">Static Vs Dynamic libraries</a></li>
+                  </ul>
+                </div>
+              </div>
+            </article>
             <article class="post-entry" id="strategy-pattern-lie">
               <div class="__after-only-child-center-below centered-container">
                 <h6 class="text-shadow handwriting underline-underbullet">18/06/2022</h6>
