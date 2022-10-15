@@ -170,7 +170,7 @@
                     are, fundamentally, established workarounds to languages' weaknesses</b>.
                   </p>
                   <p>(If you are particularly sensitive, scroll to the bottom of this post, and see
-                    how much the strategy pattern can be shrinked in C++.)</p>
+                    how much the strategy pattern can be shrunken in C++.)</p>
                   <p>Indeed,
                   <a href="https://duckduckgo.com/?q=%22design+patterns%22+%2B+weakness+%2B+language&ia=web">if I search the web
                   for <i>"design patterns" + weakness + language</i></a>, I get a lot of results, the first one of
@@ -373,13 +373,13 @@ public class DecoyDuck extends Duck { /* override fly() to do nothing */ }</code
   public Duck() {}
 }
 public interface Flyable {
-  public void fly() {
-    /* fly in some way */
-  }
+  public void fly();
 }
 public class RubberDuck extends Duck { /* no fly() whatsoever */ }
 public class MallardDuck extends Duck implements Flyable {
-  /* implement fly() */
+  public void fly() {
+    /* fly the mallard way */
+  }
 }</code></pre>
                   <p>This turns out to be a silly choice too, because all
                   Joe's done, with that <code>interface</code>, is sharing <b><i>the need for</i></b>
