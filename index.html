@@ -220,53 +220,64 @@
                   code to executable program.
                   <a href="https://stackoverflow.com/a/9244030/5825294">This short but very good answer on StackOverflow</a>
                   outlines the phases that GCC goes through in the process.
-                  If you have a single <code>mysource.cpp</code> file, when you
-                  execute
                   </p>
 
-                  <pre><code class="language-bash">g++ mysource.cpp -o mysource</code></pre>
+                  <div class="collapsible-widget">
+                    <input type="checkbox" value="" name="show more" id="steps-of-compilation-show-more"/>
+                    <label for="steps-of-compilation-show-more">
+                      <span>For instance&hellip;</span>
+                      <span>For instance, if you have a single <code>mysource.cpp</code> file, when you execute</span>
+                    </label>
+                    <div class="collapsible">
+                      <div>
+                        <p></p>
 
-                  <p>GCC in reality does the following (I'm barely rewording from the linked answer).
-                  </p>
+                        <pre><code class="language-bash">g++ mysource.cpp -o mysource</code></pre>
 
-                  <ol>
-                    <li id="c-preprocessor">It preprocesses the source code, by
-                      stripping comments and expanding macros and
-                      <code>#include</code>s; you can obtain this intermediate
-                      product yourself by passing the <code>-E</code> to
-                      <code>g++</code>:
-                      <pre><code class="language-bash">g++ -E mysource.cpp -o mysource.ii</code></pre>
-                    </li>
-                    <li>It compiles that preprocessed source code to assembly, which you can
-                      do yourself by means of the <code>-S</code> option:
-                      <pre><code class="language-bash">g++ -S mysource.ii -o mysource.s</code></pre>
-                    </li>
-                    <li>It compiles the assembly into an object binary file, which you can do by means of
-                      the <code>-c</code> option:
-                      <pre><code class="language-bash">g++ -c mysource.s -o mysource.o</code></pre>
-                    </li>
-                    <li id="linker">Finally, it links the object
-                      into the executable; you can do this by passing no options:
-                      <pre><code class="language-bash">g++ mysource.o -o mysource</code></pre>
-                      (you can list other object files too, if needed).
-                    </li>
-                  </ol>
-                  <p>For the sake of accuracy, the flags <code>-E</code>,
-                  <code>-S</code>, <code>-c</code> and none tell <code>g++</code>
-                  at which step to <i>stop</i> the process, whereas where to begin
-                  from is dictated simply the file you throw at it (not because of the extension
-                  but because of what's inside it). To give a couple of examples,
-                  </p>
+                        <p>GCC in reality does the following (I'm barely rewording from the linked answer).
+                        </p>
 
-                  <pre><code class="language-bash">g++ -S mysource.cpp -o mysource.s</code></pre>
+                        <ol>
+                          <li id="c-preprocessor">It preprocesses the source code, by
+                            stripping comments and expanding macros and
+                            <code>#include</code>s; you can obtain this intermediate
+                            product yourself by passing the <code>-E</code> to
+                            <code>g++</code>:
+                            <pre><code class="language-bash">g++ -E mysource.cpp -o mysource.ii</code></pre>
+                          </li>
+                          <li>It compiles that preprocessed source code to assembly, which you can
+                            do yourself by means of the <code>-S</code> option:
+                            <pre><code class="language-bash">g++ -S mysource.ii -o mysource.s</code></pre>
+                          </li>
+                          <li>It compiles the assembly into an object binary file, which you can do by means of
+                            the <code>-c</code> option:
+                            <pre><code class="language-bash">g++ -c mysource.s -o mysource.o</code></pre>
+                          </li>
+                          <li id="linker">Finally, it links the object
+                            into the executable; you can do this by passing no options:
+                            <pre><code class="language-bash">g++ mysource.o -o mysource</code></pre>
+                            (you can list other object files too, if needed).
+                          </li>
+                        </ol>
+                        <p>For the sake of accuracy, the flags <code>-E</code>,
+                        <code>-S</code>, <code>-c</code> and none tell <code>g++</code>
+                        at which step to <i>stop</i> the process, whereas where to begin
+                        from is dictated simply the file you throw at it (not because of the extension
+                        but because of what's inside it). To give a couple of examples,
+                        </p>
 
-                  <p>performs steps 1 and 2, whereas
-                  </p>
+                        <pre><code class="language-bash">g++ -S mysource.cpp -o mysource.s</code></pre>
 
-                  <pre><code class="language-bash">g++ mysource.ii -o mysource</code></pre>
+                        <p>performs steps 1 and 2, whereas
+                        </p>
 
-                  <p>executes steps 2, 3, and 4.
-                  </p>
+                        <pre><code class="language-bash">g++ mysource.ii -o mysource</code></pre>
+
+                        <p>executes steps 2, 3, and 4.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
                   <h3 id="include-is-copy-and-paste"><a href="#include-is-copy-and-paste"><code>#include</code> is copy-and-paste</a></h3>
 
@@ -294,6 +305,7 @@
                   There's truly nothing other than copy-and-paste when you
                   <code>#include</code> something.
                   </p>
+
                   <p>Indeed, so little is special about <code>#include</code>, that
                   if you write a header without having that simple idea in mind, you can easily run in errors
                   which become obvious, once you are aware that there's just a copy-and-paste going on.
@@ -356,21 +368,27 @@ int main() {
                   (and all other <code>#</code>-directives have been "resolved", e.g. macro substituted, and so on)"
                   </p>
 
-                  <p><a href="#gcc-steps">In light of the steps we've seen earlier</a>,
-                  another, more direct way of verifying that <code>#include</code>
-                  means copy-and-paste, is to examine the output of the following
-                  command
-                  </p>
+                  <div class="collapsible-widget">
+                    <input type="checkbox" value="" name="show more" id="include-is-copy-and-paste-show-more"/>
+                    <label for="include-is-copy-and-paste-show-more">
+                      <p>In light of the steps we've seen earlier,
+                      another, more direct way of verifying that <code>#include</code>
+                      means copy-and-paste, is to examine the output of the following
+                      command
+                      </p>
+                    </label>
+                    <div class="collapsible">
+                      <div>
 
-                  <pre><code class="language-bash">g++ -E main.cpp -o main.ii</code></pre>
+                        <pre><code class="language-bash">g++ -E main.cpp -o main.ii</code></pre>
 
-                  <p>which is successful and produces the following (it's not
-                  a C++ file, but a file of type <code>initng</code> which contains
-                  a mix of C++ syntax and something else, as you can see; more info
-                  <a href="https://stackoverflow.com/questions/73763861/is-a-translation-unit-valid-c-and-is-a-translation-unit-for-gcc-the-output" target="_blank">here</a>):
-                  </p>
+                        <p>which is successful and produces the following (it's not
+                        a C++ file, but a file of type <code>initng</code> which contains
+                        a mix of C++ syntax and something else, as you can see; more info
+                        <a href="https://stackoverflow.com/questions/73763861/is-a-translation-unit-valid-c-and-is-a-translation-unit-for-gcc-the-output" target="_blank">here</a>):
+                        </p>
 
-                  <pre><code class="language-cpp"># 0 "main.cpp"
+                        <pre><code class="language-cpp"># 0 "main.cpp"
 # 0 "&lt;built-in&gt;"
 # 0 "&lt;command-line&gt;"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
@@ -394,9 +412,12 @@ struct Foo {
 int main() {
 }</code></pre>
 
-                  <p>where you can clearly see the duplicate definition of
-                  <code>Bar</code>.
-                  </p>
+                        <p>where you can clearly see the duplicate definition of
+                        <code>Bar</code>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
                   <p>But then why doesn't this problem occur when we include standard headers?
                   </p>
@@ -438,7 +459,6 @@ int main() {
                   and at the previous link.
                   </p>
 
-
                   <h3 id="header-only-libraries"><a href="#header-only-libraries">Header-only libraries</a></h3>
 
                   <p>Knowing that <a href="#headers-are-copied-and-pasted"><code>#include</code>d headers are simply copied-and-pasted</a>,
@@ -452,9 +472,17 @@ int main() {
                   for instance <a href="https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file" target="_blank">when you are defining templates</a>
                   (<a href="https://stackoverflow.com/a/495056/5825294" target="_blank">unless you already know all possible usages of your template</a>).
                   </p>
-                  <p>Using such a library is as easy as adding the <code>#include</code> you need
-                  into your source code,</p>
-                  <pre><code class="language-cpp">// HeaderOnly.hpp
+
+                  <div class="collapsible-widget">
+                    <input type="checkbox" value="" name="show more" id="header-only-libraries-show-more"/>
+                    <label for="header-only-libraries-show-more">
+                      <p>Using such a library is as easy as adding the <code>#include</code> you need
+                      into your source code,</p>
+                    </label>
+                    <div class="collapsible">
+                      <div>
+
+                        <pre><code class="language-cpp">// HeaderOnly.hpp
 #pragma once
 #include &lt;iostream&gt;
 void foo(int i) {
@@ -462,28 +490,31 @@ void foo(int i) {
               &lt;&lt; i
               &lt;&lt; std::endl;
 }</code></pre>
-                  <pre><code class="language-cpp">// main.cpp
+                        <pre><code class="language-cpp">// main.cpp
 #include "HeaderOnly.hpp"
 int main() {
   foo(101);
 }</code></pre>
-                  <p>and <b><i>it becomes part of your program as soon as during
-                  <a href="#c-preprocessor">step 1, the preprocessing stage</a></i></b>, as
-                  demonstrated by the following few commands
-                  </p>
+                        <p>and <b><i>it becomes part of your program as soon as during
+                            <a href="#c-preprocessor">step 1, the preprocessing stage</a></i></b>, as
+                        demonstrated by the following few commands
+                        </p>
 
-                  <pre><code class="language-bash">$ g++ -E main.cpp -o main.ii # preprocess main.cpp
+                        <pre><code class="language-bash">$ g++ -E main.cpp -o main.ii # preprocess main.cpp
 $ rm HeaderOnly.hpp          # delete header to show it's not needed anymore
 $ g++ main.ii -o main        # compile &amp; link
 $ ./main                     # execute
 Header-only library speaking, 101
-</code></pre>
+                        </code></pre>
 
-                  <p><a href="http://boostorg.github.io/hana/" target="_blank">Boost.Hana</a>
-                  is a beautiful example of a header-only library,
-                  designed to facilitate C++ meta-programming and suited for
-                  computations on both types and values.
-                  </p>
+                        <p><a href="http://boostorg.github.io/hana/" target="_blank">Boost.Hana</a>
+                        is a beautiful example of a header-only library,
+                        designed to facilitate C++ meta-programming and suited for
+                        computations on both types and values.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
                   <h3 id="static-libraries"><a href="#static-libraries">Static libraries</a></h3>
 
@@ -578,14 +609,20 @@ g++ main.o MyLib.o -o main  # link</code></pre>
                   of <code>foo</code>, has indeed been "pasted" into <code>main.cpp</code>
                   as well, via the inclusion of <code>MyLib.hpp</code>.</p>
 
-                  <p>You can even use the program <code>nm</code> on both <code>*.o</code>
-                  to list the symbols (not the executable code) they contain,
-                  in order to observe how they relate:
-                  </p>
-                  <pre><code class="language-bash">$ nm main.o
+                  <div class="collapsible-widget" style="--collapsible-transition-time: .8s;">
+                    <input type="checkbox" value="" name="show more" id="static-libraries-show-more"/>
+                    <label for="static-libraries-show-more">
+                      <p>You can even use the program <code>nm</code> on both <code>*.o</code>
+                      to list the symbols (not the executable code) they contain,
+                      in order to observe how they relate:
+                      </p>
+                    </label>
+                    <div class="collapsible">
+                      <div>
+                        <pre><code class="language-bash">$ nm main.o
 0000000000000000 T main
                  U _Z3foov</code></pre>
-                  <pre><code class="language-bash">$ nm MyLib.o
+                        <pre><code class="language-bash">$ nm MyLib.o
                  U __cxa_atexit
                  U __dso_handle
                  U _GLOBAL_OFFSET_TABLE_
@@ -600,29 +637,29 @@ g++ main.o MyLib.o -o main  # link</code></pre>
 0000000000000000 b _ZStL8__ioinit
                  U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc</code></pre>
 
-                  <p><code>_Z3foov</code> is a so-called <i>mangled name</i> (which will become important
-                  <a href="#mangled-name-2" id="mangled-name-1">later on</a>),
-                  in which the compiler
-                  encodes the signature of the specific overload of <code>foo</code> in use, and the line
-                  <code>U _Z3foov</code> in <code>main.o</code> is the <i>undefined
-                  reference to <code>`foo()'</code></i> (that <code>U</code> stands for "undefined"); the <code>0000000000000000 T _Z3foov</code>
-                  line in <code>MyLib.o</code> indicates that that file contains the definition
-                  of the same <code>foo</code> that <code>main.o</code> references.
-                  </p>
+                        <p><code>_Z3foov</code> is a so-called <i>mangled name</i> (which will become important
+                        <a href="#mangled-name-2" id="mangled-name-1">later on</a>),
+                        in which the compiler
+                        encodes the signature of the specific overload of <code>foo</code> in use, and the line
+                        <code>U _Z3foov</code> in <code>main.o</code> is the <i>undefined
+                          reference to <code>`foo()'</code></i> (that <code>U</code> stands for "undefined"); the <code>0000000000000000 T _Z3foov</code>
+                        line in <code>MyLib.o</code> indicates that that file contains the definition
+                        of the same <code>foo</code> that <code>main.o</code> references.
+                        </p>
 
-                  <p>Another way to visualize this bond between the two files
-                  that does not need an external program like <code>nm</code>
-                  is to look at their assembly code. Let's obtain that code first
-                  </p>
+                        <p>Another way to visualize this bond between the two files
+                        that does not need an external program like <code>nm</code>
+                        is to look at their assembly code. Let's obtain that code first
+                        </p>
 
-                  <pre><code class="language-bash">g++ -S main.cpp -o main.s
+                        <pre><code class="language-bash">g++ -S main.cpp -o main.s
 g++ -S MyLib.cpp -o MyLib.s</code></pre>
 
-                  <p>and look for <code>_Z3foov</code> in the two files
-                  <code>main.s</code> and <code>MyLib.s</code>.
-                  </p>
+                        <p>and look for <code>_Z3foov</code> in the two files
+                        <code>main.s</code> and <code>MyLib.s</code>.
+                        </p>
 
-                  <pre><code class="language-x86asm">.file	"main.cpp"
+                        <pre><code class="language-x86asm">.file	"main.cpp"
 	.text
 	.globl	main
 	.type	main, @function
@@ -659,6 +696,9 @@ main:
 _Z3foov:
 .LFB1761:
 # more stuff</code></pre>
+                      </div>
+                    </div>
+                  </div>
 
                   <p><a href="#the-building-process">Going back to the building process</a>,
                   once again, it can be executed in one step,
@@ -705,44 +745,53 @@ Hello</code></pre>
                   the one originally in <code>MyLib.cpp</code> and compiled
                   in <code>MyLib.o</code>, is indeed
                   embedded into the binary named <code>main</code>.
-                  In other words, <b><i>the code of a static library
-                  becomes part of the executable file
-                  <a href="#linker">at link time</a></i></b>.
+                  In other words, <b><i>the code of a static library becomes
+                  part of the executable file <a href="#linker">at link time</a></i></b>.
                   </p>
 
-                  <p>To be accurate, by the name <i>static libraries</i> is used for those files conventionally
-                  named <code>something.a</code>, which are not one single <code>*.o</code> file, but an archive
-                  containing one or more of those.
-                  </p>
+                  <div class="collapsible-widget">
+                    <input type="checkbox" value="" name="show more" id="static-libraries-are-dot-a-show-more"/>
+                    <label for="static-libraries-are-dot-a-show-more">
+                      <p>To be accurate, by the name <i>static libraries</i> go those files conventionally
+                      named <code>something.a</code>, which are not one single <code>*.o</code> file, but an archive
+                      containing one or more of those.
+                      </p>
+                    </label>
+                    <div class="collapsible">
+                      <div>
 
-                  <p>For instance the following command creates a properly known static library containing one
-                  object file only
-                  </p>
+                        <p>For instance the following command creates a properly known static library containing one
+                        object file only
+                        </p>
 
-                  <pre><code class="language-bash">ar rcs libMyLib.a MyLib.o</code></pre>
+                        <pre><code class="language-bash">ar rcs libMyLib.a MyLib.o</code></pre>
 
-                  <p>which you can link like this</p>
+                        <p>which you can link like this</p>
 
-                  <pre><code class="language-bash">g++ main.o libMyLib.a -o main</code></pre>
+                        <pre><code class="language-bash">g++ main.o libMyLib.a -o main</code></pre>
 
-                  <p>The reason why I chose the name <code>libMyLib.a</code> instead of
-                  <code>MyLib.a</code> is that this is customary for static libraries,
-                  so much that there's another syntax for linking them which assumes the
-                  <code>lib</code> prefix in the filename:
-                  </p>
+                        <p>The reason why I chose the name <code>libMyLib.a</code> instead of
+                        <code>MyLib.a</code> is that this is customary for static libraries,
+                        so much that there's another syntax for linking them which assumes the
+                        <code>lib</code> prefix in the filename:
+                        </p>
 
-                  <pre><code class="language-bash">g++ main.o -lMyLib -L. -o main</code></pre>
+                        <pre><code class="language-bash">g++ main.o -lMyLib -L. -o main</code></pre>
 
-                  <p>where <code>-l</code><i><code>name</code></i> tells the linker to look for
-                  a file named <i><code>libname.a</code></i> and <code>-L</code><i><code>dir</code></i>
-                  tells it to look for that file in the directory <i><code>dir</code></i>. Indeed,
-                  if we had named the archive <code>MyLib.a</code>, the command above would error
-                  with a fairly understandable wording:
-                  </p>
+                        <p>where <code>-l</code><i><code>name</code></i> tells the linker to look for
+                        a file named <i><code>libname.a</code></i> and <code>-L</code><i><code>dir</code></i>
+                        tells it to look for that file in the directory <i><code>dir</code></i>. Indeed,
+                        if we had named the archive <code>MyLib.a</code>, the command above would error
+                        with a fairly understandable wording:
+                        </p>
 
-                  <pre><code class="language-bash">/usr/bin/ld: cannot find -lMyLib: No such file or directory
+                        <pre><code class="language-bash">/usr/bin/ld: cannot find -lMyLib: No such file or directory
 /usr/bin/ld: note to link with ./MyLib.a use -l:MyLib.a or rename it to libMyLib.a
 collect2: error: ld returned 1 exit status</code></pre>
+
+                      </div>
+                    </div>
+                  </div>
 
                   <h3 id="dynamic-libraries"><a href="#dynamic-libraries">Dynamic libraries</a></h3>
 
@@ -823,8 +872,8 @@ Bye</code></pre>
                   binaries with the client, and the client will just have to
                   overwrite the old shared objects with the new ones, and the
                   executable will pick them up. In other words, <i><b>the code
-                    of a dynamic library becomes part of your program at
-                    <strike>runtime</strike> startup time.</b></i>
+                  of a dynamic library becomes part of your program at
+                  <strike>runtime</strike> startup time.</b></i>
                   And this means the <code>*.so</code> file must be there when
                   you run <code>main</code>, even if <code>main</code> doesn't
                   make use of it (try removing the call to <code>foo()</code> from
@@ -853,7 +902,7 @@ $ g++ main.o libMyLib.so -o main
 $ rm libMyLib.so
 $ LD_LIBRARY_PATH='.' ./main
 ./main: error while loading shared libraries: libMyLib.so: cannot open shared object file: No such file or directory
-</code></pre>
+                  </code></pre>
                   <p>As you can see, no trace of the text <i>before</i>: the executable
                   hasn't even started.</p>
 
@@ -1279,15 +1328,15 @@ int main() {
                       one executable that contains everything it needs.
                     </li>
                     <li>A dynamic library is, too, an already compiled piece
-                    of code, but at link time it doesn't become part of the
-                    generated executable; the latter, in fact, only has references
-                    to the entities it needs from the library, and those references
-                    are resolved when your program is launched.
+                      of code, but at link time it doesn't become part of the
+                      generated executable; the latter, in fact, only has references
+                      to the entities it needs from the library, and those references
+                      are resolved when your program is launched.
                     </li>
                     <li>A dynamic library, alternatively, can be loaded at
-                    run time by the program itself, via <code>dlopen</code>
-                    and <code>dlsym</code>, removing entirely the necessity of liking
-                    your program against it.</li>
+                      run time by the program itself, via <code>dlopen</code>
+                      and <code>dlsym</code>, removing entirely the necessity of liking
+                      your program against it.</li>
                   </ul>
 
                   <h3 id="library-sources">Referenced sources</h3>

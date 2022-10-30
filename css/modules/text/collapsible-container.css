@@ -1,0 +1,169 @@
+/*
+Collapsible container
+
+This is an adaptation of a the solution I found <a
+href="https://stackoverflow.com/a/43965099/5825294">on StackOverflow</a>.
+
+A `<input type="checkbox">` is used to control the state of the collapsible.
+
+The `<label>` right after the `<input>` is styled as a link of color `--theme-color`.
+
+If `<label>` contains exactly two children, then the first is shown when in collapsed state,
+while the second is shown when in expanded state.
+
+`<label>` has an `::after` child showing a downward/upward guillemot glyph to signify that the
+collapsible is expandable (i.e. collapsed) or collapsible (i.e. expanded).
+
+The duration of the change of state is `--collapsible-transition-time`.
+**Note**: because of reasons explained at the link above, it's unlikely that
+the default `--collapsible-transition-time` will do well for any height of the
+collapsed element, so it's probably best to set it directly in the HTML as an
+inline style on a case by case basis.
+
+**Note**: Do not remove the `<div>` right inside the `.collapsible`, as it is needed.
+
+Markup:
+<div class="collapsible-widget" style="--collapsible-transition-time: 0.2s">
+  <input type="checkbox" value="" name="show more" id="collapsible-example-1"/>
+  <label for="collapsible-example-1"><span>Child of label 1/2</span><span>Child of label 2/2</span></label>
+  <div class="collapsible">
+    <div>
+      <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="collapsible-widget" style="--collapsible-transition-time: 0.2s">
+  <input type="checkbox" value="" name="show more" id="collapsible-example-2"/>
+  <label for="collapsible-example-2">
+    <span style="border: dashed;">These are</span>
+    <span style="border: dashed;">three children</span>
+    <span style="border: dashed;">of label</span></label>
+  <div class="collapsible">
+    <div>
+      <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="collapsible-widget" style="--collapsible-transition-time: 0.2s">
+  <input type="checkbox" value="" name="show more" id="collapsible-example-3"/>
+  <label for="collapsible-example-3"><span>Only child of label</span></label>
+  <div class="collapsible">
+    <div>
+      <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+  </div>
+</div>
+<div>
+  <h1>Text that follows&hellip;</h1>
+  <p>&hellip;Moves to occupy the space left by the collapsible.
+</div>
+
+
+Styleguide Text.collapsible-container
+*/
+
+
+.collapsible-widget {
+  --collapsible-transition-time: 0.5s;
+}
+
+.collapsible-widget > input[type=checkbox] {
+  position: absolute;
+  opacity: 1%;
+  width: 2px;
+  height: 2px;
+}
+
+.collapsible-widget > input[type=checkbox] + label {
+  color: var(--theme-color);
+  cursor: pointer;
+}
+
+.collapsible-widget > input[type=checkbox] + label:hover {
+  text-decoration: underline;
+}
+
+.collapsible-widget > input[type=checkbox] + label > * {
+  display: initial;
+}
+
+.collapsible-widget > input[type=checkbox] + label > *:nth-child(-n+2):last-child:not(:first-child) {
+  display: none;
+}
+
+.collapsible-widget > input[type=checkbox] + label > *:nth-last-child(-n+2):first-child:not(:last-child) {
+  display: initial;
+}
+
+.collapsible-widget > input[type=checkbox]:checked + label > *:nth-child(-n+2):last-child:not(:first-child) {
+  display: initial;
+}
+
+.collapsible-widget > input[type=checkbox]:checked + label > *:nth-last-child(-n+2):first-child:not(:last-child) {
+  display: none;
+}
+
+.collapsible-widget > input[type=checkbox] + label::after {
+  content: '\00bb';
+  display: inline-block;
+  transform: translate(.5em, .2em) rotate(90deg);
+}
+
+.collapsible-widget > input[type=checkbox]:checked + label::after {
+  transform: translate(.5em, .2em) rotate(-90deg);
+}
+
+.collapsible-widget > .collapsible > div {
+  margin-bottom: 0;
+  max-height: 1000000px;
+  transition: margin-bottom var(--collapsible-transition-time) cubic-bezier(0, 0, 0, 1);
+}
+
+.collapsible-widget > .collapsible {
+  display: flex;
+  overflow: hidden;
+}
+
+.collapsible-widget > input[type=checkbox]:not(:checked) ~ .collapsible > div {
+  margin-bottom: -2000px;
+  max-height: 0;
+  visibility: hidden;
+  transition: margin-bottom var(--collapsible-transition-time) cubic-bezier(1, 0, 1, 1),
+              max-height 0s var(--collapsible-transition-time),
+              visibility 0s var(--collapsible-transition-time);
+}
+
+.collapsible-widget > .collapsible::after {
+  content: '';
+  height: 50px;
+  max-height: 0px;
+  transition: height var(--collapsible-transition-time) linear,
+              max-height 0s var(--collapsible-transition-time) linear;
+}
+
+.collapsible-widget > input[type=checkbox]:not(:checked) ~ .collapsible::after {
+  height: 0;
+  transition: height var(--collapsible-transition-time) linear;
+  max-height: 50px;
+}

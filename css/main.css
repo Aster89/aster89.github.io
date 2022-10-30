@@ -45,6 +45,7 @@
 @import url('modules/decorations.css');
 @import url('modules/copyright.css');
 @import url('modules/text/alignment.css');
+@import url('modules/text/collapsible-container.css');
 @import url('modules/text/lists.css');
 @import url('modules/text/fonts.css');
 @import url('modules/text/quoting.css');
